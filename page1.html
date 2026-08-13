@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#17151c"
+  >
+
+  <meta
+    name="description"
+    content="AKSH — How are you feeling today?"
+  >
+
+  <title>AKSH — How are you feeling today?</title>
+
+  <style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+
+      background: #17151c;
+
+      color: #fff;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .page {
+      position: relative;
+
+      width: 100%;
+      height: 100svh;
+      min-height: 100vh;
+
+      overflow: hidden;
+
+      isolation: isolate;
+    }
+
+
+    /* =====================================================
+       BACKGROUND VIDEO
+    ===================================================== */
+
+    .background {
+      position: absolute;
+      inset: 0;
+
+      z-index: -10;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          145deg,
+          #6f8394,
+          #4b5360
+        );
+    }
+
+    #pageVideo {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+
+      opacity: 0;
+
+      transition:
+        opacity 1s ease;
+    }
+
+    #pageVideo.visible {
+      opacity: 1;
+    }
+
+
+    /* =====================================================
+       PREMIUM CINEMATIC OVERLAY
+    ===================================================== */
+
+    .background::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(8, 10, 16, 0.32) 0%,
+          rgba(8, 10, 16, 0.08) 35%,
+          rgba(8, 10, 16, 0.20) 60%,
+          rgba(8, 10, 16, 0.72) 100%
+        );
+
+      pointer-events: none;
+    }
+
+    .ambient {
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          circle at 50% 45%,
+          rgba(255,255,255,0.12),
+          transparent 42%
+        );
+
+      pointer-events: none;
+    }
+
+
+    /* =====================================================
+       TOP BAR
+    ===================================================== */
+
+    .topbar {
+      position: absolute;
+
+      z-index: 20;
+
+      top: max(18px, env(safe-area-inset-top));
+
+      left: max(20px, env(safe-area-inset-left));
+
+      right: max(20px, env(safe-area-inset-right));
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+    }
+
+
+    /* =====================================================
+       ICON
+    ===================================================== */
+
+    .brand {
+      display: flex;
+
+      align-items: center;
+
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 4px 15px
+          rgba(0,0,0,0.35)
+        );
+    }
+
+
+    /* =====================================================
+       BACK BUTTON
+    ===================================================== */
+
+    .back-button {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      width: 42px;
+      height: 42px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+      background:
+        rgba(0,0,0,0.18);
+
+      color: #fff;
+
+      text-decoration: none;
+
+      font-size: 17px;
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      transition:
+        transform .25s ease,
+        background .25s ease;
+    }
+
+    .back-button:hover {
+      transform: translateX(-3px);
+
+      background:
+        rgba(0,0,0,0.32);
+    }
+
+
+    /* =====================================================
+       MAIN CONTENT
+    ===================================================== */
+
+    .content {
+      position: relative;
+
+      z-index: 10;
+
+      width: min(
+        1100px,
+        calc(100% - 40px)
+      );
+
+      height: 100%;
+
+      margin: 0 auto;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      padding:
+        90px 0
+        max(50px, env(safe-area-inset-bottom));
+    }
+
+
+    /* =====================================================
+       EYEBROW
+    ===================================================== */
+
+    .eyebrow {
+      margin-bottom: 15px;
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      letter-spacing: .30em;
+
+      text-transform: uppercase;
+
+      color:
+        rgba(255,255,255,.78);
+
+      text-shadow:
+        0 2px 15px
+        rgba(0,0,0,.35);
+    }
+
+
+    /* =====================================================
+       MAIN HEADING
+    ===================================================== */
+
+    .title {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          38px,
+          6vw,
+          72px
+        );
+
+      line-height: 1;
+
+      font-weight: 400;
+
+      letter-spacing:
+        -0.045em;
+
+      color: #fff;
+
+      text-shadow:
+        0 5px 30px
+        rgba(0,0,0,.35);
+    }
+
+
+    /* =====================================================
+       SUBTITLE
+    ===================================================== */
+
+    .subtitle {
+      width: min(
+        520px,
+        100%
+      );
+
+      margin-top: 17px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          15px,
+          2vw,
+          19px
+        );
+
+      line-height: 1.55;
+
+      color:
+        rgba(255,255,255,.88);
+
+      text-shadow:
+        0 3px 18px
+        rgba(0,0,0,.35);
+    }
+
+
+    /* =====================================================
+       EMOTION GRID
+    ===================================================== */
+
+    .emotion-grid {
+      width: 100%;
+
+      max-width: 980px;
+
+      margin-top: 34px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 14px;
+    }
+
+
+    /* =====================================================
+       EMOTION CARD
+    ===================================================== */
+
+    .emotion-card {
+      position: relative;
+
+      min-height: 142px;
+
+      padding: 24px 18px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      border:
+        1px solid
+        rgba(255,255,255,.22);
+
+      border-radius: 24px;
+
+      background:
+        rgba(255,255,255,.10);
+
+      color: #fff;
+
+      cursor: pointer;
+
+      overflow: hidden;
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.15);
+
+      transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        background .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+    }
+
+
+    .emotion-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 160px;
+      height: 160px;
+
+      top: -100px;
+      right: -70px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.10);
+
+      filter: blur(10px);
+
+      transition:
+        transform .5s ease;
+    }
+
+
+    .emotion-card:hover {
+      transform:
+        translateY(-8px);
+
+      background:
+        rgba(255,255,255,.17);
+
+      border-color:
+        rgba(255,255,255,.42);
+
+      box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.25);
+    }
+
+
+    .emotion-card:hover::before {
+      transform:
+        scale(1.35);
+    }
+
+
+    .emotion-card:active {
+      transform:
+        translateY(-3px)
+        scale(.985);
+    }
+
+
+    /* =====================================================
+       CARD ICON
+    ===================================================== */
+
+    .emotion-icon {
+      position: relative;
+
+      z-index: 2;
+
+      width: 42px;
+      height: 42px;
+
+      margin-bottom: 13px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.13);
+
+      border:
+        1px solid
+        rgba(255,255,255,.18);
+
+      font-size: 19px;
+
+      box-shadow:
+        0 8px 22px
+        rgba(0,0,0,.12);
+    }
+
+
+    /* =====================================================
+       CARD TITLE
+    ===================================================== */
+
+    .emotion-title {
+      position: relative;
+
+      z-index: 2;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 18px;
+
+      line-height: 1.2;
+
+      font-weight: 400;
+
+      color: #fff;
+    }
+
+
+    /* =====================================================
+       CARD DESCRIPTION
+    ===================================================== */
+
+    .emotion-description {
+      position: relative;
+
+      z-index: 2;
+
+      margin-top: 7px;
+
+      font-size: 9px;
+
+      line-height: 1.45;
+
+      letter-spacing: .04em;
+
+      color:
+        rgba(255,255,255,.68);
+    }
+
+
+    /* =====================================================
+       BOTTOM MESSAGE
+    ===================================================== */
+
+    .bottom-note {
+      margin-top: 27px;
+
+      font-size: 9px;
+
+      font-weight: 700;
+
+      letter-spacing: .18em;
+
+      text-transform: uppercase;
+
+      color:
+        rgba(255,255,255,.62);
+
+      text-shadow:
+        0 2px 12px
+        rgba(0,0,0,.35);
+    }
+
+
+    /* =====================================================
+       SOUND
+    ===================================================== */
+
+    .sound-button {
+      position: absolute;
+
+      z-index: 30;
+
+      left:
+        max(20px, env(safe-area-inset-left));
+
+      bottom:
+        max(20px, env(safe-area-inset-bottom));
+
+      width: 42px;
+      height: 42px;
+
+      border-radius: 50%;
+
+      border:
+        1px solid
+        rgba(255,255,255,.25);
+
+      background:
+        rgba(0,0,0,.20);
+
+      color: #fff;
+
+      cursor: pointer;
+
+      font-size: 16px;
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+
+      transition:
+        transform .25s ease,
+        background .25s ease;
+    }
+
+    .sound-button:hover {
+      transform: scale(1.07);
+
+      background:
+        rgba(0,0,0,.34);
+    }
+
+
+    /* =====================================================
+       TIME LABEL
+    ===================================================== */
+
+    .time-label {
+      position: absolute;
+
+      z-index: 20;
+
+      right:
+        max(22px, env(safe-area-inset-right));
+
+      bottom:
+        max(23px, env(safe-area-inset-bottom));
+
+      font-size: 8px;
+
+      font-weight: 700;
+
+      letter-spacing: .17em;
+
+      text-transform: uppercase;
+
+      color:
+        rgba(255,255,255,.58);
+
+      text-shadow:
+        0 2px 12px
+        rgba(0,0,0,.4);
+    }
+
+
+    /* =====================================================
+       CARD SELECTION
+    ===================================================== */
+
+    .emotion-card.selected {
+      transform:
+        translateY(-8px)
+        scale(1.015);
+
+      background:
+        rgba(255,255,255,.22);
+
+      border-color:
+        rgba(255,255,255,.65);
+
+      box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.30);
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 800px) {
+
+      .emotion-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+
+        max-width: 620px;
+
+        gap: 11px;
+
+        margin-top: 27px;
+      }
+
+      .emotion-card {
+        min-height: 125px;
+
+        border-radius: 20px;
+
+        padding: 18px 14px;
+      }
+
+      .emotion-title {
+        font-size: 16px;
+      }
+
+      .emotion-description {
+        font-size: 8px;
+      }
+
+      .bottom-note {
+        margin-top: 20px;
+      }
+    }
+
+
+    @media (max-width: 500px) {
+
+      .topbar {
+        top: max(
+          14px,
+          env(safe-area-inset-top)
+        );
+
+        left: max(
+          15px,
+          env(safe-area-inset-left)
+        );
+
+        right: max(
+          15px,
+          env(safe-area-inset-right)
+        );
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+      }
+
+      .back-button {
+        width: 38px;
+        height: 38px;
+
+        font-size: 15px;
+      }
+
+      .content {
+        width:
+          calc(100% - 26px);
+
+        padding-top: 72px;
+      }
+
+      .eyebrow {
+        margin-bottom: 11px;
+
+        font-size: 7px;
+      }
+
+      .title {
+        font-size:
+          clamp(
+            34px,
+            10vw,
+            48px
+          );
+      }
+
+      .subtitle {
+        margin-top: 12px;
+
+        font-size: 14px;
+
+        max-width: 330px;
+      }
+
+      .emotion-grid {
+        margin-top: 22px;
+
+        gap: 8px;
+      }
+
+      .emotion-card {
+        min-height: 112px;
+
+        padding: 14px 9px;
+
+        border-radius: 17px;
+      }
+
+      .emotion-icon {
+        width: 34px;
+        height: 34px;
+
+        margin-bottom: 8px;
+
+        font-size: 15px;
+      }
+
+      .emotion-title {
+        font-size: 14px;
+      }
+
+      .emotion-description {
+        margin-top: 5px;
+
+        font-size: 7px;
+      }
+
+      .bottom-note {
+        font-size: 7px;
+
+        letter-spacing: .14em;
+
+        margin-top: 16px;
+      }
+
+      .sound-button {
+        left: max(
+          15px,
+          env(safe-area-inset-left)
+        );
+
+        bottom: max(
+          15px,
+          env(safe-area-inset-bottom)
+        );
+
+        width: 38px;
+        height: 38px;
+      }
+
+      .time-label {
+        right: max(
+          16px,
+          env(safe-area-inset-right)
+        );
+
+        bottom: max(
+          18px,
+          env(safe-area-inset-bottom)
+        );
+      }
+    }
+
+
+    @media (max-width: 370px) {
+
+      .content {
+        padding-top: 66px;
+      }
+
+      .title {
+        font-size: 31px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+      }
+
+      .emotion-card {
+        min-height: 103px;
+      }
+
+      .emotion-title {
+        font-size: 12px;
+      }
+
+      .emotion-description {
+        display: none;
+      }
+
+      .bottom-note {
+        margin-top: 12px;
+      }
+    }
+
+
+    /* =====================================================
+       LANDSCAPE PHONES
+    ===================================================== */
+
+    @media (
+      orientation: landscape
+    ) and (max-height: 600px) {
+
+      .content {
+        padding-top: 55px;
+      }
+
+      .eyebrow {
+        margin-bottom: 7px;
+      }
+
+      .title {
+        font-size: 35px;
+      }
+
+      .subtitle {
+        margin-top: 7px;
+        font-size: 13px;
+      }
+
+      .emotion-grid {
+        margin-top: 15px;
+      }
+
+      .emotion-card {
+        min-height: 90px;
+        padding: 10px;
+      }
+
+      .emotion-icon {
+        display: none;
+      }
+
+      .emotion-description {
+        display: none;
+      }
+
+      .bottom-note {
+        margin-top: 10px;
+      }
+    }
+
+
+    /* =====================================================
+       REDUCED MOTION
+    ===================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <main class="page">
+
+
+    <!-- ===================================================
+         BACKGROUND
+    ==================================================== -->
+
+    <div class="background">
+
+      <video
+        id="pageVideo"
+        muted
+        playsinline
+        preload="auto"
+      ></video>
+
+      <div class="ambient"></div>
+
+    </div>
+
+
+    <!-- ===================================================
+         TOP BAR
+    ==================================================== -->
+
+    <header class="topbar">
+
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="Back to AKSH home"
+      >
+
+        <img
+          src="aksh-icon.PNG"
+          alt="AKSH"
+        >
+
+      </a>
+
+
+      <a
+        href="index.html"
+        class="back-button"
+        aria-label="Back"
+      >
+        ←
+      </a>
+
+    </header>
+
+
+    <!-- ===================================================
+         MAIN CONTENT
+    ==================================================== -->
+
+    <section class="content">
+
+      <div class="eyebrow">
+        A moment for you
+      </div>
+
+
+      <h1 class="title">
+        How are you feeling today?
+      </h1>
+
+
+      <p class="subtitle">
+        There is no right answer here.
+        Choose whatever feels closest to you.
+      </p>
+
+
+      <!-- =================================================
+           EMOTION CARDS
+      ================================================== -->
+
+      <div class="emotion-grid">
+
+
+        <!-- ANXIOUS -->
+
+        <button
+          class="emotion-card"
+          type="button"
+          data-emotion="anxious"
+        >
+
+          <div class="emotion-icon">
+            ◌
+          </div>
+
+          <div class="emotion-title">
+            Anxious
+          </div>
+
+          <div class="emotion-description">
+            When your thoughts feel a little too loud.
+          </div>
+
+        </button>
+
+
+        <!-- OVERWHELMED -->
+
+        <button
+          class="emotion-card"
+          type="button"
+          data-emotion="overwhelmed"
+        >
+
+          <div class="emotion-icon">
+            ≋
+          </div>
+
+          <div class="emotion-title">
+            Overwhelmed
+          </div>
+
+          <div class="emotion-description">
+            When everything feels like too much at once.
+          </div>
+
+        </button>
+
+
+        <!-- SOMEONE TO TALK -->
+
+        <button
+          class="emotion-card"
+          type="button"
+          data-emotion="talk"
+        >
+
+          <div class="emotion-icon">
+            ♡
+          </div>
+
+          <div class="emotion-title">
+            Need someone to talk
+          </div>
+
+          <div class="emotion-description">
+            You don't have to carry everything alone.
+          </div>
+
+        </button>
+
+
+        <!-- EXPLORING -->
+
+        <button
+          class="emotion-card"
+          type="button"
+          data-emotion="exploring"
+        >
+
+          <div class="emotion-icon">
+            ✦
+          </div>
+
+          <div class="emotion-title">
+            Just exploring
+          </div>
+
+          <div class="emotion-description">
+            Take your time and see what feels right.
+          </div>
+
+        </button>
+
+      </div>
+
+
+      <div class="bottom-note">
+        Your space. Your pace. Your journey.
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         SOUND
+    ==================================================== -->
+
+    <button
+      class="sound-button"
+      id="soundButton"
+      type="button"
+      aria-label="Turn sound on"
+      title="Turn sound on"
+    >
+      🔇
+    </button>
+
+
+    <!-- ===================================================
+         TIME
+    ==================================================== -->
+
+    <div
+      class="time-label"
+      id="timeLabel"
+    >
+      MORNING
+    </div>
+
+
+  </main>
+
+
+  <script>
+
+    /* =====================================================
+       VIDEO GROUPS
+    ===================================================== */
+
+    const VIDEO_GROUPS = {
+
+      morning: [
+        "aksh-morning.1.mov",
+        "aksh-morning.2.mov",
+        "aksh-morning.3.mov",
+        "aksh-morning.4.mov"
+      ],
+
+      afternoon: [
+        "aksh-afternoon.1.mov",
+        "aksh-afternoon.2.mov",
+        "aksh-afternoon.3.mov",
+        "aksh-afternoon.4.mov"
+      ],
+
+      evening: [
+        "aksh-evening.1.mov",
+        "aksh-evening.2.mov",
+        "aksh-evening.3.mov"
+      ],
+
+      night: [
+        "aksh-night.1.mov",
+        "aksh-night.2.mov"
+      ]
+
+    };
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const video =
+      document.getElementById("pageVideo");
+
+    const soundButton =
+      document.getElementById("soundButton");
+
+    const timeLabel =
+      document.getElementById("timeLabel");
+
+    const emotionCards =
+      document.querySelectorAll(".emotion-card");
+
+
+    /* =====================================================
+       STATE
+    ===================================================== */
+
+    let soundEnabled = false;
+
+    let activePeriod = null;
+
+    let activeVideoIndex = -1;
+
+    let activePlaylist = [];
+
+    let switching = false;
+
+
+    /* =====================================================
+       CURRENT MINUTES
+    ===================================================== */
+
+    function getMinutesNow() {
+
+      const now = new Date();
+
+      return (
+        now.getHours() * 60 +
+        now.getMinutes()
+      );
+
+    }
+
+
+    /* =====================================================
+       CURRENT PERIOD
+    ===================================================== */
+
+    function getCurrentPeriod() {
+
+      const minutes =
+        getMinutesNow();
+
+
+      if (minutes < 300) {
+        return "night";
+      }
+
+
+      if (minutes < 720) {
+        return "morning";
+      }
+
+
+      if (minutes < 1020) {
+        return "afternoon";
+      }
+
+
+      if (minutes < 1200) {
+        return "evening";
+      }
+
+
+      return "night";
+
+    }
+
+
+    /* =====================================================
+       EXACT VIDEO
+    ===================================================== */
+
+    function getVideoIndex(period) {
+
+      const minutes =
+        getMinutesNow();
+
+
+      if (period === "morning") {
+
+        if (minutes < 360) return 0;
+
+        if (minutes < 480) return 1;
+
+        if (minutes < 600) return 2;
+
+        return 3;
+
+      }
+
+
+      if (period === "afternoon") {
+
+        if (minutes < 780) return 0;
+
+        if (minutes < 870) return 1;
+
+        if (minutes < 960) return 2;
+
+        return 3;
+
+      }
+
+
+      if (period === "evening") {
+
+        if (minutes < 1065) return 0;
+
+        if (minutes < 1140) return 1;
+
+        return 2;
+
+      }
+
+
+      if (minutes >= 1200) {
+        return 0;
+      }
+
+      return 1;
+
+    }
+
+
+    /* =====================================================
+       TIME LABEL
+    ===================================================== */
+
+    function updateTimeLabel(period) {
+
+      timeLabel.textContent =
+        period.toUpperCase();
+
+    }
+
+
+    /* =====================================================
+       LOAD VIDEO
+    ===================================================== */
+
+    function loadVideo(index) {
+
+      if (
+        !activePlaylist[index] ||
+        switching
+      ) {
+        return;
+      }
+
+
+      switching = true;
+
+
+      video.pause();
+
+      video.removeAttribute("src");
+
+      video.load();
+
+
+      video.classList.remove("visible");
+
+
+      video.src =
+        activePlaylist[index];
+
+
+      video.load();
+
+
+      const ready = () => {
+
+        video.removeEventListener(
+          "canplay",
+          ready
+        );
+
+
+        video.muted =
+          !soundEnabled;
+
+
+        video
+          .play()
+          .catch(() => {});
+
+
+        requestAnimationFrame(() => {
+
+          video.classList.add("visible");
+
+        });
+
+
+        switching = false;
+
+      };
+
+
+      video.addEventListener(
+        "canplay",
+        ready,
+        {
+          once: true
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       CHECK VIDEO
+    ===================================================== */
+
+    function checkVideo() {
+
+      const period =
+        getCurrentPeriod();
+
+
+      const index =
+        getVideoIndex(period);
+
+
+      if (
+        period !== activePeriod
+      ) {
+
+        activePeriod =
+          period;
+
+        activePlaylist =
+          VIDEO_GROUPS[period];
+
+        updateTimeLabel(period);
+
+      }
+
+
+      if (
+        index !== activeVideoIndex
+      ) {
+
+        activeVideoIndex =
+          index;
+
+        loadVideo(index);
+
+      }
+
+    }
+
+
+    /* =====================================================
+       LOOP SAME VIDEO
+    ===================================================== */
+
+    video.addEventListener(
+      "ended",
+      () => {
+
+        const period =
+          getCurrentPeriod();
+
+        const index =
+          getVideoIndex(period);
+
+
+        if (
+          period === activePeriod &&
+          index === activeVideoIndex
+        ) {
+
+          video.currentTime = 0;
+
+          video.play().catch(() => {});
+
+        }
+
+        else {
+
+          checkVideo();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       SOUND
+    ===================================================== */
+
+    soundButton.addEventListener(
+      "click",
+      () => {
+
+        soundEnabled =
+          !soundEnabled;
+
+
+        video.muted =
+          !soundEnabled;
+
+
+        soundButton.textContent =
+          soundEnabled
+            ? "🔊"
+            : "🔇";
+
+
+        soundButton.setAttribute(
+          "aria-label",
+          soundEnabled
+            ? "Mute sound"
+            : "Turn sound on"
+        );
+
+
+        video.play().catch(() => {});
+
+      }
+    );
+
+
+    /* =====================================================
+       EMOTION CARD SELECTION
+    ===================================================== */
+
+    emotionCards.forEach(
+      card => {
+
+        card.addEventListener(
+          "click",
+          () => {
+
+            emotionCards.forEach(
+              item => {
+
+                item.classList.remove(
+                  "selected"
+                );
+
+              }
+            );
+
+
+            card.classList.add(
+              "selected"
+            );
+
+
+            /*
+              The selection is intentionally kept
+              on this page for now.
+
+              We will connect each emotion to its
+              dedicated Page 2 flow later.
+            */
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       START
+    ===================================================== */
+
+    checkVideo();
+
+
+    /* =====================================================
+       KEEP TIME SYNCHRONIZED
+    ===================================================== */
+
+    setInterval(
+      checkVideo,
+      1000
+    );
+
+
+    /* =====================================================
+       IOS / MOBILE RETURN
+    ===================================================== */
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+
+        if (
+          !document.hidden &&
+          video.src &&
+          video.paused
+        ) {
+
+          video.muted =
+            !soundEnabled;
+
+          video.play().catch(() => {});
+
+        }
+
+      }
+    );
+
+
+  </script>
+
+</body>
+</html>
