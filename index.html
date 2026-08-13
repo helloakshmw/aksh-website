@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#11111b">
+
+  <meta name="theme-color" content="#10131d">
   <meta name="description" content="AKSH — A Safe Space For Every Mind">
+
   <title>AKSH</title>
 
   <style>
@@ -17,14 +19,13 @@
     html,
     body {
       width: 100%;
-      min-height: 100%;
+      height: 100%;
     }
 
     body {
-      min-height: 100svh;
       overflow: hidden;
-      background: #11111b;
-      color: #fff;
+      background: #10131d;
+      color: #ffffff;
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -33,29 +34,27 @@
         sans-serif;
     }
 
-    /* =====================================================
-       FULL SCREEN ARRIVAL
-    ===================================================== */
-
     .arrival {
       position: relative;
       width: 100%;
       height: 100svh;
       overflow: hidden;
-      background: #11111b;
+      background: #10131d;
       isolation: isolate;
     }
 
     /* =====================================================
-       VIDEO BACKGROUND
+       SINGLE VIDEO BACKGROUND
     ===================================================== */
 
-    .video-layer {
+    .video-background {
       position: absolute;
       inset: 0;
-      z-index: -5;
+      z-index: -3;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      background: #11111b;
+      background: #10131d;
     }
 
     #backgroundVideo {
@@ -72,55 +71,49 @@
 
       opacity: 0;
 
-      transition: opacity 1.4s ease;
+      transition: opacity 1s ease;
     }
 
-    #backgroundVideo.visible {
+    #backgroundVideo.ready {
       opacity: 1;
     }
 
-    /*
-      Dark cinematic layer above the video.
-      Keeps text readable without destroying the video.
-    */
+    /* =====================================================
+       VIDEO READABILITY OVERLAY
+    ===================================================== */
 
-    .video-overlay {
+    .overlay {
       position: absolute;
       inset: 0;
+      z-index: 1;
+      pointer-events: none;
 
       background:
         linear-gradient(
           180deg,
-          rgba(0,0,0,.28) 0%,
-          rgba(0,0,0,.03) 35%,
-          rgba(0,0,0,.18) 65%,
-          rgba(0,0,0,.52) 100%
+          rgba(0, 0, 0, 0.27) 0%,
+          rgba(0, 0, 0, 0.03) 38%,
+          rgba(0, 0, 0, 0.12) 60%,
+          rgba(0, 0, 0, 0.48) 100%
         );
-
-      z-index: 1;
     }
 
-    /*
-      Subtle glass/light layer.
-    */
-
-    .atmosphere {
+    .soft-light {
       position: absolute;
       inset: 0;
       z-index: 2;
+      pointer-events: none;
 
       background:
         radial-gradient(
           circle at 50% 45%,
-          rgba(255,255,255,.08),
-          transparent 42%
+          rgba(255,255,255,0.08),
+          transparent 45%
         );
-
-      pointer-events: none;
     }
 
     /* =====================================================
-       TOP BAR
+       TOP
     ===================================================== */
 
     .top {
@@ -147,42 +140,27 @@
       justify-content: space-between;
     }
 
-    /* =====================================================
-       AKSH ICON
-    ===================================================== */
-
     .aksh-icon {
       width: 52px;
       height: 52px;
-
       object-fit: contain;
-
       display: block;
 
       filter:
-        drop-shadow(0 3px 12px rgba(0,0,0,.25));
+        drop-shadow(0 3px 12px rgba(0,0,0,0.3));
     }
-
-    /* =====================================================
-       DATE / DAY
-    ===================================================== */
 
     .date-box {
       text-align: right;
 
-      color: #fff;
-
       text-shadow:
-        0 2px 15px rgba(0,0,0,.3);
+        0 2px 14px rgba(0,0,0,0.35);
     }
 
     .day {
       font-size: 10px;
-
       font-weight: 800;
-
-      letter-spacing: .18em;
-
+      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
@@ -190,10 +168,9 @@
       margin-top: 5px;
 
       font-size: 9px;
+      letter-spacing: 0.05em;
 
-      letter-spacing: .05em;
-
-      opacity: .78;
+      opacity: 0.8;
     }
 
     /* =====================================================
@@ -205,14 +182,12 @@
       z-index: 10;
 
       width: min(900px, calc(100% - 36px));
-
       height: 100svh;
 
       margin: auto;
 
       display: flex;
       flex-direction: column;
-
       align-items: center;
       justify-content: center;
 
@@ -224,20 +199,18 @@
     }
 
     .welcome {
-      font-size: 9px;
+      margin-bottom: 18px;
 
+      font-size: 9px;
       font-weight: 800;
 
-      letter-spacing: .28em;
-
+      letter-spacing: 0.28em;
       text-transform: uppercase;
 
-      color: rgba(255,255,255,.85);
+      color: rgba(255,255,255,0.9);
 
       text-shadow:
-        0 2px 15px rgba(0,0,0,.3);
-
-      margin-bottom: 18px;
+        0 2px 15px rgba(0,0,0,0.4);
     }
 
     .wish {
@@ -248,20 +221,20 @@
 
       font-size: clamp(55px, 9vw, 110px);
 
-      line-height: .88;
+      line-height: 0.88;
 
       font-weight: 400;
 
-      letter-spacing: -.055em;
+      letter-spacing: -0.055em;
 
-      color: #fff;
+      color: #ffffff;
 
       text-shadow:
-        0 4px 30px rgba(0,0,0,.28);
+        0 4px 30px rgba(0,0,0,0.3);
 
       transition:
-        opacity .5s ease,
-        transform .5s ease;
+        opacity 0.4s ease,
+        transform 0.4s ease;
     }
 
     .wish.changing {
@@ -283,10 +256,10 @@
 
       line-height: 1.35;
 
-      color: rgba(255,255,255,.92);
+      color: rgba(255,255,255,0.94);
 
       text-shadow:
-        0 3px 20px rgba(0,0,0,.3);
+        0 3px 20px rgba(0,0,0,0.35);
     }
 
     .sub-message {
@@ -295,102 +268,93 @@
       margin-top: 14px;
 
       font-size: 11px;
-
       line-height: 1.7;
 
-      color: rgba(255,255,255,.78);
+      color: rgba(255,255,255,0.8);
 
       text-shadow:
-        0 2px 12px rgba(0,0,0,.35);
+        0 2px 12px rgba(0,0,0,0.4);
     }
 
     /* =====================================================
-       ENTER BUTTON
+       ENTER
     ===================================================== */
 
     .enter {
       margin-top: 28px;
 
       display: inline-flex;
-
       align-items: center;
-
       gap: 12px;
 
       padding: 14px 17px 14px 21px;
 
       border-radius: 999px;
 
-      background: rgba(255,255,255,.92);
+      background: rgba(255,255,255,0.94);
 
       color: #34283c;
 
       text-decoration: none;
 
       font-size: 9px;
-
       font-weight: 800;
 
-      letter-spacing: .1em;
-
+      letter-spacing: 0.1em;
       text-transform: uppercase;
 
       box-shadow:
-        0 15px 40px rgba(0,0,0,.22);
+        0 15px 40px rgba(0,0,0,0.22);
 
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
 
       transition:
-        transform .25s ease,
-        background .25s ease;
+        transform 0.25s ease,
+        background 0.25s ease;
     }
 
     .enter:hover {
       transform: translateY(-3px);
-
-      background: #fff;
+      background: #ffffff;
     }
 
     .arrow {
       width: 29px;
       height: 29px;
 
-      border-radius: 50%;
-
       display: flex;
       align-items: center;
       justify-content: center;
 
-      background: rgba(70,45,82,.1);
+      border-radius: 50%;
+
+      background: rgba(70,45,82,0.1);
 
       font-size: 14px;
     }
 
     /* =====================================================
-       TIME LABEL
+       ATMOSPHERE LABEL
     ===================================================== */
 
     .time-label {
       position: absolute;
-
       z-index: 10;
 
       right: 24px;
       bottom: 24px;
 
       font-size: 8px;
-
       font-weight: 700;
 
-      letter-spacing: .16em;
-
+      letter-spacing: 0.16em;
       text-transform: uppercase;
 
-      color: rgba(255,255,255,.6);
+      color: rgba(255,255,255,0.62);
 
       text-shadow:
-        0 2px 10px rgba(0,0,0,.35);
+        0 2px 10px rgba(0,0,0,0.4);
     }
 
     /* =====================================================
@@ -399,21 +363,19 @@
 
     .loading {
       position: absolute;
-
-      z-index: 20;
+      z-index: 30;
 
       inset: 0;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
-      background: #11111b;
+      background: #10131d;
 
       transition:
-        opacity .8s ease,
-        visibility .8s ease;
+        opacity 0.7s ease,
+        visibility 0.7s ease;
     }
 
     .loading.hidden {
@@ -421,16 +383,16 @@
       visibility: hidden;
     }
 
-    .loading-mark {
+    .loading-text {
       font-family: Georgia, serif;
 
-      font-size: 22px;
+      font-size: 21px;
 
-      letter-spacing: .38em;
+      letter-spacing: 0.38em;
 
-      margin-left: .38em;
+      margin-left: 0.38em;
 
-      color: rgba(255,255,255,.9);
+      color: rgba(255,255,255,0.9);
     }
 
     /* =====================================================
@@ -466,8 +428,8 @@
       }
 
       .message {
-        font-size: 18px;
         max-width: 330px;
+        font-size: 18px;
       }
 
       .sub-message {
@@ -495,16 +457,9 @@
       }
     }
 
-    /* =====================================================
-       REDUCED MOTION
-    ===================================================== */
-
     @media (prefers-reduced-motion: reduce) {
 
-      #backgroundVideo {
-        transition: none;
-      }
-
+      #backgroundVideo,
       .wish {
         transition: none;
       }
@@ -514,549 +469,628 @@
 
 <body>
 
-<section class="arrival">
+  <section class="arrival">
 
-  <!-- ===================================================
-       VIDEO BACKGROUND
-  ==================================================== -->
+    <!-- ===================================================
+         ONE VIDEO ELEMENT ONLY
+    ==================================================== -->
 
-  <div class="video-layer">
+    <div class="video-background">
 
-    <video
-      id="backgroundVideo"
-      muted
-      autoplay
-      playsinline
-      preload="auto"
-    ></video>
+      <video
+        id="backgroundVideo"
+        muted
+        playsinline
+        preload="auto"
+      ></video>
 
-    <div class="video-overlay"></div>
+      <div class="overlay"></div>
+      <div class="soft-light"></div>
 
-    <div class="atmosphere"></div>
-
-  </div>
-
-
-  <!-- ===================================================
-       LOADING
-  ==================================================== -->
-
-  <div
-    class="loading"
-    id="loading"
-  >
-    <div class="loading-mark">
-      AKSH
     </div>
-  </div>
 
 
-  <!-- ===================================================
-       TOP
-  ==================================================== -->
+    <!-- ===================================================
+         LOADING
+    ==================================================== -->
 
-  <header class="top">
+    <div
+      class="loading"
+      id="loading"
+    >
+      <div class="loading-text">
+        AKSH
+      </div>
+    </div>
 
-    <div class="top-inner">
 
-      <img
-        src="aksh-icon.PNG"
-        alt="AKSH"
-        class="aksh-icon"
-      >
+    <!-- ===================================================
+         TOP
+    ==================================================== -->
 
-      <div class="date-box">
+    <header class="top">
 
-        <div
-          class="day"
-          id="day"
+      <div class="top-inner">
+
+        <img
+          src="aksh-icon.PNG"
+          alt="AKSH"
+          class="aksh-icon"
         >
-          MONDAY
-        </div>
 
-        <div
-          class="date"
-          id="date"
-        >
-          11 AUGUST 2026
+        <div class="date-box">
+
+          <div
+            class="day"
+            id="day"
+          ></div>
+
+          <div
+            class="date"
+            id="date"
+          ></div>
+
         </div>
 
       </div>
 
-    </div>
-
-  </header>
+    </header>
 
 
-  <!-- ===================================================
-       ARRIVAL MESSAGE
-  ==================================================== -->
+    <!-- ===================================================
+         ARRIVAL
+    ==================================================== -->
 
-  <main class="center">
+    <main class="center">
 
-    <div class="welcome">
-      Welcome to AKSH
-    </div>
+      <div class="welcome">
+        Welcome to AKSH
+      </div>
 
-    <h1
-      class="wish"
-      id="wish"
-    >
-      Good Morning
-    </h1>
+      <h1
+        class="wish"
+        id="wish"
+      >
+        Good Morning
+      </h1>
+
+      <div
+        class="message"
+        id="message"
+      >
+        May today feel a little lighter.
+      </div>
+
+      <p class="sub-message">
+        Take a breath before you begin.
+        There is no rush here.
+        You can arrive exactly as you are.
+      </p>
+
+      <a
+        href="page1.html"
+        class="enter"
+      >
+        Enter AKSH
+
+        <span class="arrow">
+          →
+        </span>
+      </a>
+
+    </main>
+
+
+    <!-- ===================================================
+         PERIOD
+    ==================================================== -->
 
     <div
-      class="message"
-      id="message"
+      class="time-label"
+      id="timeLabel"
     >
-      May today feel a little lighter.
+      MORNING
     </div>
 
-    <p class="sub-message">
-      Take a breath before you begin.
-      There is no rush here.
-      You can arrive exactly as you are.
-    </p>
+  </section>
 
-    <a
-      href="page1.html"
-      class="enter"
-    >
-      Enter AKSH
 
-      <span class="arrow">
-        →
-      </span>
-    </a>
+  <script>
 
-  </main>
+    /* =====================================================
+       VIDEO FILES
+    ===================================================== */
 
+    const VIDEO_GROUPS = {
 
-  <!-- ===================================================
-       CURRENT ATMOSPHERE
-  ==================================================== -->
+      morning: [
+        "aksh-morning.1.mov",
+        "aksh-morning.2.mov",
+        "aksh-morning.3.mov",
+        "aksh-morning.4.mov"
+      ],
 
-  <div
-    class="time-label"
-    id="timeLabel"
-  >
-    MORNING
-  </div>
+      afternoon: [
+        "aksh-afternoon.1.mov",
+        "aksh-afternoon.2.mov",
+        "aksh-afternoon.3.mov",
+        "aksh-afternoon.4.mov"
+      ],
 
-</section>
+      evening: [
+        "aksh-evening.1.mov",
+        "aksh-evening.2.mov",
+        "aksh-evening.3.mov"
+      ],
 
+      night: [
+        "aksh-night.1.mov",
+        "aksh-night.2.mov"
+      ]
 
-<script>
+    };
 
-/* =========================================================
-   VIDEO GROUPS
-========================================================= */
 
-const videoGroups = {
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
 
-  morning: [
-    "aksh-morning.1.mov",
-    "aksh-morning.2.mov",
-    "aksh-morning.3.mov",
-    "aksh-morning.4.mov"
-  ],
+    const video =
+      document.getElementById("backgroundVideo");
 
-  afternoon: [
-    "aksh-afternoon.1.mov",
-    "aksh-afternoon.2.mov",
-    "aksh-afternoon.3.mov",
-    "aksh-afternoon.4.mov"
-  ],
+    const loading =
+      document.getElementById("loading");
 
-  evening: [
-    "aksh-evening.1.mov",
-    "aksh-evening.2.mov",
-    "aksh-evening.3.mov"
-  ],
+    const wish =
+      document.getElementById("wish");
 
-  night: [
-    "aksh-night.1.mov",
-    "aksh-night.2.mov"
-  ]
+    const message =
+      document.getElementById("message");
 
-};
+    const timeLabel =
+      document.getElementById("timeLabel");
 
+    const day =
+      document.getElementById("day");
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+    const date =
+      document.getElementById("date");
 
-const video =
-  document.getElementById("backgroundVideo");
 
-const loading =
-  document.getElementById("loading");
+    /* =====================================================
+       STATE
+    ===================================================== */
 
-const wish =
-  document.getElementById("wish");
+    let activePeriod = null;
 
-const message =
-  document.getElementById("message");
+    let activePlaylist = [];
 
-const timeLabel =
-  document.getElementById("timeLabel");
+    let activeIndex = 0;
 
-const day =
-  document.getElementById("day");
+    let changingVideo = false;
 
-const date =
-  document.getElementById("date");
 
+    /* =====================================================
+       DETERMINE TIME PERIOD
+    ===================================================== */
 
-/* =========================================================
-   STATE
-========================================================= */
+    function getCurrentPeriod() {
 
-let currentPeriod = "";
-let currentVideos = [];
-let currentVideoIndex = 0;
+      const now = new Date();
 
+      const hour = now.getHours();
 
-/* =========================================================
-   GET CURRENT TIME PERIOD
-========================================================= */
+      const minute = now.getMinutes();
 
-function getPeriod() {
 
-  const now = new Date();
-
-  const hour = now.getHours();
-
-  const minute = now.getMinutes();
-
-
-  /*
-    MORNING
-    05:00 - 11:59
-  */
-
-  if (hour >= 5 && hour < 12) {
-
-    return "morning";
-
-  }
-
-
-  /*
-    AFTERNOON
-    12:00 - 16:59
-  */
-
-  if (hour >= 12 && hour < 17) {
-
-    return "afternoon";
-
-  }
-
-
-  /*
-    EVENING
-    17:00 - 19:29
-  */
-
-  if (
-    hour === 17 ||
-    hour === 18 ||
-    (hour === 19 && minute < 30)
-  ) {
-
-    return "evening";
-
-  }
-
-
-  /*
-    NIGHT
-    19:30 onward
-    and before 05:00
-  */
-
-  return "night";
-
-}
-
-
-/* =========================================================
-   ARRIVAL TEXT
-========================================================= */
-
-function updateArrivalText(period) {
-
-  wish.classList.add("changing");
-
-  setTimeout(() => {
-
-    if (period === "morning") {
-
-      wish.textContent = "Good Morning";
-
-      message.textContent =
-        "May today feel a little lighter.";
-
-      timeLabel.textContent =
-        "MORNING";
-
-    }
-
-    else if (period === "afternoon") {
-
-      wish.textContent = "Good Afternoon";
-
-      message.textContent =
-        "Take a moment to breathe and be present.";
-
-      timeLabel.textContent =
-        "AFTERNOON";
-
-    }
-
-    else if (period === "evening") {
-
-      wish.textContent = "Good Evening";
-
-      message.textContent =
-        "Let the day slow down around you.";
-
-      timeLabel.textContent =
-        "EVENING";
-
-    }
-
-    else {
-
-      wish.textContent = "Good Night";
-
-      message.textContent =
-        "May tonight bring you some peace.";
-
-      timeLabel.textContent =
-        "NIGHT";
-
-    }
-
-    wish.classList.remove("changing");
-
-  }, 450);
-
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function updateDate() {
-
-  const now = new Date();
-
-
-  day.textContent =
-    now.toLocaleDateString(
-      undefined,
-      {
-        weekday: "long"
+      if (hour >= 5 && hour < 12) {
+        return "morning";
       }
-    ).toUpperCase();
 
 
-  date.textContent =
-    now.toLocaleDateString(
-      undefined,
-      {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
+      if (hour >= 12 && hour < 17) {
+        return "afternoon";
       }
-    ).toUpperCase();
-
-}
 
 
-/* =========================================================
-   LOAD VIDEO
-========================================================= */
-
-function loadVideo(index) {
-
-  if (!currentVideos.length) {
-    return;
-  }
-
-  const source =
-    currentVideos[index];
+      if (
+        hour >= 17 &&
+        (
+          hour < 19 ||
+          (hour === 19 && minute < 30)
+        )
+      ) {
+        return "evening";
+      }
 
 
-  /*
-    Fade old video out.
-  */
-
-  video.classList.remove("visible");
-
-
-  setTimeout(() => {
-
-    video.src = source;
-
-    video.load();
-
-
-    const playPromise =
-      video.play();
-
-
-    if (playPromise !== undefined) {
-
-      playPromise.catch(() => {
-
-        /*
-          Some mobile browsers may delay autoplay.
-          Muted + playsinline allows autoplay where supported.
-        */
-
-      });
+      return "night";
 
     }
 
-  }, 500);
 
-}
+    /* =====================================================
+       UPDATE DATE
+    ===================================================== */
 
+    function updateDate() {
 
-/* =========================================================
-   VIDEO READY
-========================================================= */
-
-video.addEventListener(
-  "canplay",
-  () => {
-
-    video.classList.add("visible");
-
-    loading.classList.add("hidden");
-
-  }
-);
+      const now = new Date();
 
 
-/* =========================================================
-   VIDEO ENDED
-========================================================= */
+      day.textContent =
+        now.toLocaleDateString(
+          undefined,
+          {
+            weekday: "long"
+          }
+        ).toUpperCase();
 
-video.addEventListener(
-  "ended",
-  () => {
 
-    currentVideoIndex++;
-
-    /*
-      When the last video finishes,
-      start the first video again.
-    */
-
-    if (
-      currentVideoIndex >=
-      currentVideos.length
-    ) {
-
-      currentVideoIndex = 0;
+      date.textContent =
+        now.toLocaleDateString(
+          undefined,
+          {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          }
+        ).toUpperCase();
 
     }
 
-    loadVideo(currentVideoIndex);
 
-  }
-);
+    /* =====================================================
+       UPDATE GREETING
+    ===================================================== */
 
+    function updateGreeting(period) {
 
-/* =========================================================
-   CHANGE PERIOD
-========================================================= */
-
-function updateEnvironment() {
-
-  const period =
-    getPeriod();
+      wish.classList.add("changing");
 
 
-  /*
-    Only reload videos when the
-    actual time period changes.
-  */
+      setTimeout(() => {
 
-  if (period === currentPeriod) {
+        if (period === "morning") {
+
+          wish.textContent = "Good Morning";
+
+          message.textContent =
+            "May today feel a little lighter.";
+
+          timeLabel.textContent =
+            "MORNING";
+
+        }
+
+
+        else if (period === "afternoon") {
+
+          wish.textContent = "Good Afternoon";
+
+          message.textContent =
+            "Take a moment to breathe and be present.";
+
+          timeLabel.textContent =
+            "AFTERNOON";
+
+        }
+
+
+        else if (period === "evening") {
+
+          wish.textContent = "Good Evening";
+
+          message.textContent =
+            "Let the day slow down around you.";
+
+          timeLabel.textContent =
+            "EVENING";
+
+        }
+
+
+        else {
+
+          wish.textContent = "Good Night";
+
+          message.textContent =
+            "May tonight bring you some peace.";
+
+          timeLabel.textContent =
+            "NIGHT";
+
+        }
+
+
+        wish.classList.remove("changing");
+
+      }, 400);
+
+    }
+
+
+    /* =====================================================
+       PLAY ONE VIDEO
+       
+       IMPORTANT:
+       - Stop current video
+       - Clear old source
+       - Assign ONE new source
+       - Load
+       - Play
+       
+       There is NEVER a second video element.
+    ===================================================== */
+
+    function playVideo(index) {
+
+      if (
+        changingVideo ||
+        !activePlaylist.length
+      ) {
+        return;
+      }
+
+
+      changingVideo = true;
+
+
+      const nextFile =
+        activePlaylist[index];
+
+
+      /*
+        Completely stop the currently playing video.
+      */
+
+      video.pause();
+
+
+      /*
+        Remove the old media source.
+      */
+
+      video.removeAttribute("src");
+
+      video.load();
+
+
+      /*
+        Small fade while switching.
+      */
+
+      video.classList.remove("ready");
+
+
+      /*
+        Set ONLY the next file.
+      */
+
+      video.src = nextFile;
+
+      video.load();
+
+
+      /*
+        Wait until the new video can actually play.
+      */
+
+      const startNewVideo = () => {
+
+        video.removeEventListener(
+          "canplay",
+          startNewVideo
+        );
+
+
+        const promise =
+          video.play();
+
+
+        if (promise) {
+
+          promise
+            .catch(() => {})
+            .finally(() => {
+
+              video.classList.add("ready");
+
+              loading.classList.add("hidden");
+
+              changingVideo = false;
+
+            });
+
+        }
+
+        else {
+
+          video.classList.add("ready");
+
+          loading.classList.add("hidden");
+
+          changingVideo = false;
+
+        }
+
+      };
+
+
+      video.addEventListener(
+        "canplay",
+        startNewVideo,
+        {
+          once: true
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       VIDEO ENDED
+       
+       Move to the next file only after the current
+       video has completely ended.
+    ===================================================== */
+
+    video.addEventListener(
+      "ended",
+      () => {
+
+        if (!activePlaylist.length) {
+          return;
+        }
+
+
+        if (changingVideo) {
+          return;
+        }
+
+
+        activeIndex++;
+
+
+        if (
+          activeIndex >=
+          activePlaylist.length
+        ) {
+
+          activeIndex = 0;
+
+        }
+
+
+        playVideo(activeIndex);
+
+      }
+    );
+
+
+    /* =====================================================
+       CHANGE PERIOD
+    ===================================================== */
+
+    function updatePeriod() {
+
+      const period =
+        getCurrentPeriod();
+
+
+      updateDate();
+
+
+      /*
+        Nothing changes if we're still
+        inside the same period.
+      */
+
+      if (period === activePeriod) {
+        return;
+      }
+
+
+      activePeriod = period;
+
+
+      activePlaylist =
+        VIDEO_GROUPS[period];
+
+
+      activeIndex = 0;
+
+
+      updateGreeting(period);
+
+
+      /*
+        Only now change the video.
+      */
+
+      playVideo(activeIndex);
+
+    }
+
+
+    /* =====================================================
+       START PAGE
+    ===================================================== */
 
     updateDate();
 
-    return;
-
-  }
+    updatePeriod();
 
 
-  currentPeriod = period;
+    /* =====================================================
+       CHECK TIME EVERY MINUTE
+    ===================================================== */
 
-  currentVideos =
-    videoGroups[period];
-
-  currentVideoIndex = 0;
-
-
-  updateArrivalText(period);
-
-  updateDate();
-
-  loadVideo(currentVideoIndex);
-
-}
+    setInterval(
+      updatePeriod,
+      60000
+    );
 
 
-/* =========================================================
-   START
-========================================================= */
+    /* =====================================================
+       MOBILE AUTOPLAY RECOVERY
+    ===================================================== */
 
-updateEnvironment();
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+
+        if (
+          !document.hidden &&
+          video.paused &&
+          video.src
+        ) {
+
+          video.play().catch(() => {});
+
+        }
+
+      }
+    );
 
 
-/*
-  Check every minute.
+    /* =====================================================
+       IF VIDEO LOAD FAILS
+    ===================================================== */
 
-  Example:
-  19:29 → evening
-  19:30 → night
-*/
+    video.addEventListener(
+      "error",
+      () => {
 
-setInterval(
-  updateEnvironment,
-  60000
-);
+        changingVideo = false;
 
+        /*
+          Try the next video instead of leaving
+          the screen broken.
+        */
 
-/* =========================================================
-   SAFETY:
-   IF BROWSER DOES NOT AUTOPLAY
-========================================================= */
+        if (activePlaylist.length > 1) {
 
-document.addEventListener(
-  "visibilitychange",
-  () => {
+          activeIndex++;
 
-    if (
-      !document.hidden &&
-      video.paused
-    ) {
+          if (
+            activeIndex >=
+            activePlaylist.length
+          ) {
+            activeIndex = 0;
+          }
 
-      video.play().catch(() => {});
+          setTimeout(
+            () => playVideo(activeIndex),
+            800
+          );
 
-    }
+        }
 
-  }
-);
+      }
+    );
 
-</script>
+  </script>
 
 </body>
 </html>
