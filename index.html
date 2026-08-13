@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
   <meta name="theme-color" content="#10131d">
   <meta name="description" content="AKSH — A Safe Space For Every Mind">
-
   <title>AKSH</title>
 
   <style>
@@ -44,9 +42,7 @@
       isolation: isolate;
     }
 
-    /* =====================================================
-       ONE VIDEO ELEMENT ONLY
-    ===================================================== */
+    /* ================= VIDEO ================= */
 
     .video-background {
       position: absolute;
@@ -59,17 +55,12 @@
     #backgroundVideo {
       position: absolute;
       inset: 0;
-
       width: 100%;
       height: 100%;
-
       object-fit: cover;
-      object-position: center center;
-
+      object-position: center;
       display: block;
-
       opacity: 0;
-
       transition: opacity 0.8s ease;
     }
 
@@ -77,23 +68,18 @@
       opacity: 1;
     }
 
-    /* =====================================================
-       CINEMATIC READABILITY
-    ===================================================== */
-
     .video-overlay {
       position: absolute;
       inset: 0;
       z-index: 1;
       pointer-events: none;
-
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.25) 0%,
-          rgba(0, 0, 0, 0.02) 38%,
-          rgba(0, 0, 0, 0.10) 62%,
-          rgba(0, 0, 0, 0.48) 100%
+          rgba(0,0,0,0.20) 0%,
+          rgba(0,0,0,0.01) 40%,
+          rgba(0,0,0,0.08) 65%,
+          rgba(0,0,0,0.42) 100%
         );
     }
 
@@ -102,91 +88,88 @@
       inset: 0;
       z-index: 2;
       pointer-events: none;
-
       background:
         radial-gradient(
-          circle at 50% 45%,
-          rgba(255, 255, 255, 0.08),
+          circle at 50% 42%,
+          rgba(255,255,255,0.08),
           transparent 46%
         );
     }
 
-    /* =====================================================
-       TOP BAR
-    ===================================================== */
+    /* ================= TOP LEFT SOUND ================= */
 
-    .top {
+    .sound-control {
       position: absolute;
-      z-index: 10;
-
-      top: 0;
-      left: 0;
-      right: 0;
-
-      padding:
-        max(20px, env(safe-area-inset-top))
-        max(22px, env(safe-area-inset-right))
-        0
-        max(22px, env(safe-area-inset-left));
+      z-index: 30;
+      top: max(20px, env(safe-area-inset-top));
+      left: max(20px, env(safe-area-inset-left));
     }
 
-    .top-inner {
-      width: min(1180px, 100%);
-      margin: 0 auto;
+    .sound-button {
+      width: 44px;
+      height: 44px;
+
+      border: 1px solid rgba(255,255,255,0.30);
+      border-radius: 50%;
+
+      background: rgba(0,0,0,0.24);
+      color: #fff;
 
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+      font-size: 17px;
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      box-shadow:
+        0 8px 25px rgba(0,0,0,0.18);
+
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease;
     }
 
-    /* =====================================================
-       AKSH ICON
-    ===================================================== */
-
-    .aksh-icon {
-      width: 52px;
-      height: 52px;
-
-      object-fit: contain;
-      display: block;
-
-      filter:
-        drop-shadow(0 3px 12px rgba(0, 0, 0, 0.30));
+    .sound-button:hover {
+      transform: scale(1.06);
+      background: rgba(0,0,0,0.36);
     }
 
-    /* =====================================================
-       DATE + DAY
-    ===================================================== */
+    /* ================= TOP RIGHT DATE ================= */
 
     .date-box {
+      position: absolute;
+      z-index: 20;
+
+      top: max(23px, env(safe-area-inset-top));
+      right: max(22px, env(safe-area-inset-right));
+
       text-align: right;
 
       color: #fff;
 
       text-shadow:
-        0 2px 14px rgba(0, 0, 0, 0.35);
+        0 2px 14px rgba(0,0,0,0.35);
     }
 
     .day {
       font-size: 10px;
       font-weight: 800;
-
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
     .date {
       margin-top: 5px;
-
       font-size: 9px;
       letter-spacing: 0.05em;
-
       opacity: 0.82;
     }
 
-    /* =====================================================
-       CENTER ARRIVAL
-    ===================================================== */
+    /* ================= CENTER ================= */
 
     .center {
       position: relative;
@@ -199,30 +182,43 @@
 
       display: flex;
       flex-direction: column;
-
       align-items: center;
       justify-content: center;
 
       text-align: center;
 
       padding:
-        100px 0
-        max(40px, env(safe-area-inset-bottom));
+        80px 0
+        max(70px, env(safe-area-inset-bottom));
+    }
+
+    /* ICON ABOVE WELCOME */
+
+    .center-icon {
+      width: 66px;
+      height: 66px;
+
+      object-fit: contain;
+
+      margin-bottom: 14px;
+
+      filter:
+        drop-shadow(0 5px 18px rgba(0,0,0,0.30));
     }
 
     .welcome {
-      margin-bottom: 18px;
+      margin-bottom: 17px;
 
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 800;
 
-      letter-spacing: 0.28em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
 
-      color: rgba(255, 255, 255, 0.90);
+      color: rgba(255,255,255,0.92);
 
       text-shadow:
-        0 2px 15px rgba(0, 0, 0, 0.40);
+        0 2px 15px rgba(0,0,0,0.40);
     }
 
     .wish {
@@ -231,9 +227,9 @@
         "Times New Roman",
         serif;
 
-      font-size: clamp(55px, 9vw, 110px);
+      font-size: clamp(52px, 8.5vw, 105px);
 
-      line-height: 0.88;
+      line-height: 0.90;
 
       font-weight: 400;
 
@@ -242,7 +238,7 @@
       color: #fff;
 
       text-shadow:
-        0 4px 30px rgba(0, 0, 0, 0.30);
+        0 4px 30px rgba(0,0,0,0.30);
 
       transition:
         opacity 0.35s ease,
@@ -254,57 +250,47 @@
       transform: translateY(8px);
     }
 
-    .message {
-      max-width: 500px;
+    /* SMALL QUOTE */
 
-      margin-top: 21px;
+    .message {
+      max-width: 470px;
+
+      margin-top: 18px;
 
       font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-      font-size: clamp(17px, 2.5vw, 24px);
+      font-size: clamp(16px, 2.2vw, 21px);
 
-      line-height: 1.35;
+      line-height: 1.45;
 
-      color: rgba(255, 255, 255, 0.95);
+      color: rgba(255,255,255,0.94);
 
       text-shadow:
-        0 3px 20px rgba(0, 0, 0, 0.35);
+        0 3px 20px rgba(0,0,0,0.35);
     }
 
     .sub-message {
-      max-width: 430px;
-
-      margin-top: 14px;
-
-      font-size: 11px;
-      line-height: 1.7;
-
-      color: rgba(255, 255, 255, 0.82);
-
-      text-shadow:
-        0 2px 12px rgba(0, 0, 0, 0.40);
+      display: none;
     }
 
-    /* =====================================================
-       ENTER BUTTON
-    ===================================================== */
+    /* ================= BEGIN JOURNEY ================= */
 
     .enter {
-      margin-top: 28px;
+      margin-top: 30px;
 
       display: inline-flex;
-
       align-items: center;
+      justify-content: center;
       gap: 12px;
 
-      padding: 14px 17px 14px 21px;
+      padding: 14px 18px 14px 22px;
 
       border-radius: 999px;
 
-      background: rgba(255, 255, 255, 0.94);
+      background: rgba(255,255,255,0.95);
 
       color: #34283c;
 
@@ -313,11 +299,11 @@
       font-size: 9px;
       font-weight: 800;
 
-      letter-spacing: 0.10em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
 
       box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.22);
+        0 15px 40px rgba(0,0,0,0.22);
 
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -342,102 +328,15 @@
 
       border-radius: 50%;
 
-      background: rgba(70, 45, 82, 0.10);
+      background: rgba(70,45,82,0.10);
 
       font-size: 14px;
     }
 
-    /* =====================================================
-       SOUND BUTTON
-    ===================================================== */
-
-    .sound-button {
-      position: absolute;
-
-      z-index: 20;
-
-      left: 24px;
-      bottom: 24px;
-
-      width: 44px;
-      height: 44px;
-
-      border: 1px solid rgba(255,255,255,0.30);
-
-      border-radius: 50%;
-
-      background: rgba(0,0,0,0.22);
-
-      color: #fff;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      cursor: pointer;
-
-      font-size: 17px;
-
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-
-      box-shadow:
-        0 8px 25px rgba(0,0,0,0.18);
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .sound-button:hover {
-      transform: scale(1.06);
-      background: rgba(0,0,0,0.35);
-    }
-
-    .sound-label {
-      position: absolute;
-
-      left: 52px;
-      bottom: 0;
-
-      height: 44px;
-
-      display: flex;
-      align-items: center;
-
-      white-space: nowrap;
-
-      font-size: 8px;
-      font-weight: 700;
-
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-
-      color: rgba(255,255,255,0.72);
-
-      opacity: 0;
-
-      pointer-events: none;
-
-      transform: translateX(-5px);
-
-      transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
-    }
-
-    .sound-control:hover .sound-label {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* =====================================================
-       CURRENT TIME PERIOD
-    ===================================================== */
+    /* ================= TIME LABEL ================= */
 
     .time-label {
       position: absolute;
-
       z-index: 10;
 
       right: 24px;
@@ -455,15 +354,11 @@
         0 2px 10px rgba(0,0,0,0.40);
     }
 
-    /* =====================================================
-       LOADING
-    ===================================================== */
+    /* ================= LOADING ================= */
 
     .loading {
       position: absolute;
-
-      z-index: 30;
-
+      z-index: 40;
       inset: 0;
 
       display: flex;
@@ -488,26 +383,29 @@
       font-size: 21px;
 
       letter-spacing: 0.38em;
-
       margin-left: 0.38em;
 
       color: rgba(255,255,255,0.90);
     }
 
-    /* =====================================================
-       MOBILE
-    ===================================================== */
+    /* ================= MOBILE ================= */
 
     @media (max-width: 600px) {
 
-      .top {
-        padding-left: 16px;
-        padding-right: 16px;
+      .sound-control {
+        top: max(16px, env(safe-area-inset-top));
+        left: max(16px, env(safe-area-inset-left));
       }
 
-      .aksh-icon {
-        width: 43px;
-        height: 43px;
+      .sound-button {
+        width: 40px;
+        height: 40px;
+        font-size: 15px;
+      }
+
+      .date-box {
+        top: max(20px, env(safe-area-inset-top));
+        right: max(16px, env(safe-area-inset-right));
       }
 
       .day {
@@ -522,27 +420,28 @@
         width: calc(100% - 30px);
       }
 
+      .center-icon {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 12px;
+      }
+
+      .welcome {
+        font-size: 8px;
+        margin-bottom: 15px;
+      }
+
       .wish {
-        font-size: clamp(48px, 14vw, 70px);
+        font-size: clamp(46px, 13vw, 68px);
       }
 
       .message {
         max-width: 330px;
-        font-size: 18px;
+        font-size: 17px;
       }
 
-      .sub-message {
-        max-width: 320px;
-        font-size: 10px;
-      }
-
-      .sound-button {
-        left: 16px;
-        bottom: max(16px, env(safe-area-inset-bottom));
-      }
-
-      .sound-label {
-        display: none;
+      .enter {
+        margin-top: 26px;
       }
 
       .time-label {
@@ -552,12 +451,17 @@
 
     @media (max-width: 360px) {
 
+      .center-icon {
+        width: 48px;
+        height: 48px;
+      }
+
       .wish {
-        font-size: 44px;
+        font-size: 43px;
       }
 
       .message {
-        font-size: 16px;
+        font-size: 15px;
       }
 
       .enter {
@@ -579,9 +483,7 @@
 
 <section class="arrival">
 
-  <!-- ===================================================
-       ONE VIDEO ELEMENT ONLY
-  ==================================================== -->
+  <!-- ================= VIDEO ================= -->
 
   <div class="video-background">
 
@@ -599,100 +501,7 @@
   </div>
 
 
-  <!-- ===================================================
-       LOADING
-  ==================================================== -->
-
-  <div
-    class="loading"
-    id="loading"
-  >
-    <div class="loading-text">
-      AKSH
-    </div>
-  </div>
-
-
-  <!-- ===================================================
-       TOP
-  ==================================================== -->
-
-  <header class="top">
-
-    <div class="top-inner">
-
-      <img
-        src="aksh-icon.PNG"
-        alt="AKSH"
-        class="aksh-icon"
-      >
-
-      <div class="date-box">
-
-        <div
-          class="day"
-          id="day"
-        ></div>
-
-        <div
-          class="date"
-          id="date"
-        ></div>
-
-      </div>
-
-    </div>
-
-  </header>
-
-
-  <!-- ===================================================
-       ARRIVAL MESSAGE
-  ==================================================== -->
-
-  <main class="center">
-
-    <div class="welcome">
-      Welcome to AKSH
-    </div>
-
-    <h1
-      class="wish"
-      id="wish"
-    >
-      Good Morning
-    </h1>
-
-    <div
-      class="message"
-      id="message"
-    >
-      May today feel a little lighter.
-    </div>
-
-    <p class="sub-message">
-      Take a breath before you begin.
-      There is no rush here.
-      You can arrive exactly as you are.
-    </p>
-
-    <a
-      href="page1.html"
-      class="enter"
-    >
-      Enter AKSH
-
-      <span class="arrow">
-        →
-      </span>
-    </a>
-
-  </main>
-
-
-  <!-- ===================================================
-       SOUND CONTROL
-  ==================================================== -->
+  <!-- ================= SOUND TOP LEFT ================= -->
 
   <div class="sound-control">
 
@@ -706,19 +515,95 @@
       🔇
     </button>
 
-    <span
-      class="sound-label"
-      id="soundLabel"
-    >
-      Sound Off
-    </span>
+  </div>
+
+
+  <!-- ================= DATE TOP RIGHT ================= -->
+
+  <div class="date-box">
+
+    <div
+      class="day"
+      id="day"
+    ></div>
+
+    <div
+      class="date"
+      id="date"
+    ></div>
 
   </div>
 
 
-  <!-- ===================================================
-       TIME PERIOD
-  ==================================================== -->
+  <!-- ================= LOADING ================= -->
+
+  <div
+    class="loading"
+    id="loading"
+  >
+    <div class="loading-text">
+      AKSH
+    </div>
+  </div>
+
+
+  <!-- ================= CENTER ================= -->
+
+  <main class="center">
+
+    <!-- AKSH ICON -->
+
+    <img
+      src="aksh-icon.PNG"
+      alt="AKSH"
+      class="center-icon"
+    >
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+      Welcome to AKSH
+    </div>
+
+
+    <!-- GREETING -->
+
+    <h1
+      class="wish"
+      id="wish"
+    >
+      Good Morning
+    </h1>
+
+
+    <!-- SMALL QUOTE -->
+
+    <div
+      class="message"
+      id="message"
+    >
+      May today feel a little lighter.
+    </div>
+
+
+    <!-- BEGIN JOURNEY -->
+
+    <a
+      href="page1.html"
+      class="enter"
+    >
+      Begin Your Journey
+
+      <span class="arrow">
+        →
+      </span>
+    </a>
+
+  </main>
+
+
+  <!-- ================= TIME LABEL ================= -->
 
   <div
     class="time-label"
@@ -731,12 +616,6 @@
 
 
 <script>
-
-/* =========================================================
-   AKSH PAGE 0
-   TIME-BASED VIDEO SYSTEM
-========================================================= */
-
 
 /* =========================================================
    VIDEO FILES
@@ -773,49 +652,7 @@ const VIDEO_GROUPS = {
 
 
 /* =========================================================
-   TIME WINDOWS
-=========================================================
-
-   MORNING
-   05:00 AM – 11:59 AM
-
-   AFTERNOON
-   12:00 PM – 04:59 PM
-
-   EVENING
-   05:00 PM – 07:59 PM
-
-   NIGHT
-   08:00 PM – 04:59 AM
-========================================================= */
-
-const PERIOD_WINDOWS = {
-
-  morning: {
-    start: 5 * 60,
-    end: 12 * 60
-  },
-
-  afternoon: {
-    start: 12 * 60,
-    end: 17 * 60
-  },
-
-  evening: {
-    start: 17 * 60,
-    end: 20 * 60
-  },
-
-  night: {
-    start: 20 * 60,
-    end: 24 * 60
-  }
-
-};
-
-
-/* =========================================================
-   PAGE ELEMENTS
+   ELEMENTS
 ========================================================= */
 
 const video =
@@ -842,9 +679,6 @@ const timeLabel =
 const soundButton =
   document.getElementById("soundButton");
 
-const soundLabel =
-  document.getElementById("soundLabel");
-
 
 /* =========================================================
    STATE
@@ -858,20 +692,11 @@ let activePlaylist = [];
 
 let isSwitchingVideo = false;
 
-
-/*
-   Sound preference.
-
-   Default = MUTED.
-
-   The visitor can turn sound ON with the button.
-*/
-
 let soundEnabled = false;
 
 
 /* =========================================================
-   GET MINUTES SINCE MIDNIGHT
+   CURRENT MINUTES
 ========================================================= */
 
 function getMinutesNow() {
@@ -887,7 +712,7 @@ function getMinutesNow() {
 
 
 /* =========================================================
-   GET TIME PERIOD
+   CURRENT PERIOD
 ========================================================= */
 
 function getCurrentPeriod() {
@@ -896,50 +721,25 @@ function getCurrentPeriod() {
     getMinutesNow();
 
 
-  /*
-    00:00 – 04:59
-    = NIGHT
-  */
-
-  if (minutes < 5 * 60) {
+  if (minutes < 300) {
     return "night";
   }
 
 
-  /*
-    05:00 – 11:59
-    = MORNING
-  */
-
-  if (minutes < 12 * 60) {
+  if (minutes < 720) {
     return "morning";
   }
 
 
-  /*
-    12:00 – 16:59
-    = AFTERNOON
-  */
-
-  if (minutes < 17 * 60) {
+  if (minutes < 1020) {
     return "afternoon";
   }
 
 
-  /*
-    17:00 – 19:59
-    = EVENING
-  */
-
-  if (minutes < 20 * 60) {
+  if (minutes < 1200) {
     return "evening";
   }
 
-
-  /*
-    20:00 – 23:59
-    = NIGHT
-  */
 
   return "night";
 
@@ -947,17 +747,7 @@ function getCurrentPeriod() {
 
 
 /* =========================================================
-   GET VIDEO FOR CURRENT TIME
-=========================================================
-
-   IMPORTANT:
-
-   Each video stays for the exact time window
-   you specified.
-
-   The video itself is only 4 seconds long,
-   so it loops during its assigned time window.
-
+   EXACT VIDEO SCHEDULE
 ========================================================= */
 
 function getVideoForCurrentTime(period) {
@@ -966,140 +756,54 @@ function getVideoForCurrentTime(period) {
     getMinutesNow();
 
 
+  /* MORNING */
+
   if (period === "morning") {
 
-    /*
-      05:00 – 06:00
-      Video 1
-    */
+    if (minutes < 360) return 0;
 
-    if (minutes < 6 * 60) {
-      return 0;
-    }
+    if (minutes < 480) return 1;
 
-
-    /*
-      06:00 – 08:00
-      Video 2
-    */
-
-    if (minutes < 8 * 60) {
-      return 1;
-    }
-
-
-    /*
-      08:00 – 10:00
-      Video 3
-    */
-
-    if (minutes < 10 * 60) {
-      return 2;
-    }
-
-
-    /*
-      10:00 – 11:59
-      Video 4
-    */
+    if (minutes < 600) return 2;
 
     return 3;
 
   }
 
+
+  /* AFTERNOON */
 
   if (period === "afternoon") {
 
-    /*
-      12:00 – 01:00
-      Video 1
-    */
+    if (minutes < 780) return 0;
 
-    if (minutes < 13 * 60) {
-      return 0;
-    }
+    if (minutes < 870) return 1;
 
-
-    /*
-      01:00 – 02:30
-      Video 2
-    */
-
-    if (minutes < 14 * 60 + 30) {
-      return 1;
-    }
-
-
-    /*
-      02:30 – 04:00
-      Video 3
-    */
-
-    if (minutes < 16 * 60) {
-      return 2;
-    }
-
-
-    /*
-      04:00 – 04:59
-      Video 4
-    */
+    if (minutes < 960) return 2;
 
     return 3;
 
   }
 
 
+  /* EVENING */
+
   if (period === "evening") {
 
-    /*
-      05:00 – 05:45
-      Video 1
-    */
+    if (minutes < 1065) return 0;
 
-    if (minutes < 17 * 60 + 45) {
-      return 0;
-    }
-
-
-    /*
-      05:45 – 07:00
-      Video 2
-    */
-
-    if (minutes < 19 * 60) {
-      return 1;
-    }
-
-
-    /*
-      07:00 – 07:59
-      Video 3
-    */
+    if (minutes < 1140) return 1;
 
     return 2;
 
   }
 
 
-  /*
-    NIGHT
-  */
+  /* NIGHT */
 
-  /*
-    08:00 PM – 11:59 PM
-    Video 1
-  */
-
-  if (minutes >= 20 * 60) {
+  if (minutes >= 1200) {
     return 0;
   }
-
-
-  /*
-    12:00 AM – 04:59 AM
-    Video 2
-  */
 
   return 1;
 
@@ -1107,7 +811,38 @@ function getVideoForCurrentTime(period) {
 
 
 /* =========================================================
-   GREETING TEXT
+   DATE
+========================================================= */
+
+function updateDate() {
+
+  const now = new Date();
+
+
+  day.textContent =
+    now.toLocaleDateString(
+      undefined,
+      {
+        weekday: "long"
+      }
+    ).toUpperCase();
+
+
+  date.textContent =
+    now.toLocaleDateString(
+      undefined,
+      {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
+    ).toUpperCase();
+
+}
+
+
+/* =========================================================
+   GREETING
 ========================================================= */
 
 function updateGreeting(period) {
@@ -1130,20 +865,18 @@ function updateGreeting(period) {
 
     }
 
-
     else if (period === "afternoon") {
 
       wish.textContent =
         "Good Afternoon";
 
       message.textContent =
-        "Take a moment to breathe and be present.";
+        "Take a gentle pause. You have time.";
 
       timeLabel.textContent =
         "AFTERNOON";
 
     }
-
 
     else if (period === "evening") {
 
@@ -1157,7 +890,6 @@ function updateGreeting(period) {
         "EVENING";
 
     }
-
 
     else {
 
@@ -1181,42 +913,7 @@ function updateGreeting(period) {
 
 
 /* =========================================================
-   DATE + DAY
-========================================================= */
-
-function updateDate() {
-
-  const now = new Date();
-
-
-  day.textContent =
-    now
-      .toLocaleDateString(
-        undefined,
-        {
-          weekday: "long"
-        }
-      )
-      .toUpperCase();
-
-
-  date.textContent =
-    now
-      .toLocaleDateString(
-        undefined,
-        {
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        }
-      )
-      .toUpperCase();
-
-}
-
-
-/* =========================================================
-   LOAD ONE VIDEO
+   LOAD VIDEO
 ========================================================= */
 
 function loadVideo(videoIndex) {
@@ -1241,51 +938,18 @@ function loadVideo(videoIndex) {
   isSwitchingVideo = true;
 
 
-  /*
-    STOP CURRENT VIDEO COMPLETELY.
-  */
-
   video.pause();
-
-
-  /*
-    Remove old media source.
-  */
 
   video.removeAttribute("src");
 
-
-  /*
-    Reset media element.
-  */
-
   video.load();
-
-
-  /*
-    Hide during source change.
-  */
 
   video.classList.remove("ready");
 
-
-  /*
-    Set ONLY ONE source.
-  */
-
   video.src = file;
-
-
-  /*
-    Load new source.
-  */
 
   video.load();
 
-
-  /*
-    Wait for the new video to become playable.
-  */
 
   const handleReady = () => {
 
@@ -1295,17 +959,9 @@ function loadVideo(videoIndex) {
     );
 
 
-    /*
-      Apply sound state.
-    */
-
     video.muted =
       !soundEnabled;
 
-
-    /*
-      Start exactly this video.
-    */
 
     const playPromise =
       video.play();
@@ -1356,26 +1012,6 @@ function loadVideo(videoIndex) {
 
 /* =========================================================
    VIDEO ENDED
-=========================================================
-
-   IMPORTANT:
-
-   We DO NOT move to another video when a 4-second
-   video ends.
-
-   We simply replay the same assigned video.
-
-   Example:
-
-   05:00–06:00
-   morning.1 plays
-   ↓
-   ends after 4 sec
-   ↓
-   morning.1 plays again
-   ↓
-   continues until 06:00
-
 ========================================================= */
 
 video.addEventListener(
@@ -1387,21 +1023,17 @@ video.addEventListener(
     }
 
 
-    /*
-      Check whether the time has moved
-      into a different video window.
-    */
-
     const period =
       getCurrentPeriod();
+
 
     const correctIndex =
       getVideoForCurrentTime(period);
 
 
     /*
-      If the assigned video has not changed,
-      replay the SAME video.
+      Same scheduled video:
+      replay it.
     */
 
     if (
@@ -1419,62 +1051,29 @@ video.addEventListener(
 
 
     /*
-      Otherwise load the newly scheduled video.
+      Time window changed:
+      load the correct video.
     */
 
-    changeScheduledVideo(
-      period,
-      correctIndex
-    );
+    activePeriod =
+      period;
+
+    activePlaylist =
+      VIDEO_GROUPS[period];
+
+    activeVideoIndex =
+      correctIndex;
+
+    updateGreeting(period);
+
+    loadVideo(correctIndex);
 
   }
 );
 
 
 /* =========================================================
-   CHANGE SCHEDULED VIDEO
-========================================================= */
-
-function changeScheduledVideo(
-  period,
-  videoIndex
-) {
-
-  if (
-    !VIDEO_GROUPS[period]
-  ) {
-    return;
-  }
-
-
-  const playlist =
-    VIDEO_GROUPS[period];
-
-
-  if (
-    !playlist[videoIndex]
-  ) {
-    return;
-  }
-
-
-  activePeriod =
-    period;
-
-  activePlaylist =
-    playlist;
-
-  activeVideoIndex =
-    videoIndex;
-
-
-  loadVideo(videoIndex);
-
-}
-
-
-/* =========================================================
-   CHECK SCHEDULE
+   SCHEDULE CHECK
 ========================================================= */
 
 function checkSchedule() {
@@ -1484,14 +1083,8 @@ function checkSchedule() {
 
 
   const videoIndex =
-    getVideoForCurrentTime(
-      period
-    );
+    getVideoForCurrentTime(period);
 
-
-  /*
-    Update greeting when period changes.
-  */
 
   if (
     period !== activePeriod
@@ -1508,14 +1101,9 @@ function checkSchedule() {
   }
 
 
-  /*
-    Change video only when its
-    assigned time window changes.
-  */
-
   if (
     videoIndex !== activeVideoIndex ||
-    video.src === ""
+    !video.src
   ) {
 
     activePlaylist =
@@ -1532,59 +1120,8 @@ function checkSchedule() {
 
 
 /* =========================================================
-   SOUND CONTROL
+   SOUND
 ========================================================= */
-
-function updateSoundUI() {
-
-  if (soundEnabled) {
-
-    soundButton.textContent =
-      "🔊";
-
-    soundButton.setAttribute(
-      "aria-label",
-      "Mute sound"
-    );
-
-    soundButton.setAttribute(
-      "title",
-      "Mute sound"
-    );
-
-    soundLabel.textContent =
-      "Sound On";
-
-  }
-
-  else {
-
-    soundButton.textContent =
-      "🔇";
-
-    soundButton.setAttribute(
-      "aria-label",
-      "Turn sound on"
-    );
-
-    soundButton.setAttribute(
-      "title",
-      "Turn sound on"
-    );
-
-    soundLabel.textContent =
-      "Sound Off";
-
-  }
-
-}
-
-
-/*
-  Sound starts MUTED because browsers,
-  especially iPhone/iPad browsers, normally
-  block autoplay with sound.
-*/
 
 soundButton.addEventListener(
   "click",
@@ -1598,48 +1135,37 @@ soundButton.addEventListener(
       !soundEnabled;
 
 
-    updateSoundUI();
+    soundButton.textContent =
+      soundEnabled
+        ? "🔊"
+        : "🔇";
 
 
-    /*
-      When the user explicitly taps the button,
-      the browser allows audio playback.
-    */
+    soundButton.setAttribute(
+      "aria-label",
+      soundEnabled
+        ? "Mute sound"
+        : "Turn sound on"
+    );
 
-    if (
-      video.paused
-    ) {
 
-      video.play().catch(() => {});
-
-    }
+    video.play().catch(() => {});
 
   }
 );
 
 
 /* =========================================================
-   INITIALIZE
+   START
 ========================================================= */
 
 updateDate();
-
-updateSoundUI();
 
 checkSchedule();
 
 
 /* =========================================================
-   CHECK TIME EVERY SECOND
-=========================================================
-
-   This makes transitions exact even if the page
-   remains open around a boundary such as:
-
-   05:59:59 → 06:00:00
-   07:59:59 → 08:00:00
-   19:59:59 → 20:00:00
-
+   CHECK EVERY SECOND
 ========================================================= */
 
 setInterval(
@@ -1655,7 +1181,7 @@ setInterval(
 
 
 /* =========================================================
-   MOBILE / IOS PLAYBACK RECOVERY
+   RETURN FROM BACKGROUND
 ========================================================= */
 
 document.addEventListener(
@@ -1680,7 +1206,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   VIDEO ERROR RECOVERY
+   ERROR
 ========================================================= */
 
 video.addEventListener(
