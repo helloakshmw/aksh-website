@@ -25,7 +25,7 @@
     body {
       overflow: hidden;
       background: #10131d;
-      color: #ffffff;
+      color: #fff;
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -38,21 +38,20 @@
       position: relative;
       width: 100%;
       height: 100svh;
+      min-height: 100vh;
       overflow: hidden;
       background: #10131d;
       isolation: isolate;
     }
 
     /* =====================================================
-       SINGLE VIDEO BACKGROUND
+       ONE VIDEO ELEMENT ONLY
     ===================================================== */
 
     .video-background {
       position: absolute;
       inset: 0;
-      z-index: -3;
-      width: 100%;
-      height: 100%;
+      z-index: -5;
       overflow: hidden;
       background: #10131d;
     }
@@ -65,13 +64,13 @@
       height: 100%;
 
       object-fit: cover;
-      object-position: center;
+      object-position: center center;
 
       display: block;
 
       opacity: 0;
 
-      transition: opacity 1s ease;
+      transition: opacity 0.8s ease;
     }
 
     #backgroundVideo.ready {
@@ -79,10 +78,10 @@
     }
 
     /* =====================================================
-       VIDEO READABILITY OVERLAY
+       CINEMATIC READABILITY
     ===================================================== */
 
-    .overlay {
+    .video-overlay {
       position: absolute;
       inset: 0;
       z-index: 1;
@@ -91,14 +90,14 @@
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.27) 0%,
-          rgba(0, 0, 0, 0.03) 38%,
-          rgba(0, 0, 0, 0.12) 60%,
+          rgba(0, 0, 0, 0.25) 0%,
+          rgba(0, 0, 0, 0.02) 38%,
+          rgba(0, 0, 0, 0.10) 62%,
           rgba(0, 0, 0, 0.48) 100%
         );
     }
 
-    .soft-light {
+    .soft-atmosphere {
       position: absolute;
       inset: 0;
       z-index: 2;
@@ -107,13 +106,13 @@
       background:
         radial-gradient(
           circle at 50% 45%,
-          rgba(255,255,255,0.08),
-          transparent 45%
+          rgba(255, 255, 255, 0.08),
+          transparent 46%
         );
     }
 
     /* =====================================================
-       TOP
+       TOP BAR
     ===================================================== */
 
     .top {
@@ -140,26 +139,38 @@
       justify-content: space-between;
     }
 
+    /* =====================================================
+       AKSH ICON
+    ===================================================== */
+
     .aksh-icon {
       width: 52px;
       height: 52px;
+
       object-fit: contain;
       display: block;
 
       filter:
-        drop-shadow(0 3px 12px rgba(0,0,0,0.3));
+        drop-shadow(0 3px 12px rgba(0, 0, 0, 0.30));
     }
+
+    /* =====================================================
+       DATE + DAY
+    ===================================================== */
 
     .date-box {
       text-align: right;
 
+      color: #fff;
+
       text-shadow:
-        0 2px 14px rgba(0,0,0,0.35);
+        0 2px 14px rgba(0, 0, 0, 0.35);
     }
 
     .day {
       font-size: 10px;
       font-weight: 800;
+
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
@@ -170,11 +181,11 @@
       font-size: 9px;
       letter-spacing: 0.05em;
 
-      opacity: 0.8;
+      opacity: 0.82;
     }
 
     /* =====================================================
-       CENTER
+       CENTER ARRIVAL
     ===================================================== */
 
     .center {
@@ -188,6 +199,7 @@
 
       display: flex;
       flex-direction: column;
+
       align-items: center;
       justify-content: center;
 
@@ -207,10 +219,10 @@
       letter-spacing: 0.28em;
       text-transform: uppercase;
 
-      color: rgba(255,255,255,0.9);
+      color: rgba(255, 255, 255, 0.90);
 
       text-shadow:
-        0 2px 15px rgba(0,0,0,0.4);
+        0 2px 15px rgba(0, 0, 0, 0.40);
     }
 
     .wish {
@@ -227,14 +239,14 @@
 
       letter-spacing: -0.055em;
 
-      color: #ffffff;
+      color: #fff;
 
       text-shadow:
-        0 4px 30px rgba(0,0,0,0.3);
+        0 4px 30px rgba(0, 0, 0, 0.30);
 
       transition:
-        opacity 0.4s ease,
-        transform 0.4s ease;
+        opacity 0.35s ease,
+        transform 0.35s ease;
     }
 
     .wish.changing {
@@ -243,7 +255,7 @@
     }
 
     .message {
-      max-width: 490px;
+      max-width: 500px;
 
       margin-top: 21px;
 
@@ -256,34 +268,35 @@
 
       line-height: 1.35;
 
-      color: rgba(255,255,255,0.94);
+      color: rgba(255, 255, 255, 0.95);
 
       text-shadow:
-        0 3px 20px rgba(0,0,0,0.35);
+        0 3px 20px rgba(0, 0, 0, 0.35);
     }
 
     .sub-message {
-      max-width: 420px;
+      max-width: 430px;
 
       margin-top: 14px;
 
       font-size: 11px;
       line-height: 1.7;
 
-      color: rgba(255,255,255,0.8);
+      color: rgba(255, 255, 255, 0.82);
 
       text-shadow:
-        0 2px 12px rgba(0,0,0,0.4);
+        0 2px 12px rgba(0, 0, 0, 0.40);
     }
 
     /* =====================================================
-       ENTER
+       ENTER BUTTON
     ===================================================== */
 
     .enter {
       margin-top: 28px;
 
       display: inline-flex;
+
       align-items: center;
       gap: 12px;
 
@@ -291,7 +304,7 @@
 
       border-radius: 999px;
 
-      background: rgba(255,255,255,0.94);
+      background: rgba(255, 255, 255, 0.94);
 
       color: #34283c;
 
@@ -300,11 +313,11 @@
       font-size: 9px;
       font-weight: 800;
 
-      letter-spacing: 0.1em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
 
       box-shadow:
-        0 15px 40px rgba(0,0,0,0.22);
+        0 15px 40px rgba(0, 0, 0, 0.22);
 
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -316,7 +329,7 @@
 
     .enter:hover {
       transform: translateY(-3px);
-      background: #ffffff;
+      background: #fff;
     }
 
     .arrow {
@@ -329,17 +342,102 @@
 
       border-radius: 50%;
 
-      background: rgba(70,45,82,0.1);
+      background: rgba(70, 45, 82, 0.10);
 
       font-size: 14px;
     }
 
     /* =====================================================
-       ATMOSPHERE LABEL
+       SOUND BUTTON
+    ===================================================== */
+
+    .sound-button {
+      position: absolute;
+
+      z-index: 20;
+
+      left: 24px;
+      bottom: 24px;
+
+      width: 44px;
+      height: 44px;
+
+      border: 1px solid rgba(255,255,255,0.30);
+
+      border-radius: 50%;
+
+      background: rgba(0,0,0,0.22);
+
+      color: #fff;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      font-size: 17px;
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      box-shadow:
+        0 8px 25px rgba(0,0,0,0.18);
+
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .sound-button:hover {
+      transform: scale(1.06);
+      background: rgba(0,0,0,0.35);
+    }
+
+    .sound-label {
+      position: absolute;
+
+      left: 52px;
+      bottom: 0;
+
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+
+      white-space: nowrap;
+
+      font-size: 8px;
+      font-weight: 700;
+
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+
+      color: rgba(255,255,255,0.72);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transform: translateX(-5px);
+
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .sound-control:hover .sound-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* =====================================================
+       CURRENT TIME PERIOD
     ===================================================== */
 
     .time-label {
       position: absolute;
+
       z-index: 10;
 
       right: 24px;
@@ -354,7 +452,7 @@
       color: rgba(255,255,255,0.62);
 
       text-shadow:
-        0 2px 10px rgba(0,0,0,0.4);
+        0 2px 10px rgba(0,0,0,0.40);
     }
 
     /* =====================================================
@@ -363,6 +461,7 @@
 
     .loading {
       position: absolute;
+
       z-index: 30;
 
       inset: 0;
@@ -392,7 +491,7 @@
 
       margin-left: 0.38em;
 
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.90);
     }
 
     /* =====================================================
@@ -437,6 +536,15 @@
         font-size: 10px;
       }
 
+      .sound-button {
+        left: 16px;
+        bottom: max(16px, env(safe-area-inset-bottom));
+      }
+
+      .sound-label {
+        display: none;
+      }
+
       .time-label {
         display: none;
       }
@@ -469,628 +577,1124 @@
 
 <body>
 
-  <section class="arrival">
+<section class="arrival">
 
-    <!-- ===================================================
-         ONE VIDEO ELEMENT ONLY
-    ==================================================== -->
+  <!-- ===================================================
+       ONE VIDEO ELEMENT ONLY
+  ==================================================== -->
 
-    <div class="video-background">
+  <div class="video-background">
 
-      <video
-        id="backgroundVideo"
-        muted
-        playsinline
-        preload="auto"
-      ></video>
+    <video
+      id="backgroundVideo"
+      muted
+      playsinline
+      preload="auto"
+    ></video>
 
-      <div class="overlay"></div>
-      <div class="soft-light"></div>
+    <div class="video-overlay"></div>
+
+    <div class="soft-atmosphere"></div>
+
+  </div>
+
+
+  <!-- ===================================================
+       LOADING
+  ==================================================== -->
+
+  <div
+    class="loading"
+    id="loading"
+  >
+    <div class="loading-text">
+      AKSH
+    </div>
+  </div>
+
+
+  <!-- ===================================================
+       TOP
+  ==================================================== -->
+
+  <header class="top">
+
+    <div class="top-inner">
+
+      <img
+        src="aksh-icon.PNG"
+        alt="AKSH"
+        class="aksh-icon"
+      >
+
+      <div class="date-box">
+
+        <div
+          class="day"
+          id="day"
+        ></div>
+
+        <div
+          class="date"
+          id="date"
+        ></div>
+
+      </div>
 
     </div>
 
+  </header>
 
-    <!-- ===================================================
-         LOADING
-    ==================================================== -->
+
+  <!-- ===================================================
+       ARRIVAL MESSAGE
+  ==================================================== -->
+
+  <main class="center">
+
+    <div class="welcome">
+      Welcome to AKSH
+    </div>
+
+    <h1
+      class="wish"
+      id="wish"
+    >
+      Good Morning
+    </h1>
 
     <div
-      class="loading"
-      id="loading"
+      class="message"
+      id="message"
     >
-      <div class="loading-text">
-        AKSH
-      </div>
+      May today feel a little lighter.
     </div>
 
+    <p class="sub-message">
+      Take a breath before you begin.
+      There is no rush here.
+      You can arrive exactly as you are.
+    </p>
 
-    <!-- ===================================================
-         TOP
-    ==================================================== -->
-
-    <header class="top">
-
-      <div class="top-inner">
-
-        <img
-          src="aksh-icon.PNG"
-          alt="AKSH"
-          class="aksh-icon"
-        >
-
-        <div class="date-box">
-
-          <div
-            class="day"
-            id="day"
-          ></div>
-
-          <div
-            class="date"
-            id="date"
-          ></div>
-
-        </div>
-
-      </div>
-
-    </header>
-
-
-    <!-- ===================================================
-         ARRIVAL
-    ==================================================== -->
-
-    <main class="center">
-
-      <div class="welcome">
-        Welcome to AKSH
-      </div>
-
-      <h1
-        class="wish"
-        id="wish"
-      >
-        Good Morning
-      </h1>
-
-      <div
-        class="message"
-        id="message"
-      >
-        May today feel a little lighter.
-      </div>
-
-      <p class="sub-message">
-        Take a breath before you begin.
-        There is no rush here.
-        You can arrive exactly as you are.
-      </p>
-
-      <a
-        href="page1.html"
-        class="enter"
-      >
-        Enter AKSH
-
-        <span class="arrow">
-          →
-        </span>
-      </a>
-
-    </main>
-
-
-    <!-- ===================================================
-         PERIOD
-    ==================================================== -->
-
-    <div
-      class="time-label"
-      id="timeLabel"
+    <a
+      href="page1.html"
+      class="enter"
     >
-      MORNING
-    </div>
+      Enter AKSH
 
-  </section>
+      <span class="arrow">
+        →
+      </span>
+    </a>
 
-
-  <script>
-
-    /* =====================================================
-       VIDEO FILES
-    ===================================================== */
-
-    const VIDEO_GROUPS = {
-
-      morning: [
-        "aksh-morning.1.mov",
-        "aksh-morning.2.mov",
-        "aksh-morning.3.mov",
-        "aksh-morning.4.mov"
-      ],
-
-      afternoon: [
-        "aksh-afternoon.1.mov",
-        "aksh-afternoon.2.mov",
-        "aksh-afternoon.3.mov",
-        "aksh-afternoon.4.mov"
-      ],
-
-      evening: [
-        "aksh-evening.1.mov",
-        "aksh-evening.2.mov",
-        "aksh-evening.3.mov"
-      ],
-
-      night: [
-        "aksh-night.1.mov",
-        "aksh-night.2.mov"
-      ]
-
-    };
+  </main>
 
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+  <!-- ===================================================
+       SOUND CONTROL
+  ==================================================== -->
 
-    const video =
-      document.getElementById("backgroundVideo");
+  <div class="sound-control">
 
-    const loading =
-      document.getElementById("loading");
+    <button
+      type="button"
+      class="sound-button"
+      id="soundButton"
+      aria-label="Turn sound on"
+      title="Turn sound on"
+    >
+      🔇
+    </button>
 
-    const wish =
-      document.getElementById("wish");
+    <span
+      class="sound-label"
+      id="soundLabel"
+    >
+      Sound Off
+    </span>
 
-    const message =
-      document.getElementById("message");
-
-    const timeLabel =
-      document.getElementById("timeLabel");
-
-    const day =
-      document.getElementById("day");
-
-    const date =
-      document.getElementById("date");
-
-
-    /* =====================================================
-       STATE
-    ===================================================== */
-
-    let activePeriod = null;
-
-    let activePlaylist = [];
-
-    let activeIndex = 0;
-
-    let changingVideo = false;
+  </div>
 
 
-    /* =====================================================
-       DETERMINE TIME PERIOD
-    ===================================================== */
+  <!-- ===================================================
+       TIME PERIOD
+  ==================================================== -->
 
-    function getCurrentPeriod() {
+  <div
+    class="time-label"
+    id="timeLabel"
+  >
+    MORNING
+  </div>
 
-      const now = new Date();
-
-      const hour = now.getHours();
-
-      const minute = now.getMinutes();
-
-
-      if (hour >= 5 && hour < 12) {
-        return "morning";
-      }
+</section>
 
 
-      if (hour >= 12 && hour < 17) {
-        return "afternoon";
-      }
+<script>
+
+/* =========================================================
+   AKSH PAGE 0
+   TIME-BASED VIDEO SYSTEM
+========================================================= */
 
 
-      if (
-        hour >= 17 &&
-        (
-          hour < 19 ||
-          (hour === 19 && minute < 30)
-        )
-      ) {
-        return "evening";
-      }
+/* =========================================================
+   VIDEO FILES
+========================================================= */
+
+const VIDEO_GROUPS = {
+
+  morning: [
+    "aksh-morning.1.mov",
+    "aksh-morning.2.mov",
+    "aksh-morning.3.mov",
+    "aksh-morning.4.mov"
+  ],
+
+  afternoon: [
+    "aksh-afternoon.1.mov",
+    "aksh-afternoon.2.mov",
+    "aksh-afternoon.3.mov",
+    "aksh-afternoon.4.mov"
+  ],
+
+  evening: [
+    "aksh-evening.1.mov",
+    "aksh-evening.2.mov",
+    "aksh-evening.3.mov"
+  ],
+
+  night: [
+    "aksh-night.1.mov",
+    "aksh-night.2.mov"
+  ]
+
+};
 
 
-      return "night";
+/* =========================================================
+   TIME WINDOWS
+=========================================================
+
+   MORNING
+   05:00 AM – 11:59 AM
+
+   AFTERNOON
+   12:00 PM – 04:59 PM
+
+   EVENING
+   05:00 PM – 07:59 PM
+
+   NIGHT
+   08:00 PM – 04:59 AM
+========================================================= */
+
+const PERIOD_WINDOWS = {
+
+  morning: {
+    start: 5 * 60,
+    end: 12 * 60
+  },
+
+  afternoon: {
+    start: 12 * 60,
+    end: 17 * 60
+  },
+
+  evening: {
+    start: 17 * 60,
+    end: 20 * 60
+  },
+
+  night: {
+    start: 20 * 60,
+    end: 24 * 60
+  }
+
+};
+
+
+/* =========================================================
+   PAGE ELEMENTS
+========================================================= */
+
+const video =
+  document.getElementById("backgroundVideo");
+
+const loading =
+  document.getElementById("loading");
+
+const wish =
+  document.getElementById("wish");
+
+const message =
+  document.getElementById("message");
+
+const day =
+  document.getElementById("day");
+
+const date =
+  document.getElementById("date");
+
+const timeLabel =
+  document.getElementById("timeLabel");
+
+const soundButton =
+  document.getElementById("soundButton");
+
+const soundLabel =
+  document.getElementById("soundLabel");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let activePeriod = null;
+
+let activeVideoIndex = -1;
+
+let activePlaylist = [];
+
+let isSwitchingVideo = false;
+
+
+/*
+   Sound preference.
+
+   Default = MUTED.
+
+   The visitor can turn sound ON with the button.
+*/
+
+let soundEnabled = false;
+
+
+/* =========================================================
+   GET MINUTES SINCE MIDNIGHT
+========================================================= */
+
+function getMinutesNow() {
+
+  const now = new Date();
+
+  return (
+    now.getHours() * 60 +
+    now.getMinutes()
+  );
+
+}
+
+
+/* =========================================================
+   GET TIME PERIOD
+========================================================= */
+
+function getCurrentPeriod() {
+
+  const minutes =
+    getMinutesNow();
+
+
+  /*
+    00:00 – 04:59
+    = NIGHT
+  */
+
+  if (minutes < 5 * 60) {
+    return "night";
+  }
+
+
+  /*
+    05:00 – 11:59
+    = MORNING
+  */
+
+  if (minutes < 12 * 60) {
+    return "morning";
+  }
+
+
+  /*
+    12:00 – 16:59
+    = AFTERNOON
+  */
+
+  if (minutes < 17 * 60) {
+    return "afternoon";
+  }
+
+
+  /*
+    17:00 – 19:59
+    = EVENING
+  */
+
+  if (minutes < 20 * 60) {
+    return "evening";
+  }
+
+
+  /*
+    20:00 – 23:59
+    = NIGHT
+  */
+
+  return "night";
+
+}
+
+
+/* =========================================================
+   GET VIDEO FOR CURRENT TIME
+=========================================================
+
+   IMPORTANT:
+
+   Each video stays for the exact time window
+   you specified.
+
+   The video itself is only 4 seconds long,
+   so it loops during its assigned time window.
+
+========================================================= */
+
+function getVideoForCurrentTime(period) {
+
+  const minutes =
+    getMinutesNow();
+
+
+  if (period === "morning") {
+
+    /*
+      05:00 – 06:00
+      Video 1
+    */
+
+    if (minutes < 6 * 60) {
+      return 0;
+    }
+
+
+    /*
+      06:00 – 08:00
+      Video 2
+    */
+
+    if (minutes < 8 * 60) {
+      return 1;
+    }
+
+
+    /*
+      08:00 – 10:00
+      Video 3
+    */
+
+    if (minutes < 10 * 60) {
+      return 2;
+    }
+
+
+    /*
+      10:00 – 11:59
+      Video 4
+    */
+
+    return 3;
+
+  }
+
+
+  if (period === "afternoon") {
+
+    /*
+      12:00 – 01:00
+      Video 1
+    */
+
+    if (minutes < 13 * 60) {
+      return 0;
+    }
+
+
+    /*
+      01:00 – 02:30
+      Video 2
+    */
+
+    if (minutes < 14 * 60 + 30) {
+      return 1;
+    }
+
+
+    /*
+      02:30 – 04:00
+      Video 3
+    */
+
+    if (minutes < 16 * 60) {
+      return 2;
+    }
+
+
+    /*
+      04:00 – 04:59
+      Video 4
+    */
+
+    return 3;
+
+  }
+
+
+  if (period === "evening") {
+
+    /*
+      05:00 – 05:45
+      Video 1
+    */
+
+    if (minutes < 17 * 60 + 45) {
+      return 0;
+    }
+
+
+    /*
+      05:45 – 07:00
+      Video 2
+    */
+
+    if (minutes < 19 * 60) {
+      return 1;
+    }
+
+
+    /*
+      07:00 – 07:59
+      Video 3
+    */
+
+    return 2;
+
+  }
+
+
+  /*
+    NIGHT
+  */
+
+  /*
+    08:00 PM – 11:59 PM
+    Video 1
+  */
+
+  if (minutes >= 20 * 60) {
+    return 0;
+  }
+
+
+  /*
+    12:00 AM – 04:59 AM
+    Video 2
+  */
+
+  return 1;
+
+}
+
+
+/* =========================================================
+   GREETING TEXT
+========================================================= */
+
+function updateGreeting(period) {
+
+  wish.classList.add("changing");
+
+
+  setTimeout(() => {
+
+    if (period === "morning") {
+
+      wish.textContent =
+        "Good Morning";
+
+      message.textContent =
+        "May today feel a little lighter.";
+
+      timeLabel.textContent =
+        "MORNING";
 
     }
 
 
-    /* =====================================================
-       UPDATE DATE
-    ===================================================== */
+    else if (period === "afternoon") {
 
-    function updateDate() {
+      wish.textContent =
+        "Good Afternoon";
 
-      const now = new Date();
+      message.textContent =
+        "Take a moment to breathe and be present.";
 
-
-      day.textContent =
-        now.toLocaleDateString(
-          undefined,
-          {
-            weekday: "long"
-          }
-        ).toUpperCase();
-
-
-      date.textContent =
-        now.toLocaleDateString(
-          undefined,
-          {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-          }
-        ).toUpperCase();
+      timeLabel.textContent =
+        "AFTERNOON";
 
     }
 
 
-    /* =====================================================
-       UPDATE GREETING
-    ===================================================== */
+    else if (period === "evening") {
 
-    function updateGreeting(period) {
+      wish.textContent =
+        "Good Evening";
 
-      wish.classList.add("changing");
+      message.textContent =
+        "Let the day slow down around you.";
 
-
-      setTimeout(() => {
-
-        if (period === "morning") {
-
-          wish.textContent = "Good Morning";
-
-          message.textContent =
-            "May today feel a little lighter.";
-
-          timeLabel.textContent =
-            "MORNING";
-
-        }
-
-
-        else if (period === "afternoon") {
-
-          wish.textContent = "Good Afternoon";
-
-          message.textContent =
-            "Take a moment to breathe and be present.";
-
-          timeLabel.textContent =
-            "AFTERNOON";
-
-        }
-
-
-        else if (period === "evening") {
-
-          wish.textContent = "Good Evening";
-
-          message.textContent =
-            "Let the day slow down around you.";
-
-          timeLabel.textContent =
-            "EVENING";
-
-        }
-
-
-        else {
-
-          wish.textContent = "Good Night";
-
-          message.textContent =
-            "May tonight bring you some peace.";
-
-          timeLabel.textContent =
-            "NIGHT";
-
-        }
-
-
-        wish.classList.remove("changing");
-
-      }, 400);
+      timeLabel.textContent =
+        "EVENING";
 
     }
 
 
-    /* =====================================================
-       PLAY ONE VIDEO
-       
-       IMPORTANT:
-       - Stop current video
-       - Clear old source
-       - Assign ONE new source
-       - Load
-       - Play
-       
-       There is NEVER a second video element.
-    ===================================================== */
+    else {
 
-    function playVideo(index) {
+      wish.textContent =
+        "Good Night";
 
-      if (
-        changingVideo ||
-        !activePlaylist.length
-      ) {
-        return;
-      }
+      message.textContent =
+        "May tonight bring you some peace.";
+
+      timeLabel.textContent =
+        "NIGHT";
+
+    }
 
 
-      changingVideo = true;
+    wish.classList.remove("changing");
+
+  }, 350);
+
+}
 
 
-      const nextFile =
-        activePlaylist[index];
+/* =========================================================
+   DATE + DAY
+========================================================= */
+
+function updateDate() {
+
+  const now = new Date();
 
 
-      /*
-        Completely stop the currently playing video.
-      */
-
-      video.pause();
-
-
-      /*
-        Remove the old media source.
-      */
-
-      video.removeAttribute("src");
-
-      video.load();
-
-
-      /*
-        Small fade while switching.
-      */
-
-      video.classList.remove("ready");
-
-
-      /*
-        Set ONLY the next file.
-      */
-
-      video.src = nextFile;
-
-      video.load();
-
-
-      /*
-        Wait until the new video can actually play.
-      */
-
-      const startNewVideo = () => {
-
-        video.removeEventListener(
-          "canplay",
-          startNewVideo
-        );
-
-
-        const promise =
-          video.play();
-
-
-        if (promise) {
-
-          promise
-            .catch(() => {})
-            .finally(() => {
-
-              video.classList.add("ready");
-
-              loading.classList.add("hidden");
-
-              changingVideo = false;
-
-            });
-
+  day.textContent =
+    now
+      .toLocaleDateString(
+        undefined,
+        {
+          weekday: "long"
         }
+      )
+      .toUpperCase();
 
-        else {
+
+  date.textContent =
+    now
+      .toLocaleDateString(
+        undefined,
+        {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }
+      )
+      .toUpperCase();
+
+}
+
+
+/* =========================================================
+   LOAD ONE VIDEO
+========================================================= */
+
+function loadVideo(videoIndex) {
+
+  if (
+    !activePlaylist.length ||
+    isSwitchingVideo
+  ) {
+    return;
+  }
+
+
+  const file =
+    activePlaylist[videoIndex];
+
+
+  if (!file) {
+    return;
+  }
+
+
+  isSwitchingVideo = true;
+
+
+  /*
+    STOP CURRENT VIDEO COMPLETELY.
+  */
+
+  video.pause();
+
+
+  /*
+    Remove old media source.
+  */
+
+  video.removeAttribute("src");
+
+
+  /*
+    Reset media element.
+  */
+
+  video.load();
+
+
+  /*
+    Hide during source change.
+  */
+
+  video.classList.remove("ready");
+
+
+  /*
+    Set ONLY ONE source.
+  */
+
+  video.src = file;
+
+
+  /*
+    Load new source.
+  */
+
+  video.load();
+
+
+  /*
+    Wait for the new video to become playable.
+  */
+
+  const handleReady = () => {
+
+    video.removeEventListener(
+      "canplay",
+      handleReady
+    );
+
+
+    /*
+      Apply sound state.
+    */
+
+    video.muted =
+      !soundEnabled;
+
+
+    /*
+      Start exactly this video.
+    */
+
+    const playPromise =
+      video.play();
+
+
+    if (
+      playPromise &&
+      typeof playPromise.then === "function"
+    ) {
+
+      playPromise
+        .catch(() => {})
+        .finally(() => {
 
           video.classList.add("ready");
 
           loading.classList.add("hidden");
 
-          changingVideo = false;
+          isSwitchingVideo = false;
 
-        }
+        });
 
-      };
+    }
+
+    else {
+
+      video.classList.add("ready");
+
+      loading.classList.add("hidden");
+
+      isSwitchingVideo = false;
+
+    }
+
+  };
 
 
-      video.addEventListener(
-        "canplay",
-        startNewVideo,
-        {
-          once: true
-        }
-      );
+  video.addEventListener(
+    "canplay",
+    handleReady,
+    {
+      once: true
+    }
+  );
+
+}
+
+
+/* =========================================================
+   VIDEO ENDED
+=========================================================
+
+   IMPORTANT:
+
+   We DO NOT move to another video when a 4-second
+   video ends.
+
+   We simply replay the same assigned video.
+
+   Example:
+
+   05:00–06:00
+   morning.1 plays
+   ↓
+   ends after 4 sec
+   ↓
+   morning.1 plays again
+   ↓
+   continues until 06:00
+
+========================================================= */
+
+video.addEventListener(
+  "ended",
+  () => {
+
+    if (isSwitchingVideo) {
+      return;
+    }
+
+
+    /*
+      Check whether the time has moved
+      into a different video window.
+    */
+
+    const period =
+      getCurrentPeriod();
+
+    const correctIndex =
+      getVideoForCurrentTime(period);
+
+
+    /*
+      If the assigned video has not changed,
+      replay the SAME video.
+    */
+
+    if (
+      period === activePeriod &&
+      correctIndex === activeVideoIndex
+    ) {
+
+      video.currentTime = 0;
+
+      video.play().catch(() => {});
+
+      return;
 
     }
 
 
-    /* =====================================================
-       VIDEO ENDED
-       
-       Move to the next file only after the current
-       video has completely ended.
-    ===================================================== */
+    /*
+      Otherwise load the newly scheduled video.
+    */
 
-    video.addEventListener(
-      "ended",
-      () => {
+    changeScheduledVideo(
+      period,
+      correctIndex
+    );
 
-        if (!activePlaylist.length) {
-          return;
-        }
+  }
+);
 
 
-        if (changingVideo) {
-          return;
-        }
+/* =========================================================
+   CHANGE SCHEDULED VIDEO
+========================================================= */
+
+function changeScheduledVideo(
+  period,
+  videoIndex
+) {
+
+  if (
+    !VIDEO_GROUPS[period]
+  ) {
+    return;
+  }
 
 
-        activeIndex++;
+  const playlist =
+    VIDEO_GROUPS[period];
 
 
-        if (
-          activeIndex >=
-          activePlaylist.length
-        ) {
-
-          activeIndex = 0;
-
-        }
+  if (
+    !playlist[videoIndex]
+  ) {
+    return;
+  }
 
 
-        playVideo(activeIndex);
+  activePeriod =
+    period;
 
-      }
+  activePlaylist =
+    playlist;
+
+  activeVideoIndex =
+    videoIndex;
+
+
+  loadVideo(videoIndex);
+
+}
+
+
+/* =========================================================
+   CHECK SCHEDULE
+========================================================= */
+
+function checkSchedule() {
+
+  const period =
+    getCurrentPeriod();
+
+
+  const videoIndex =
+    getVideoForCurrentTime(
+      period
     );
 
 
-    /* =====================================================
-       CHANGE PERIOD
-    ===================================================== */
+  /*
+    Update greeting when period changes.
+  */
 
-    function updatePeriod() {
+  if (
+    period !== activePeriod
+  ) {
 
-      const period =
-        getCurrentPeriod();
+    activePeriod =
+      period;
 
+    activePlaylist =
+      VIDEO_GROUPS[period];
 
-      updateDate();
+    updateGreeting(period);
 
-
-      /*
-        Nothing changes if we're still
-        inside the same period.
-      */
-
-      if (period === activePeriod) {
-        return;
-      }
+  }
 
 
-      activePeriod = period;
+  /*
+    Change video only when its
+    assigned time window changes.
+  */
+
+  if (
+    videoIndex !== activeVideoIndex ||
+    video.src === ""
+  ) {
+
+    activePlaylist =
+      VIDEO_GROUPS[period];
+
+    activeVideoIndex =
+      videoIndex;
+
+    loadVideo(videoIndex);
+
+  }
+
+}
 
 
-      activePlaylist =
-        VIDEO_GROUPS[period];
+/* =========================================================
+   SOUND CONTROL
+========================================================= */
+
+function updateSoundUI() {
+
+  if (soundEnabled) {
+
+    soundButton.textContent =
+      "🔊";
+
+    soundButton.setAttribute(
+      "aria-label",
+      "Mute sound"
+    );
+
+    soundButton.setAttribute(
+      "title",
+      "Mute sound"
+    );
+
+    soundLabel.textContent =
+      "Sound On";
+
+  }
+
+  else {
+
+    soundButton.textContent =
+      "🔇";
+
+    soundButton.setAttribute(
+      "aria-label",
+      "Turn sound on"
+    );
+
+    soundButton.setAttribute(
+      "title",
+      "Turn sound on"
+    );
+
+    soundLabel.textContent =
+      "Sound Off";
+
+  }
+
+}
 
 
-      activeIndex = 0;
+/*
+  Sound starts MUTED because browsers,
+  especially iPhone/iPad browsers, normally
+  block autoplay with sound.
+*/
+
+soundButton.addEventListener(
+  "click",
+  () => {
+
+    soundEnabled =
+      !soundEnabled;
 
 
-      updateGreeting(period);
+    video.muted =
+      !soundEnabled;
 
 
-      /*
-        Only now change the video.
-      */
+    updateSoundUI();
 
-      playVideo(activeIndex);
+
+    /*
+      When the user explicitly taps the button,
+      the browser allows audio playback.
+    */
+
+    if (
+      video.paused
+    ) {
+
+      video.play().catch(() => {});
 
     }
 
+  }
+);
 
-    /* =====================================================
-       START PAGE
-    ===================================================== */
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+updateDate();
+
+updateSoundUI();
+
+checkSchedule();
+
+
+/* =========================================================
+   CHECK TIME EVERY SECOND
+=========================================================
+
+   This makes transitions exact even if the page
+   remains open around a boundary such as:
+
+   05:59:59 → 06:00:00
+   07:59:59 → 08:00:00
+   19:59:59 → 20:00:00
+
+========================================================= */
+
+setInterval(
+  () => {
 
     updateDate();
 
-    updatePeriod();
+    checkSchedule();
+
+  },
+  1000
+);
 
 
-    /* =====================================================
-       CHECK TIME EVERY MINUTE
-    ===================================================== */
+/* =========================================================
+   MOBILE / IOS PLAYBACK RECOVERY
+========================================================= */
 
-    setInterval(
-      updatePeriod,
-      60000
-    );
+document.addEventListener(
+  "visibilitychange",
+  () => {
 
+    if (
+      !document.hidden &&
+      video.src &&
+      video.paused
+    ) {
 
-    /* =====================================================
-       MOBILE AUTOPLAY RECOVERY
-    ===================================================== */
+      video.muted =
+        !soundEnabled;
 
-    document.addEventListener(
-      "visibilitychange",
-      () => {
+      video.play().catch(() => {});
 
-        if (
-          !document.hidden &&
-          video.paused &&
-          video.src
-        ) {
+    }
 
-          video.play().catch(() => {});
-
-        }
-
-      }
-    );
+  }
+);
 
 
-    /* =====================================================
-       IF VIDEO LOAD FAILS
-    ===================================================== */
+/* =========================================================
+   VIDEO ERROR RECOVERY
+========================================================= */
 
-    video.addEventListener(
-      "error",
-      () => {
+video.addEventListener(
+  "error",
+  () => {
 
-        changingVideo = false;
+    isSwitchingVideo = false;
 
-        /*
-          Try the next video instead of leaving
-          the screen broken.
-        */
+    loading.classList.add("hidden");
 
-        if (activePlaylist.length > 1) {
+  }
+);
 
-          activeIndex++;
-
-          if (
-            activeIndex >=
-            activePlaylist.length
-          ) {
-            activeIndex = 0;
-          }
-
-          setTimeout(
-            () => playVideo(activeIndex),
-            800
-          );
-
-        }
-
-      }
-    );
-
-  </script>
+</script>
 
 </body>
 </html>
