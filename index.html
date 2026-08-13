@@ -2,18 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#10100e">
-<meta name="description" content="AKSH — A Safe Space For Every Mind">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#7ca9d8">
 <title>AKSH — A Safe Space For Every Mind</title>
 
 <style>
-:root{
-  --safe-top:env(safe-area-inset-top,0px);
-  --safe-bottom:env(safe-area-inset-bottom,0px);
-  --side:clamp(22px,5vw,64px);
-}
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -22,417 +15,661 @@
 
 html,body{
   width:100%;
-  height:100%;
-  overflow:hidden;
-  background:#10100e;
+  min-height:100%;
+  overflow-x:hidden;
 }
 
 body{
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:Arial,Helvetica,sans-serif;
   color:#fff;
-  -webkit-font-smoothing:antialiased;
+  background:#11131d;
 }
 
-button{
-  font:inherit;
-  -webkit-tap-highlight-color:transparent;
-}
+/* =========================================================
+   PAGE
+========================================================= */
 
-.entry{
+#aksh-page{
   position:relative;
-  width:100%;
-  height:100dvh;
   min-height:100svh;
+  width:100%;
   overflow:hidden;
   isolation:isolate;
-  background:#10100e;
 }
 
-/* VIDEO */
+/* =========================================================
+   TIME SKY
+========================================================= */
 
-.video{
+.sky{
   position:absolute;
   inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  background:#10100e;
-  opacity:0;
-  transform:scale(1.025);
-  transition:opacity 1.3s ease,transform 8s ease;
-  z-index:-5;
+  z-index:-10;
+  overflow:hidden;
+  transition:
+    background 2.5s ease,
+    filter 2.5s ease;
 }
 
-.video.show{
-  opacity:1;
-  transform:scale(1);
-}
-
-.overlay{
-  position:absolute;
-  inset:0;
-  z-index:-4;
-  pointer-events:none;
+/* Morning */
+.sky.morning{
   background:
     linear-gradient(
       180deg,
-      rgba(0,0,0,.48) 0%,
-      rgba(0,0,0,.10) 30%,
-      rgba(0,0,0,.08) 55%,
-      rgba(0,0,0,.56) 100%
+      #77aee2 0%,
+      #a9d4f0 42%,
+      #dcebf4 72%,
+      #f4d9c4 100%
     );
 }
 
-.vignette{
-  position:absolute;
-  inset:0;
-  z-index:-3;
-  pointer-events:none;
+/* Afternoon */
+.sky.afternoon{
+  background:
+    linear-gradient(
+      180deg,
+      #7eb3dc 0%,
+      #f1b36f 58%,
+      #ed9863 78%,
+      #df805d 100%
+    );
+}
+
+/* Evening */
+.sky.evening{
+  background:
+    linear-gradient(
+      180deg,
+      #5e608e 0%,
+      #8b709b 35%,
+      #c18ba4 65%,
+      #e7a98f 100%
+    );
+}
+
+/* Night */
+.sky.night{
   background:
     radial-gradient(
-      ellipse at center,
-      transparent 25%,
-      rgba(0,0,0,.10) 62%,
-      rgba(0,0,0,.40) 100%
+      circle at 75% 18%,
+      rgba(176,178,255,.24),
+      transparent 18%
+    ),
+    linear-gradient(
+      180deg,
+      #080c25 0%,
+      #11133a 45%,
+      #24183f 72%,
+      #3d2350 100%
     );
 }
 
-/* TOP */
+/* =========================================================
+   SUN
+========================================================= */
 
-.top{
+.sun{
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  z-index:5;
-  padding:
-    calc(var(--safe-top) + 24px)
-    var(--side)
-    0;
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
+  width:clamp(90px,13vw,170px);
+  height:clamp(90px,13vw,170px);
+  border-radius:50%;
+  right:11%;
+  top:13%;
+  background:
+    radial-gradient(
+      circle,
+      #fffbe2 0%,
+      #ffe9a5 45%,
+      rgba(255,213,119,.3) 68%,
+      transparent 72%
+    );
+  filter:blur(.2px);
+  opacity:.9;
+  transition:opacity 2s ease;
 }
 
-.date{
+.night .sun{
+  opacity:0;
+}
+
+/* =========================================================
+   MOON
+========================================================= */
+
+.moon{
+  position:absolute;
+  width:92px;
+  height:92px;
+  right:12%;
+  top:12%;
+  border-radius:50%;
+  background:#fffde9;
+  box-shadow:
+    0 0 20px rgba(255,255,220,.75),
+    0 0 60px rgba(194,205,255,.35),
+    0 0 120px rgba(170,184,255,.18);
+  opacity:0;
+  transition:opacity 2s ease;
+}
+
+.moon:after{
+  content:"";
+  position:absolute;
+  width:92px;
+  height:92px;
+  border-radius:50%;
+  background:#11133a;
+  left:-28px;
+  top:-12px;
+}
+
+.night .moon{
+  opacity:1;
+}
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.stars,
+.shooting-stars{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.star{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 8px rgba(255,255,255,.9);
+  opacity:0;
+  animation:twinkle 3s ease-in-out infinite;
+}
+
+.night .star{
+  opacity:.8;
+}
+
+.star:nth-child(1){left:7%;top:14%;animation-delay:.4s}
+.star:nth-child(2){left:18%;top:28%;animation-delay:1.4s}
+.star:nth-child(3){left:29%;top:10%;animation-delay:2s}
+.star:nth-child(4){left:42%;top:22%;animation-delay:.8s}
+.star:nth-child(5){left:52%;top:11%;animation-delay:1.8s}
+.star:nth-child(6){left:61%;top:31%;animation-delay:.2s}
+.star:nth-child(7){left:72%;top:8%;animation-delay:2.5s}
+.star:nth-child(8){left:84%;top:28%;animation-delay:1.1s}
+.star:nth-child(9){left:91%;top:15%;animation-delay:2.1s}
+.star:nth-child(10){left:12%;top:45%;animation-delay:1.7s}
+.star:nth-child(11){left:38%;top:38%;animation-delay:.9s}
+.star:nth-child(12){left:67%;top:43%;animation-delay:2.7s}
+
+@keyframes twinkle{
+  0%,100%{transform:scale(.5);opacity:.25}
+  50%{transform:scale(1.5);opacity:1}
+}
+
+/* =========================================================
+   SHOOTING STARS
+========================================================= */
+
+.shooting{
+  position:absolute;
+  width:120px;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#fff);
+  transform:rotate(-28deg);
+  opacity:0;
+}
+
+.shooting.one{
+  top:22%;
+  left:55%;
+}
+
+.shooting.two{
+  top:35%;
+  left:78%;
+  animation-delay:5s;
+}
+
+.night .shooting{
+  animation:shoot 7s linear infinite;
+}
+
+@keyframes shoot{
+  0%,72%{
+    transform:translate(0,0) rotate(-28deg);
+    opacity:0;
+  }
+
+  75%{
+    opacity:1;
+  }
+
+  84%{
+    transform:translate(-240px,130px) rotate(-28deg);
+    opacity:0;
+  }
+
+  100%{
+    opacity:0;
+  }
+}
+
+/* =========================================================
+   CLOUDS
+========================================================= */
+
+.cloud{
+  position:absolute;
+  width:270px;
+  height:70px;
+  border-radius:100px;
+  background:rgba(255,255,255,.55);
+  filter:blur(3px);
+  opacity:.65;
+  animation:cloudMove 65s linear infinite;
+}
+
+.cloud:before,
+.cloud:after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  background:inherit;
+}
+
+.cloud:before{
+  width:100px;
+  height:100px;
+  left:38px;
+  bottom:18px;
+}
+
+.cloud:after{
+  width:130px;
+  height:130px;
+  right:34px;
+  bottom:10px;
+}
+
+.cloud.one{
+  top:19%;
+  left:-300px;
+}
+
+.cloud.two{
+  top:38%;
+  left:-400px;
+  transform:scale(.72);
+  animation-duration:82s;
+  animation-delay:-28s;
+}
+
+.cloud.three{
+  top:57%;
+  left:-350px;
+  transform:scale(.55);
+  animation-duration:95s;
+  animation-delay:-50s;
+}
+
+@keyframes cloudMove{
+  from{
+    transform:translateX(0) scale(var(--scale,1));
+  }
+
+  to{
+    transform:translateX(calc(100vw + 700px)) scale(var(--scale,1));
+  }
+}
+
+.afternoon .cloud{
+  background:rgba(255,238,217,.72);
+}
+
+.evening .cloud{
+  background:rgba(224,211,235,.52);
+}
+
+.night .cloud{
+  background:rgba(75,76,117,.6);
+}
+
+/* =========================================================
+   RAIN
+========================================================= */
+
+.rain{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 1.5s ease;
+}
+
+.evening .rain{
+  opacity:.5;
+}
+
+.drop{
+  position:absolute;
+  top:-100px;
+  width:1px;
+  height:70px;
+  background:linear-gradient(
+    transparent,
+    rgba(255,255,255,.75)
+  );
+  transform:rotate(12deg);
+  animation:rainFall .8s linear infinite;
+}
+
+@keyframes rainFall{
+  to{
+    transform:translate(-100px,110vh) rotate(12deg);
+  }
+}
+
+/* =========================================================
+   RAINBOW
+========================================================= */
+
+.rainbow{
+  position:absolute;
+  width:min(700px,90vw);
+  height:min(350px,45vw);
+  left:50%;
+  bottom:14%;
+  transform:translateX(-50%);
+  border-radius:700px 700px 0 0;
+  border:22px solid rgba(255,70,70,.15);
+  border-bottom:0;
+  opacity:0;
+  transition:opacity 2s ease;
+  filter:blur(1px);
+}
+
+.evening .rainbow{
+  opacity:.75;
+  box-shadow:
+    0 -20px 0 -1px rgba(255,180,80,.13),
+    0 -42px 0 -1px rgba(255,240,90,.12),
+    0 -64px 0 -1px rgba(90,220,150,.12),
+    0 -86px 0 -1px rgba(80,190,255,.12),
+    0 -108px 0 -1px rgba(120,120,255,.12),
+    0 -130px 0 -1px rgba(210,100,255,.12);
+}
+
+/* =========================================================
+   DARK OVERLAY
+========================================================= */
+
+.dark-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(10,8,20,.16);
+  transition:background 2s ease;
+}
+
+.night .dark-overlay{
+  background:rgba(5,6,18,.2);
+}
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+  position:relative;
+  z-index:5;
+  min-height:100svh;
   display:flex;
   flex-direction:column;
-  gap:4px;
-  text-shadow:0 2px 16px rgba(0,0,0,.5);
+}
+
+.topbar{
+  width:100%;
+  padding:
+    max(22px,env(safe-area-inset-top))
+    max(22px,env(safe-area-inset-right))
+    0
+    max(22px,env(safe-area-inset-left));
+}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.38em;
+}
+
+.time-info{
+  text-align:right;
 }
 
 .day{
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:clamp(10px,1.8vw,13px);
-  font-weight:500;
-  letter-spacing:.16em;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.14em;
   text-transform:uppercase;
 }
 
-.date-text{
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:clamp(9px,1.6vw,11px);
-  letter-spacing:.08em;
+.date{
+  font-size:9px;
+  opacity:.72;
+  margin-top:4px;
+}
+
+.hero-content{
+  width:min(1000px,calc(100% - 44px));
+  margin:auto auto 0;
+  padding-bottom:
+    max(46px,env(safe-area-inset-bottom));
+}
+
+.time-greeting{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  margin-bottom:14px;
   opacity:.82;
 }
 
-/* ICON */
-
-.logo{
-  position:absolute;
-  top:calc(var(--safe-top) + 20px);
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  pointer-events:none;
-}
-
-.logo img{
-  width:clamp(58px,10vw,88px);
-  height:clamp(58px,10vw,88px);
-  object-fit:contain;
-  filter:drop-shadow(0 5px 18px rgba(0,0,0,.35));
-}
-
-.tagline{
-  margin-top:7px;
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:clamp(7px,1.35vw,10px);
-  letter-spacing:.17em;
-  text-transform:uppercase;
-  white-space:nowrap;
-  text-shadow:0 2px 14px rgba(0,0,0,.55);
-  opacity:.9;
-}
-
-/* SOUND */
-
-.sound{
-  width:44px;
-  height:44px;
-  border:1px solid rgba(255,255,255,.42);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  background:rgba(0,0,0,.14);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  cursor:pointer;
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:17px;
-  transition:.3s ease;
-}
-
-.sound:active{
-  transform:scale(.94);
-}
-
-/* CENTER */
-
-.center{
-  position:absolute;
-  z-index:3;
-  top:50%;
-  left:var(--side);
-  right:var(--side);
-  transform:translateY(-50%);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-}
-
-.greeting{
-  font-size:clamp(46px,10vw,100px);
-  line-height:.98;
+h1{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(48px,8vw,94px);
+  line-height:.91;
   font-weight:400;
+  max-width:850px;
+  margin:0;
   letter-spacing:-.045em;
-  text-shadow:0 5px 30px rgba(0,0,0,.38);
-  animation:appear 1.1s ease both;
 }
 
-.quote{
-  max-width:680px;
-  margin-top:24px;
-  font-size:clamp(15px,2.3vw,22px);
-  line-height:1.55;
-  color:rgba(255,255,255,.95);
-  text-shadow:0 3px 20px rgba(0,0,0,.5);
-  animation:appear 1.1s .12s ease both;
+.subtitle{
+  max-width:510px;
+  margin-top:20px;
+  font-size:13px;
+  line-height:1.7;
+  color:rgba(255,255,255,.88);
 }
 
-/* BOTTOM */
-
-.bottom{
-  position:absolute;
-  left:var(--side);
-  right:var(--side);
-  bottom:0;
-  z-index:5;
-  padding-bottom:
-    calc(var(--safe-bottom) + clamp(25px,5vh,48px));
-  display:flex;
-  flex-direction:column;
+.checkin{
+  margin-top:27px;
+  display:inline-flex;
   align-items:center;
+  gap:12px;
+  padding:15px 21px;
+  border:0;
+  border-radius:999px;
+  background:#fff;
+  color:#43265d;
+  font-weight:700;
+  font-size:10px;
+  box-shadow:0 12px 35px rgba(20,10,30,.2);
+  transition:.25s;
 }
 
-.begin{
-  width:min(82vw,270px);
-  min-height:54px;
-  padding:15px 24px;
-  border:1px solid rgba(255,255,255,.72);
-  border-radius:999px;
+.checkin:hover{
+  transform:translateY(-3px);
+}
+
+.status{
+  position:absolute;
+  right:24px;
+  bottom:24px;
+  font-size:9px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  opacity:.65;
+}
+
+/* =========================================================
+   EMOTION PANEL
+========================================================= */
+
+.emotion-panel{
+  position:relative;
+  z-index:10;
+  margin-top:40px;
+  padding:0 22px 40px;
+}
+
+.panel-inner{
+  width:min(1000px,100%);
+  margin:auto;
+}
+
+.panel-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(28px,4vw,42px);
+  font-weight:400;
+  margin-bottom:18px;
+}
+
+.emotions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.emotion{
+  min-height:145px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:18px;
+  background:rgba(20,15,29,.22);
   color:#fff;
-  background:rgba(255,255,255,.12);
+  padding:18px;
+  text-align:left;
   backdrop-filter:blur(15px);
   -webkit-backdrop-filter:blur(15px);
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:clamp(9px,1.7vw,12px);
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  cursor:pointer;
-  transition:.3s ease;
+  transition:.25s;
 }
 
-.begin:active{
-  transform:scale(.96);
+.emotion:hover,
+.emotion:focus-visible{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,.17);
+  outline:none;
 }
 
-.skip{
-  margin-top:10px;
-  padding:8px 15px;
-  border:0;
-  background:transparent;
-  color:rgba(255,255,255,.78);
-  font-family:Arial,Helvetica,sans-serif;
+.emotion-icon{
+  font-size:23px;
+  margin-bottom:17px;
+}
+
+.emotion-name{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:18px;
+}
+
+.emotion-desc{
   font-size:9px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  cursor:pointer;
+  line-height:1.45;
+  opacity:.7;
+  margin-top:6px;
 }
 
-/* FADE */
+/* =========================================================
+   MOBILE
+========================================================= */
 
-.fade{
-  position:fixed;
-  inset:0;
-  z-index:20;
-  background:#10100e;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .9s ease;
-}
+@media(max-width:700px){
 
-.fade.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-/* MESSAGE */
-
-.message{
-  position:fixed;
-  left:50%;
-  bottom:calc(var(--safe-bottom) + 20px);
-  transform:translateX(-50%);
-  width:min(88vw,430px);
-  padding:12px 18px;
-  border-radius:999px;
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  font-family:Arial,Helvetica,sans-serif;
-  font-size:10px;
-  text-align:center;
-  letter-spacing:.06em;
-  opacity:0;
-  pointer-events:none;
-  transition:.35s ease;
-}
-
-.message.show{
-  opacity:1;
-}
-
-@keyframes appear{
-  from{
-    opacity:0;
-    transform:translateY(18px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* SMALL PHONES */
-
-@media(max-height:680px) and (orientation:portrait){
-
-  .top{
-    padding-top:calc(var(--safe-top) + 14px);
+  .topbar{
+    padding-left:17px;
+    padding-right:17px;
   }
 
   .logo{
-    top:calc(var(--safe-top) + 12px);
+    font-size:16px;
   }
 
-  .logo img{
-    width:52px;
-    height:52px;
+  .hero-content{
+    width:calc(100% - 34px);
+    padding-bottom:32px;
   }
 
-  .tagline{
-    margin-top:4px;
-    font-size:6px;
+  h1{
+    font-size:clamp(45px,13vw,66px);
   }
 
-  .center{
-    top:53%;
+  .subtitle{
+    font-size:12px;
   }
 
-  .greeting{
-    font-size:clamp(36px,10vw,60px);
+  .status{
+    display:none;
   }
 
-  .quote{
-    margin-top:15px;
-    font-size:13px;
-    line-height:1.45;
+  .emotion-panel{
+    padding-left:17px;
+    padding-right:17px;
   }
 
-  .bottom{
-    padding-bottom:calc(var(--safe-bottom) + 13px);
+  .emotions{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .begin{
-    min-height:47px;
+  .emotion{
+    min-height:125px;
+    padding:15px;
   }
 
-  .skip{
-    margin-top:5px;
-  }
-}
-
-/* LANDSCAPE */
-
-@media(orientation:landscape) and (max-height:600px){
-
-  .logo img{
-    width:45px;
-    height:45px;
+  .emotion-icon{
+    margin-bottom:11px;
   }
 
-  .tagline{
-    font-size:6px;
-    margin-top:3px;
-  }
-
-  .center{
-    top:55%;
-  }
-
-  .greeting{
-    font-size:clamp(35px,8vw,68px);
-  }
-
-  .quote{
-    margin-top:12px;
-    font-size:13px;
-  }
-
-  .bottom{
-    padding-bottom:calc(var(--safe-bottom) + 8px);
-  }
-
-  .begin{
-    min-height:42px;
-    padding:11px 22px;
+  .emotion-name{
+    font-size:17px;
   }
 }
 
-/* DESKTOP */
+@media(max-width:380px){
 
-@media(min-width:1025px){
-
-  .sound:hover{
-    background:rgba(255,255,255,.18);
+  .emotions{
+    gap:7px;
   }
 
-  .begin:hover{
-    background:rgba(255,255,255,.21);
-    border-color:rgba(255,255,255,.95);
-    transform:translateY(-2px);
+  .emotion{
+    padding:13px;
   }
 
-  .skip:hover{
-    color:#fff;
+  .emotion-name{
+    font-size:15px;
+  }
+
+  .emotion-desc{
+    font-size:8px;
   }
 }
 
@@ -441,12 +678,8 @@ button{
   *,
   *::before,
   *::after{
-    animation-duration:.01ms!important;
-    transition-duration:.01ms!important;
-  }
-
-  .video{
-    transform:none;
+    animation:none!important;
+    transition:none!important;
   }
 }
 </style>
@@ -454,368 +687,327 @@ button{
 
 <body>
 
-<main class="entry">
+<div id="aksh-page">
 
-  <video
-    id="video"
-    class="video"
-    autoplay
-    muted
-    loop
-    playsinline
-    webkit-playsinline
-    preload="auto">
-  </video>
+  <!-- TIME-BASED SKY -->
+  <div class="sky morning" id="sky">
 
-  <div class="overlay"></div>
-  <div class="vignette"></div>
+    <div class="sun"></div>
+    <div class="moon"></div>
 
-  <header class="top">
-
-    <div class="date">
-      <div id="day" class="day"></div>
-      <div id="date" class="date-text"></div>
+    <div class="stars">
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
+      <span class="star"></span>
     </div>
 
-    <button
-      id="sound"
-      class="sound"
-      type="button"
-      aria-label="Turn sound on">
-      ♪
-    </button>
-
-  </header>
-
-  <div class="logo">
-
-    <img
-      src="aksh-icon.PNG"
-      alt="AKSH">
-
-    <div class="tagline">
-      A Safe Space For Every Mind
+    <div class="shooting-stars">
+      <span class="shooting one"></span>
+      <span class="shooting two"></span>
     </div>
+
+    <div class="cloud one"></div>
+    <div class="cloud two"></div>
+    <div class="cloud three"></div>
+
+    <div class="rain" id="rain"></div>
+
+    <div class="rainbow"></div>
+
+    <div class="dark-overlay"></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <div class="topbar">
+
+      <div class="nav">
+
+        <div class="logo">
+          AKSH
+        </div>
+
+        <div class="time-info">
+          <div class="day" id="day"></div>
+          <div class="date" id="date"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <main class="hero-content">
+
+      <div class="time-greeting" id="greeting">
+        GOOD MORNING
+      </div>
+
+      <h1 id="headline">
+        A softer place<br>
+        to land.
+      </h1>
+
+      <p class="subtitle">
+        Whatever today feels like, there is room for you here.
+        Pause. Breathe. Check in with yourself.
+      </p>
+
+      <button
+        class="checkin"
+        onclick="document.getElementById('emotion-panel').scrollIntoView({behavior:'smooth'})"
+      >
+        How are you feeling?
+        <span>↓</span>
+      </button>
+
+    </main>
+
+    <section class="emotion-panel" id="emotion-panel">
+
+      <div class="panel-inner">
+
+        <div class="panel-title">
+          How are you feeling today?
+        </div>
+
+        <div class="emotions">
+
+          <button
+            class="emotion"
+            onclick="selectEmotion('Anxious','Take a slow breath. You do not have to solve everything at once.')"
+          >
+            <div class="emotion-icon">◌</div>
+            <div class="emotion-name">Anxious</div>
+            <div class="emotion-desc">
+              When your thoughts feel louder than everything else.
+            </div>
+          </button>
+
+          <button
+            class="emotion"
+            onclick="selectEmotion('Overwhelmed','You are allowed to pause. You do not have to carry everything at the same time.')"
+          >
+            <div class="emotion-icon">⌁</div>
+            <div class="emotion-name">Overwhelmed</div>
+            <div class="emotion-desc">
+              When everything feels like too much at once.
+            </div>
+          </button>
+
+          <button
+            class="emotion"
+            onclick="selectEmotion('Need Someone To Talk','You do not need perfect words. Sometimes being heard is the first step.')"
+          >
+            <div class="emotion-icon">♡</div>
+            <div class="emotion-name">
+              Need someone to talk
+            </div>
+            <div class="emotion-desc">
+              When you simply want another person to listen.
+            </div>
+          </button>
+
+          <button
+            class="emotion"
+            onclick="selectEmotion('Just Exploring','You do not have to be struggling to belong here. Curiosity is a beautiful reason to begin.')"
+          >
+            <div class="emotion-icon">✦</div>
+            <div class="emotion-name">
+              Just exploring
+            </div>
+            <div class="emotion-desc">
+              When you are curious about yourself and wellbeing.
+            </div>
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
 
   </div>
 
-  <section class="center">
-
-    <h1
-      id="greeting"
-      class="greeting">
-    </h1>
-
-    <p
-      id="quote"
-      class="quote">
-    </p>
-
-  </section>
-
-  <div class="bottom">
-
-    <button
-      id="begin"
-      class="begin"
-      type="button">
-      Begin Your Journey
-    </button>
-
-    <button
-      id="skip"
-      class="skip"
-      type="button">
-      Skip
-    </button>
-
-  </div>
-
-</main>
-
-<div id="fade" class="fade"></div>
-
-<div
-  id="message"
-  class="message"
-  role="status">
 </div>
 
 <script>
 
-/* =====================================================
-   AKSH 0TH PAGE — TIME-BASED EXPERIENCE
-===================================================== */
+/* =========================================================
+   TIME SYSTEM
+========================================================= */
 
-const video = document.getElementById("video");
+const sky = document.getElementById("sky");
 const greeting = document.getElementById("greeting");
-const quote = document.getElementById("quote");
+const headline = document.getElementById("headline");
 const day = document.getElementById("day");
 const date = document.getElementById("date");
-const sound = document.getElementById("sound");
-const begin = document.getElementById("begin");
-const skip = document.getElementById("skip");
-const fade = document.getElementById("fade");
-const message = document.getElementById("message");
 
-
-/* VIDEO LIBRARY */
-
-const videos = {
-
-  morning1:"aksh-morning.1.mov",
-  morning2:"aksh-morning.2.mov",
-  morning3:"aksh-morning.3.mov",
-  morning4:"aksh-morning.4.mov",
-
-  afternoon1:"aksh-afternoon.1.mov",
-  afternoon2:"aksh-afternoon.2.mov",
-  afternoon3:"aksh-afternoon.3.mov",
-  afternoon4:"aksh-afternoon.4.mov",
-
-  evening1:"aksh-evening.1.mov",
-  evening2:"aksh-evening.2.mov",
-  evening3:"aksh-evening.3.mov",
-
-  night1:"aksh-night.1.mov",
-  night2:"aksh-night.2.mov"
-
-};
-
-
-/* QUOTES */
-
-const quotes = {
-
-  morning:[
-    "You don't have to rush into the day. Begin gently.",
-    "There is nowhere you need to be before you are ready.",
-    "Let the morning arrive softly. You can do the same.",
-    "A new day does not ask you to have everything figured out."
-  ],
-
-  afternoon:[
-    "Pause for a moment. You are allowed to breathe.",
-    "Not every moment needs to be productive.",
-    "Let yourself slow down. There is still beauty here.",
-    "Whatever today has brought you, you don't have to carry it alone."
-  ],
-
-  evening:[
-    "The day can become quiet now. You can let yourself breathe.",
-    "Some journeys are meant to be taken slowly.",
-    "It is okay to leave some things unfinished until tomorrow.",
-    "For a little while, let the world become still."
-  ],
-
-  night:[
-    "The world is quiet now. You can be quiet too.",
-    "You have made it through another day. That is enough for tonight.",
-    "Rest is not something you have to earn.",
-    "You don't have to solve everything tonight."
-  ]
-
-};
-
-
-/* TIME */
-
-function minutes(){
+function updateTimeEnvironment(){
 
   const now = new Date();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
 
-  return now.getHours()*60 + now.getMinutes();
+  sky.classList.remove(
+    "morning",
+    "afternoon",
+    "evening",
+    "night"
+  );
 
-}
+  /*
+    MORNING
+    05:00 - 11:59
+  */
 
+  if(hour >= 5 && hour < 12){
 
-/* EXPERIENCE */
+    sky.classList.add("morning");
 
-function experience(){
+    greeting.textContent = "GOOD MORNING";
 
-  const t = minutes();
+    headline.innerHTML =
+      "A softer place<br>to start.";
 
-  if(t>=300 && t<360)
-    return ["Good Morning","morning",videos.morning1];
+  }
 
-  if(t>=360 && t<480)
-    return ["Good Morning","morning",videos.morning2];
+  /*
+    AFTERNOON
+    12:00 - 16:59
+  */
 
-  if(t>=480 && t<600)
-    return ["Good Morning","morning",videos.morning3];
+  else if(hour >= 12 && hour < 17){
 
-  if(t>=600 && t<720)
-    return ["Good Morning","morning",videos.morning4];
+    sky.classList.add("afternoon");
 
-  if(t>=720 && t<780)
-    return ["Good Afternoon","afternoon",videos.afternoon1];
+    greeting.textContent = "GOOD AFTERNOON";
 
-  if(t>=780 && t<870)
-    return ["Good Afternoon","afternoon",videos.afternoon2];
+    headline.innerHTML =
+      "Take a moment<br>for yourself.";
 
-  if(t>=870 && t<960)
-    return ["Good Afternoon","afternoon",videos.afternoon3];
+  }
 
-  if(t>=960 && t<1020)
-    return ["Good Afternoon","afternoon",videos.afternoon4];
+  /*
+    EVENING
+    17:00 - 19:29
+  */
 
-  if(t>=1020 && t<1065)
-    return ["Good Evening","evening",videos.evening1];
+  else if(
+    hour === 17 ||
+    hour === 18 ||
+    (hour === 19 && minute < 30)
+  ){
 
-  if(t>=1065 && t<1140)
-    return ["Good Evening","evening",videos.evening2];
+    sky.classList.add("evening");
 
-  if(t>=1140 && t<1200)
-    return ["Good Evening","evening",videos.evening3];
+    greeting.textContent = "GOOD EVENING";
 
-  if(t>=1200)
-    return ["Good Night","night",videos.night1];
+    headline.innerHTML =
+      "Let the day<br>slow down.";
 
-  return ["Good Night","night",videos.night2];
+  }
 
-}
+  /*
+    NIGHT
+    19:30 onward
+  */
 
+  else{
 
-/* DATE */
+    sky.classList.add("night");
 
-function updateDate(){
+    greeting.textContent = "GOOD NIGHT";
 
-  const now = new Date();
+    headline.innerHTML =
+      "It's okay to<br>slow down.";
+
+  }
 
   day.textContent =
-    new Intl.DateTimeFormat(undefined,{
-      weekday:"long"
-    }).format(now);
+    now.toLocaleDateString(
+      undefined,
+      {weekday:"long"}
+    ).toUpperCase();
 
   date.textContent =
-    new Intl.DateTimeFormat(undefined,{
-      day:"numeric",
-      month:"long",
-      year:"numeric"
-    }).format(now);
+    now.toLocaleDateString(
+      undefined,
+      {
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }
+    );
 
 }
 
+/* =========================================================
+   RAIN GENERATOR
+========================================================= */
 
-/* RANDOM QUOTE */
+const rain = document.getElementById("rain");
 
-function randomQuote(group){
+for(let i = 0; i < 100; i++){
 
-  const list = quotes[group];
+  const drop = document.createElement("span");
 
-  return list[
-    Math.floor(Math.random()*list.length)
-  ];
+  drop.className = "drop";
+
+  drop.style.left =
+    Math.random() * 110 + "%";
+
+  drop.style.animationDelay =
+    Math.random() * 1.5 + "s";
+
+  drop.style.animationDuration =
+    (0.5 + Math.random() * 0.7) + "s";
+
+  drop.style.height =
+    (35 + Math.random() * 60) + "px";
+
+  rain.appendChild(drop);
 
 }
 
+/* =========================================================
+   EMOTION INTERACTION
+========================================================= */
 
-/* LOAD EXPERIENCE */
+function selectEmotion(title,text){
 
-let activeVideo = "";
-
-function load(){
-
-  const data = experience();
-
-  greeting.textContent = data[0];
-
-  quote.textContent = randomQuote(data[1]);
-
-  if(activeVideo === data[2])
-    return;
-
-  activeVideo = data[2];
-
-  video.classList.remove("show");
-
-  video.src = data[2];
-
-  video.load();
-
-  video.addEventListener(
-    "canplay",
-    function(){
-
-      video.classList.add("show");
-
-      video.play().catch(()=>{});
-
-    },
-    {once:true}
+  alert(
+    title +
+    "\\n\\n" +
+    text
   );
 
 }
 
+/* =========================================================
+   START
+========================================================= */
 
-/* SOUND */
+updateTimeEnvironment();
 
-sound.addEventListener("click",()=>{
+/*
+  Check the time every minute so the
+  background changes automatically.
+*/
 
-  if(video.muted){
-
-    video.muted = false;
-
-    sound.textContent = "♫";
-
-    sound.setAttribute(
-      "aria-label",
-      "Turn sound off"
-    );
-
-  }else{
-
-    video.muted = true;
-
-    sound.textContent = "♪";
-
-    sound.setAttribute(
-      "aria-label",
-      "Turn sound on"
-    );
-
-  }
-
-});
-
-
-/* ENTER */
-
-function enter(){
-
-  fade.classList.add("active");
-
-  setTimeout(()=>{
-
-    /*
-      Stage 1 homepage will be connected here.
-    */
-
-    fade.classList.remove("active");
-
-  },900);
-
-}
-
-
-begin.addEventListener("click",enter);
-skip.addEventListener("click",enter);
-
-
-/* START */
-
-updateDate();
-load();
-
-
-/* KEEP TIME UPDATED */
-
-setInterval(()=>{
-
-  updateDate();
-  load();
-
-},30000);
+setInterval(
+  updateTimeEnvironment,
+  60000
+);
 
 </script>
 
