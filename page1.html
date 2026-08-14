@@ -1,1649 +1,1115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#8fa9c7">
+<title>AKSH — How are you feeling today?</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:#fff;
+  background:#91aeca;
+  -webkit-font-smoothing:antialiased;
+}
+
+.page{
+  position:relative;
+  width:100%;
+  height:100svh;
+  min-height:100vh;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+
+/* =========================================================
+   ANIMATED SKY
+========================================================= */
+
+.sky{
+  position:absolute;
+  inset:0;
+  z-index:-10;
+  overflow:hidden;
+  background:
+    linear-gradient(
+      180deg,
+      #a9c4dc 0%,
+      #c6d9e8 42%,
+      #dbe4e9 100%
+    );
+  transition:background 2s ease;
+}
+
+
+/* Sun */
+
+.sun{
+  position:absolute;
+  width:clamp(120px,18vw,240px);
+  height:clamp(120px,18vw,240px);
+  border-radius:50%;
+  top:8%;
+  right:10%;
+  background:rgba(255,244,199,.78);
+  filter:blur(3px);
+  box-shadow:
+    0 0 60px rgba(255,242,190,.45),
+    0 0 130px rgba(255,226,150,.25);
+  animation:sunFloat 10s ease-in-out infinite alternate;
+}
+
+@keyframes sunFloat{
+  from{transform:translateY(0)}
+  to{transform:translateY(18px)}
+}
+
+
+/* Clouds */
+
+.cloud{
+  position:absolute;
+  width:260px;
+  height:75px;
+  border-radius:100px;
+  background:rgba(255,255,255,.54);
+  filter:blur(7px);
+  opacity:.72;
+}
+
+.cloud:before,
+.cloud:after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  background:inherit;
+}
+
+.cloud:before{
+  width:120px;
+  height:120px;
+  left:45px;
+  bottom:15px;
+}
+
+.cloud:after{
+  width:95px;
+  height:95px;
+  left:135px;
+  bottom:10px;
+}
+
+.cloud.one{
+  top:18%;
+  left:-280px;
+  animation:cloudOne 38s linear infinite;
+}
+
+.cloud.two{
+  top:34%;
+  left:-320px;
+  transform:scale(.72);
+  opacity:.45;
+  animation:cloudTwo 52s linear infinite;
+}
+
+.cloud.three{
+  top:53%;
+  left:-300px;
+  transform:scale(1.25);
+  opacity:.28;
+  animation:cloudThree 64s linear infinite;
+}
+
+@keyframes cloudOne{
+  to{left:110%}
+}
+
+@keyframes cloudTwo{
+  to{left:115%}
+}
+
+@keyframes cloudThree{
+  to{left:120%}
+}
+
+
+/* =========================================================
+   AFTERNOON GOLDEN ATMOSPHERE
+========================================================= */
+
+.warm-glow{
+  position:absolute;
+  inset:-20%;
+  background:
+    radial-gradient(
+      circle at 75% 25%,
+      rgba(255,191,112,.35),
+      transparent 30%
+    );
+  opacity:.55;
+  animation:warmMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes warmMove{
+  from{transform:translate(-2%,0)}
+  to{transform:translate(2%,2%)}
+}
+
+
+/* =========================================================
+   EVENING RAIN
+========================================================= */
+
+.rain{
+  position:absolute;
+  inset:-30%;
+  opacity:0;
+  pointer-events:none;
+  background-image:
+    repeating-linear-gradient(
+      105deg,
+      rgba(255,255,255,.0) 0px,
+      rgba(255,255,255,.0) 7px,
+      rgba(255,255,255,.28) 8px,
+      rgba(255,255,255,.0) 10px,
+      rgba(255,255,255,.0) 24px
+    );
+  animation:rainFall .65s linear infinite;
+  transition:opacity 2s ease;
+}
+
+@keyframes rainFall{
+  from{transform:translateY(-80px)}
+  to{transform:translateY(120px)}
+}
+
+
+/* =========================================================
+   PURPLE EVENING
+========================================================= */
+
+.lavender{
+  position:absolute;
+  inset:0;
+  opacity:0;
+
+  background:
+    radial-gradient(
+      ellipse at 20% 45%,
+      rgba(185,155,230,.45),
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 80% 30%,
+      rgba(113,87,171,.45),
+      transparent 45%
+    );
+
+  transition:opacity 2s ease;
+}
+
+
+/* =========================================================
+   NIGHT
+========================================================= */
+
+.night-sky{
+  position:absolute;
+  inset:0;
+  opacity:0;
+
+  background:
+    radial-gradient(
+      circle at 72% 23%,
+      rgba(255,255,255,.08),
+      transparent 12%
+    ),
+    linear-gradient(
+      180deg,
+      #15162e 0%,
+      #26234d 52%,
+      #4b3563 100%
+    );
+
+  transition:opacity 2s ease;
+}
+
+
+/* Moon */
+
+.moon{
+  position:absolute;
+
+  width:clamp(65px,9vw,125px);
+  height:clamp(65px,9vw,125px);
+
+  top:11%;
+  right:13%;
+
+  border-radius:50%;
+
+  background:#fff9dd;
+
+  box-shadow:
+    0 0 25px rgba(255,250,214,.75),
+    0 0 80px rgba(255,240,185,.35);
+
+  opacity:0;
+
+  transition:opacity 2s ease;
+}
+
+
+/* Stars */
+
+.stars{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity 2s ease;
+
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(255,255,255,.65) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1.5px);
+
+  background-size:
+    83px 91px,
+    137px 121px,
+    191px 157px;
+
+  background-position:
+    10px 20px,
+    50px 80px,
+    100px 30px;
+
+  animation:starsMove 7s ease-in-out infinite alternate;
+}
+
+@keyframes starsMove{
+  from{opacity:.65}
+  to{opacity:1}
+}
+
+
+/* Shooting stars */
+
+.shooting-star{
+  position:absolute;
+  width:120px;
+  height:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.9)
+    );
+
+  transform:rotate(-35deg);
+
+  opacity:0;
+}
+
+.shooting-star.one{
+  top:24%;
+  left:68%;
+  animation:shoot 8s 2s linear infinite;
+}
+
+.shooting-star.two{
+  top:37%;
+  left:42%;
+  animation:shoot 11s 6s linear infinite;
+}
+
+@keyframes shoot{
+  0%,82%{
+    opacity:0;
+    transform:translate(0,0) rotate(-35deg);
+  }
+
+  85%{
+    opacity:1;
+  }
+
+  92%{
+    opacity:0;
+    transform:translate(-180px,110px) rotate(-35deg);
+  }
+
+  100%{
+    opacity:0;
+  }
+}
+
+
+/* =========================================================
+   CINEMATIC OVERLAY
+========================================================= */
+
+.overlay{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20,24,35,.16),
+      transparent 38%,
+      rgba(12,15,25,.28) 100%
+    );
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.top{
+  position:absolute;
+  z-index:20;
+
+  top:max(20px,env(safe-area-inset-top));
+  left:max(20px,env(safe-area-inset-left));
+  right:max(20px,env(safe-area-inset-right));
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.icon{
+  width:50px;
+  height:50px;
+  object-fit:contain;
+
+  filter:drop-shadow(0 5px 18px rgba(0,0,0,.25));
+}
+
+.back{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#fff;
+  text-decoration:none;
+
+  border:1px solid rgba(255,255,255,.28);
+  background:rgba(0,0,0,.12);
+
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+
+  transition:.25s ease;
+}
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
+.back:hover{
+  transform:translateX(-3px);
+  background:rgba(0,0,0,.25);
+}
 
-  <meta
-    name="theme-color"
-    content="#17151c"
-  >
 
-  <meta
-    name="description"
-    content="AKSH — How are you feeling today?"
-  >
+/* =========================================================
+   CONTENT
+========================================================= */
 
-  <title>AKSH — How are you feeling today?</title>
+.content{
+  position:relative;
+  z-index:10;
 
-  <style>
+  width:min(1080px,calc(100% - 36px));
+  height:100%;
 
-    /* =====================================================
-       RESET
-    ===================================================== */
+  margin:auto;
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
+  text-align:center;
 
-    body {
-      overflow: hidden;
+  padding:
+    80px 0
+    max(40px,env(safe-area-inset-bottom));
+}
 
-      background: #17151c;
+.eyebrow{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.32em;
+  text-transform:uppercase;
 
-      color: #fff;
+  margin-bottom:16px;
 
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
+  text-shadow:0 3px 15px rgba(0,0,0,.28);
+}
 
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
+h1{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
+  font-size:clamp(40px,6.5vw,78px);
+  font-weight:400;
+  line-height:1;
 
-    /* =====================================================
-       PAGE
-    ===================================================== */
+  letter-spacing:-.045em;
 
-    .page {
-      position: relative;
+  text-shadow:
+    0 5px 30px rgba(0,0,0,.25);
+}
 
-      width: 100%;
-      height: 100svh;
-      min-height: 100vh;
+.subtitle{
+  max-width:560px;
 
-      overflow: hidden;
+  margin-top:18px;
 
-      isolation: isolate;
-    }
+  font-family:Georgia,"Times New Roman",serif;
 
+  font-size:clamp(15px,2vw,19px);
 
-    /* =====================================================
-       BACKGROUND VIDEO
-    ===================================================== */
+  line-height:1.5;
 
-    .background {
-      position: absolute;
-      inset: 0;
+  color:rgba(255,255,255,.9);
 
-      z-index: -10;
+  text-shadow:
+    0 3px 18px rgba(0,0,0,.25);
+}
 
-      overflow: hidden;
 
-      background:
-        linear-gradient(
-          145deg,
-          #6f8394,
-          #4b5360
-        );
-    }
+/* =========================================================
+   EMOTION CARDS
+========================================================= */
 
-    #pageVideo {
-      position: absolute;
-      inset: 0;
+.cards{
+  width:100%;
+  max-width:1000px;
 
-      width: 100%;
-      height: 100%;
+  margin-top:34px;
 
-      object-fit: cover;
-      object-position: center;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
 
-      opacity: 0;
+  gap:14px;
+}
 
-      transition:
-        opacity 1s ease;
-    }
+.card{
+  position:relative;
 
-    #pageVideo.visible {
-      opacity: 1;
-    }
+  min-height:155px;
 
+  padding:24px 17px;
 
-    /* =====================================================
-       PREMIUM CINEMATIC OVERLAY
-    ===================================================== */
+  border:1px solid rgba(255,255,255,.23);
+  border-radius:25px;
 
-    .background::after {
-      content: "";
+  background:rgba(255,255,255,.10);
 
-      position: absolute;
-      inset: 0;
+  color:#fff;
 
-      background:
-        linear-gradient(
-          180deg,
-          rgba(8, 10, 16, 0.32) 0%,
-          rgba(8, 10, 16, 0.08) 35%,
-          rgba(8, 10, 16, 0.20) 60%,
-          rgba(8, 10, 16, 0.72) 100%
-        );
+  cursor:pointer;
 
-      pointer-events: none;
-    }
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
 
-    .ambient {
-      position: absolute;
-      inset: 0;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.12);
 
-      background:
-        radial-gradient(
-          circle at 50% 45%,
-          rgba(255,255,255,0.12),
-          transparent 42%
-        );
+  transition:
+    transform .35s ease,
+    background .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
 
-      pointer-events: none;
-    }
+.card:hover{
+  transform:translateY(-8px);
 
+  background:rgba(255,255,255,.18);
 
-    /* =====================================================
-       TOP BAR
-    ===================================================== */
+  border-color:rgba(255,255,255,.45);
 
-    .topbar {
-      position: absolute;
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.22);
+}
 
-      z-index: 20;
+.card:active{
+  transform:scale(.98);
+}
 
-      top: max(18px, env(safe-area-inset-top));
+.card-symbol{
+  width:43px;
+  height:43px;
 
-      left: max(20px, env(safe-area-inset-left));
+  margin:0 auto 13px;
 
-      right: max(20px, env(safe-area-inset-right));
+  border-radius:50%;
 
-      display: flex;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-      align-items: center;
+  background:rgba(255,255,255,.13);
 
-      justify-content: space-between;
-    }
+  border:1px solid rgba(255,255,255,.18);
 
+  font-family:Georgia,serif;
+  font-size:20px;
+}
 
-    /* =====================================================
-       ICON
-    ===================================================== */
+.card-title{
+  font-family:Georgia,"Times New Roman",serif;
 
-    .brand {
-      display: flex;
+  font-size:18px;
+  font-weight:400;
 
-      align-items: center;
+  line-height:1.2;
+}
 
-      text-decoration: none;
-    }
+.card-text{
+  margin-top:8px;
 
-    .brand img {
-      width: 48px;
-      height: 48px;
+  font-size:9px;
+  line-height:1.45;
 
-      object-fit: contain;
+  color:rgba(255,255,255,.68);
+}
 
-      filter:
-        drop-shadow(
-          0 4px 15px
-          rgba(0,0,0,0.35)
-        );
-    }
 
+/* =========================================================
+   BOTTOM
+========================================================= */
 
-    /* =====================================================
-       BACK BUTTON
-    ===================================================== */
+.bottom-note{
+  margin-top:24px;
 
-    .back-button {
-      display: inline-flex;
+  font-size:8px;
+  font-weight:700;
 
-      align-items: center;
-      justify-content: center;
+  letter-spacing:.2em;
+  text-transform:uppercase;
 
-      width: 42px;
-      height: 42px;
+  color:rgba(255,255,255,.62);
 
-      border-radius: 50%;
+  text-shadow:0 2px 12px rgba(0,0,0,.3);
+}
 
-      border:
-        1px solid
-        rgba(255,255,255,0.25);
 
-      background:
-        rgba(0,0,0,0.18);
+/* =========================================================
+   SOUND
+========================================================= */
 
-      color: #fff;
+.sound{
+  position:absolute;
 
-      text-decoration: none;
+  z-index:30;
 
-      font-size: 17px;
+  left:max(20px,env(safe-area-inset-left));
+  bottom:max(20px,env(safe-area-inset-bottom));
 
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+  width:42px;
+  height:42px;
 
-      transition:
-        transform .25s ease,
-        background .25s ease;
-    }
+  border-radius:50%;
 
-    .back-button:hover {
-      transform: translateX(-3px);
+  border:1px solid rgba(255,255,255,.25);
 
-      background:
-        rgba(0,0,0,0.32);
-    }
+  background:rgba(0,0,0,.14);
 
+  color:#fff;
 
-    /* =====================================================
-       MAIN CONTENT
-    ===================================================== */
+  cursor:pointer;
 
-    .content {
-      position: relative;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
 
-      z-index: 10;
 
-      width: min(
-        1100px,
-        calc(100% - 40px)
-      );
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-      height: 100%;
+@media(max-width:850px){
 
-      margin: 0 auto;
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+    max-width:620px;
+    gap:10px;
+  }
 
-      display: flex;
+  .card{
+    min-height:125px;
+    padding:17px 12px;
+  }
 
-      flex-direction: column;
+  .card-title{
+    font-size:16px;
+  }
+}
 
-      align-items: center;
 
-      justify-content: center;
+@media(max-width:500px){
 
-      text-align: center;
+  .top{
+    top:max(14px,env(safe-area-inset-top));
+    left:max(15px,env(safe-area-inset-left));
+    right:max(15px,env(safe-area-inset-right));
+  }
 
-      padding:
-        90px 0
-        max(50px, env(safe-area-inset-bottom));
-    }
+  .icon{
+    width:43px;
+    height:43px;
+  }
 
+  .back{
+    width:38px;
+    height:38px;
+  }
 
-    /* =====================================================
-       EYEBROW
-    ===================================================== */
+  .content{
+    width:calc(100% - 26px);
+    padding-top:68px;
+  }
 
-    .eyebrow {
-      margin-bottom: 15px;
+  .eyebrow{
+    font-size:7px;
+    margin-bottom:11px;
+  }
 
-      font-size: 9px;
+  h1{
+    font-size:clamp(34px,10vw,48px);
+  }
 
-      font-weight: 800;
+  .subtitle{
+    margin-top:12px;
+    font-size:14px;
+    max-width:340px;
+  }
 
-      letter-spacing: .30em;
+  .cards{
+    margin-top:22px;
+    gap:8px;
+  }
 
-      text-transform: uppercase;
+  .card{
+    min-height:112px;
+    padding:13px 8px;
+    border-radius:18px;
+  }
 
-      color:
-        rgba(255,255,255,.78);
+  .card-symbol{
+    width:34px;
+    height:34px;
+    margin-bottom:8px;
+    font-size:16px;
+  }
 
-      text-shadow:
-        0 2px 15px
-        rgba(0,0,0,.35);
-    }
+  .card-title{
+    font-size:13px;
+  }
 
+  .card-text{
+    font-size:7px;
+    margin-top:5px;
+  }
 
-    /* =====================================================
-       MAIN HEADING
-    ===================================================== */
+  .bottom-note{
+    margin-top:14px;
+    font-size:7px;
+  }
 
-    .title {
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+  .sound{
+    left:max(15px,env(safe-area-inset-left));
+    bottom:max(15px,env(safe-area-inset-bottom));
+    width:38px;
+    height:38px;
+  }
+}
 
-      font-size:
-        clamp(
-          38px,
-          6vw,
-          72px
-        );
 
-      line-height: 1;
+@media(max-width:370px){
 
-      font-weight: 400;
+  .card-text{
+    display:none;
+  }
 
-      letter-spacing:
-        -0.045em;
+  .card{
+    min-height:98px;
+  }
 
-      color: #fff;
+  .card-title{
+    font-size:12px;
+  }
 
-      text-shadow:
-        0 5px 30px
-        rgba(0,0,0,.35);
-    }
+  h1{
+    font-size:31px;
+  }
 
+  .subtitle{
+    font-size:13px;
+  }
+}
 
-    /* =====================================================
-       SUBTITLE
-    ===================================================== */
 
-    .subtitle {
-      width: min(
-        520px,
-        100%
-      );
+@media(prefers-reduced-motion:reduce){
 
-      margin-top: 17px;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size:
-        clamp(
-          15px,
-          2vw,
-          19px
-        );
-
-      line-height: 1.55;
-
-      color:
-        rgba(255,255,255,.88);
-
-      text-shadow:
-        0 3px 18px
-        rgba(0,0,0,.35);
-    }
-
-
-    /* =====================================================
-       EMOTION GRID
-    ===================================================== */
-
-    .emotion-grid {
-      width: 100%;
-
-      max-width: 980px;
-
-      margin-top: 34px;
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
-
-      gap: 14px;
-    }
-
-
-    /* =====================================================
-       EMOTION CARD
-    ===================================================== */
-
-    .emotion-card {
-      position: relative;
-
-      min-height: 142px;
-
-      padding: 24px 18px;
-
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      justify-content: center;
-
-      text-align: center;
-
-      border:
-        1px solid
-        rgba(255,255,255,.22);
-
-      border-radius: 24px;
-
-      background:
-        rgba(255,255,255,.10);
-
-      color: #fff;
-
-      cursor: pointer;
-
-      overflow: hidden;
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.15);
-
-      transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
-        background .35s ease,
-        border-color .35s ease,
-        box-shadow .35s ease;
-    }
-
-
-    .emotion-card::before {
-      content: "";
-
-      position: absolute;
-
-      width: 160px;
-      height: 160px;
-
-      top: -100px;
-      right: -70px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(255,255,255,.10);
-
-      filter: blur(10px);
-
-      transition:
-        transform .5s ease;
-    }
-
-
-    .emotion-card:hover {
-      transform:
-        translateY(-8px);
-
-      background:
-        rgba(255,255,255,.17);
-
-      border-color:
-        rgba(255,255,255,.42);
-
-      box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.25);
-    }
-
-
-    .emotion-card:hover::before {
-      transform:
-        scale(1.35);
-    }
-
-
-    .emotion-card:active {
-      transform:
-        translateY(-3px)
-        scale(.985);
-    }
-
-
-    /* =====================================================
-       CARD ICON
-    ===================================================== */
-
-    .emotion-icon {
-      position: relative;
-
-      z-index: 2;
-
-      width: 42px;
-      height: 42px;
-
-      margin-bottom: 13px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 50%;
-
-      background:
-        rgba(255,255,255,.13);
-
-      border:
-        1px solid
-        rgba(255,255,255,.18);
-
-      font-size: 19px;
-
-      box-shadow:
-        0 8px 22px
-        rgba(0,0,0,.12);
-    }
-
-
-    /* =====================================================
-       CARD TITLE
-    ===================================================== */
-
-    .emotion-title {
-      position: relative;
-
-      z-index: 2;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: 18px;
-
-      line-height: 1.2;
-
-      font-weight: 400;
-
-      color: #fff;
-    }
-
-
-    /* =====================================================
-       CARD DESCRIPTION
-    ===================================================== */
-
-    .emotion-description {
-      position: relative;
-
-      z-index: 2;
-
-      margin-top: 7px;
-
-      font-size: 9px;
-
-      line-height: 1.45;
-
-      letter-spacing: .04em;
-
-      color:
-        rgba(255,255,255,.68);
-    }
-
-
-    /* =====================================================
-       BOTTOM MESSAGE
-    ===================================================== */
-
-    .bottom-note {
-      margin-top: 27px;
-
-      font-size: 9px;
-
-      font-weight: 700;
-
-      letter-spacing: .18em;
-
-      text-transform: uppercase;
-
-      color:
-        rgba(255,255,255,.62);
-
-      text-shadow:
-        0 2px 12px
-        rgba(0,0,0,.35);
-    }
-
-
-    /* =====================================================
-       SOUND
-    ===================================================== */
-
-    .sound-button {
-      position: absolute;
-
-      z-index: 30;
-
-      left:
-        max(20px, env(safe-area-inset-left));
-
-      bottom:
-        max(20px, env(safe-area-inset-bottom));
-
-      width: 42px;
-      height: 42px;
-
-      border-radius: 50%;
-
-      border:
-        1px solid
-        rgba(255,255,255,.25);
-
-      background:
-        rgba(0,0,0,.20);
-
-      color: #fff;
-
-      cursor: pointer;
-
-      font-size: 16px;
-
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-
-      transition:
-        transform .25s ease,
-        background .25s ease;
-    }
-
-    .sound-button:hover {
-      transform: scale(1.07);
-
-      background:
-        rgba(0,0,0,.34);
-    }
-
-
-    /* =====================================================
-       TIME LABEL
-    ===================================================== */
-
-    .time-label {
-      position: absolute;
-
-      z-index: 20;
-
-      right:
-        max(22px, env(safe-area-inset-right));
-
-      bottom:
-        max(23px, env(safe-area-inset-bottom));
-
-      font-size: 8px;
-
-      font-weight: 700;
-
-      letter-spacing: .17em;
-
-      text-transform: uppercase;
-
-      color:
-        rgba(255,255,255,.58);
-
-      text-shadow:
-        0 2px 12px
-        rgba(0,0,0,.4);
-    }
-
-
-    /* =====================================================
-       CARD SELECTION
-    ===================================================== */
-
-    .emotion-card.selected {
-      transform:
-        translateY(-8px)
-        scale(1.015);
-
-      background:
-        rgba(255,255,255,.22);
-
-      border-color:
-        rgba(255,255,255,.65);
-
-      box-shadow:
-        0 25px 80px
-        rgba(0,0,0,.30);
-    }
-
-
-    /* =====================================================
-       MOBILE
-    ===================================================== */
-
-    @media (max-width: 800px) {
-
-      .emotion-grid {
-        grid-template-columns:
-          repeat(2, 1fr);
-
-        max-width: 620px;
-
-        gap: 11px;
-
-        margin-top: 27px;
-      }
-
-      .emotion-card {
-        min-height: 125px;
-
-        border-radius: 20px;
-
-        padding: 18px 14px;
-      }
-
-      .emotion-title {
-        font-size: 16px;
-      }
-
-      .emotion-description {
-        font-size: 8px;
-      }
-
-      .bottom-note {
-        margin-top: 20px;
-      }
-    }
-
-
-    @media (max-width: 500px) {
-
-      .topbar {
-        top: max(
-          14px,
-          env(safe-area-inset-top)
-        );
-
-        left: max(
-          15px,
-          env(safe-area-inset-left)
-        );
-
-        right: max(
-          15px,
-          env(safe-area-inset-right)
-        );
-      }
-
-      .brand img {
-        width: 42px;
-        height: 42px;
-      }
-
-      .back-button {
-        width: 38px;
-        height: 38px;
-
-        font-size: 15px;
-      }
-
-      .content {
-        width:
-          calc(100% - 26px);
-
-        padding-top: 72px;
-      }
-
-      .eyebrow {
-        margin-bottom: 11px;
-
-        font-size: 7px;
-      }
-
-      .title {
-        font-size:
-          clamp(
-            34px,
-            10vw,
-            48px
-          );
-      }
-
-      .subtitle {
-        margin-top: 12px;
-
-        font-size: 14px;
-
-        max-width: 330px;
-      }
-
-      .emotion-grid {
-        margin-top: 22px;
-
-        gap: 8px;
-      }
-
-      .emotion-card {
-        min-height: 112px;
-
-        padding: 14px 9px;
-
-        border-radius: 17px;
-      }
-
-      .emotion-icon {
-        width: 34px;
-        height: 34px;
-
-        margin-bottom: 8px;
-
-        font-size: 15px;
-      }
-
-      .emotion-title {
-        font-size: 14px;
-      }
-
-      .emotion-description {
-        margin-top: 5px;
-
-        font-size: 7px;
-      }
-
-      .bottom-note {
-        font-size: 7px;
-
-        letter-spacing: .14em;
-
-        margin-top: 16px;
-      }
-
-      .sound-button {
-        left: max(
-          15px,
-          env(safe-area-inset-left)
-        );
-
-        bottom: max(
-          15px,
-          env(safe-area-inset-bottom)
-        );
-
-        width: 38px;
-        height: 38px;
-      }
-
-      .time-label {
-        right: max(
-          16px,
-          env(safe-area-inset-right)
-        );
-
-        bottom: max(
-          18px,
-          env(safe-area-inset-bottom)
-        );
-      }
-    }
-
-
-    @media (max-width: 370px) {
-
-      .content {
-        padding-top: 66px;
-      }
-
-      .title {
-        font-size: 31px;
-      }
-
-      .subtitle {
-        font-size: 13px;
-      }
-
-      .emotion-card {
-        min-height: 103px;
-      }
-
-      .emotion-title {
-        font-size: 12px;
-      }
-
-      .emotion-description {
-        display: none;
-      }
-
-      .bottom-note {
-        margin-top: 12px;
-      }
-    }
-
-
-    /* =====================================================
-       LANDSCAPE PHONES
-    ===================================================== */
-
-    @media (
-      orientation: landscape
-    ) and (max-height: 600px) {
-
-      .content {
-        padding-top: 55px;
-      }
-
-      .eyebrow {
-        margin-bottom: 7px;
-      }
-
-      .title {
-        font-size: 35px;
-      }
-
-      .subtitle {
-        margin-top: 7px;
-        font-size: 13px;
-      }
-
-      .emotion-grid {
-        margin-top: 15px;
-      }
-
-      .emotion-card {
-        min-height: 90px;
-        padding: 10px;
-      }
-
-      .emotion-icon {
-        display: none;
-      }
-
-      .emotion-description {
-        display: none;
-      }
-
-      .bottom-note {
-        margin-top: 10px;
-      }
-    }
-
-
-    /* =====================================================
-       REDUCED MOTION
-    ===================================================== */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        transition: none !important;
-        animation: none !important;
-      }
-    }
-
-  </style>
+  *,
+  *::before,
+  *::after{
+    animation:none!important;
+    transition:none!important;
+  }
+}
+</style>
 </head>
-
 
 <body>
 
-  <main class="page">
+<main class="page">
+
+  <!-- ANIMATED BACKGROUND -->
+  <div class="sky">
+
+    <div class="sun"></div>
+
+    <div class="cloud one"></div>
+    <div class="cloud two"></div>
+    <div class="cloud three"></div>
+
+    <div class="warm-glow"></div>
+
+    <div class="lavender"></div>
+
+    <div class="night-sky"></div>
+
+    <div class="moon"></div>
+
+    <div class="stars"></div>
+
+    <div class="shooting-star one"></div>
+    <div class="shooting-star two"></div>
+
+    <div class="rain"></div>
+
+  </div>
+
+  <div class="overlay"></div>
 
 
-    <!-- ===================================================
-         BACKGROUND
-    ==================================================== -->
+  <!-- TOP -->
+  <header class="top">
 
-    <div class="background">
+    <a href="index.html" aria-label="AKSH">
 
-      <video
-        id="pageVideo"
-        muted
-        playsinline
-        preload="auto"
-      ></video>
+      <img
+        src="aksh-icon.PNG"
+        alt="AKSH"
+        class="icon"
+      >
 
-      <div class="ambient"></div>
+    </a>
+
+    <a
+      href="index.html"
+      class="back"
+      aria-label="Back to AKSH arrival"
+    >
+      ←
+    </a>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <section class="content">
+
+    <div class="eyebrow">
+      A safe space for every mind
+    </div>
+
+    <h1>
+      How are you feeling today?
+    </h1>
+
+    <p class="subtitle">
+      You don't have to explain everything.
+      Just start wherever you are.
+    </p>
+
+
+    <!-- FOUR EMOTIONS -->
+    <div class="cards">
+
+      <button class="card" type="button">
+        <div class="card-symbol">◌</div>
+
+        <div class="card-title">
+          Anxious
+        </div>
+
+        <div class="card-text">
+          When your thoughts feel a little too loud.
+        </div>
+      </button>
+
+
+      <button class="card" type="button">
+        <div class="card-symbol">≋</div>
+
+        <div class="card-title">
+          Overwhelmed
+        </div>
+
+        <div class="card-text">
+          When everything feels like too much at once.
+        </div>
+      </button>
+
+
+      <button class="card" type="button">
+        <div class="card-symbol">♡</div>
+
+        <div class="card-title">
+          Need someone to talk
+        </div>
+
+        <div class="card-text">
+          You don't have to carry everything alone.
+        </div>
+      </button>
+
+
+      <button class="card" type="button">
+        <div class="card-symbol">✦</div>
+
+        <div class="card-title">
+          Just exploring
+        </div>
+
+        <div class="card-text">
+          Take your time. See what feels right.
+        </div>
+      </button>
 
     </div>
 
 
-    <!-- ===================================================
-         TOP BAR
-    ==================================================== -->
-
-    <header class="topbar">
-
-      <a
-        href="index.html"
-        class="brand"
-        aria-label="Back to AKSH home"
-      >
-
-        <img
-          src="aksh-icon.PNG"
-          alt="AKSH"
-        >
-
-      </a>
-
-
-      <a
-        href="index.html"
-        class="back-button"
-        aria-label="Back"
-      >
-        ←
-      </a>
-
-    </header>
-
-
-    <!-- ===================================================
-         MAIN CONTENT
-    ==================================================== -->
-
-    <section class="content">
-
-      <div class="eyebrow">
-        A moment for you
-      </div>
-
-
-      <h1 class="title">
-        How are you feeling today?
-      </h1>
-
-
-      <p class="subtitle">
-        There is no right answer here.
-        Choose whatever feels closest to you.
-      </p>
-
-
-      <!-- =================================================
-           EMOTION CARDS
-      ================================================== -->
-
-      <div class="emotion-grid">
-
-
-        <!-- ANXIOUS -->
-
-        <button
-          class="emotion-card"
-          type="button"
-          data-emotion="anxious"
-        >
-
-          <div class="emotion-icon">
-            ◌
-          </div>
-
-          <div class="emotion-title">
-            Anxious
-          </div>
-
-          <div class="emotion-description">
-            When your thoughts feel a little too loud.
-          </div>
-
-        </button>
-
-
-        <!-- OVERWHELMED -->
-
-        <button
-          class="emotion-card"
-          type="button"
-          data-emotion="overwhelmed"
-        >
-
-          <div class="emotion-icon">
-            ≋
-          </div>
-
-          <div class="emotion-title">
-            Overwhelmed
-          </div>
-
-          <div class="emotion-description">
-            When everything feels like too much at once.
-          </div>
-
-        </button>
-
-
-        <!-- SOMEONE TO TALK -->
-
-        <button
-          class="emotion-card"
-          type="button"
-          data-emotion="talk"
-        >
-
-          <div class="emotion-icon">
-            ♡
-          </div>
-
-          <div class="emotion-title">
-            Need someone to talk
-          </div>
-
-          <div class="emotion-description">
-            You don't have to carry everything alone.
-          </div>
-
-        </button>
-
-
-        <!-- EXPLORING -->
-
-        <button
-          class="emotion-card"
-          type="button"
-          data-emotion="exploring"
-        >
-
-          <div class="emotion-icon">
-            ✦
-          </div>
-
-          <div class="emotion-title">
-            Just exploring
-          </div>
-
-          <div class="emotion-description">
-            Take your time and see what feels right.
-          </div>
-
-        </button>
-
-      </div>
-
-
-      <div class="bottom-note">
-        Your space. Your pace. Your journey.
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         SOUND
-    ==================================================== -->
-
-    <button
-      class="sound-button"
-      id="soundButton"
-      type="button"
-      aria-label="Turn sound on"
-      title="Turn sound on"
-    >
-      🔇
-    </button>
-
-
-    <!-- ===================================================
-         TIME
-    ==================================================== -->
-
-    <div
-      class="time-label"
-      id="timeLabel"
-    >
-      MORNING
+    <div class="bottom-note">
+      Your space · Your pace · Your journey
     </div>
 
+  </section>
 
-  </main>
 
+  <!-- SOUND -->
+  <button
+    class="sound"
+    id="sound"
+    type="button"
+    aria-label="Sound is off"
+  >
+    🔇
+  </button>
 
-  <script>
+</main>
 
-    /* =====================================================
-       VIDEO GROUPS
-    ===================================================== */
 
-    const VIDEO_GROUPS = {
+<script>
 
-      morning: [
-        "aksh-morning.1.mov",
-        "aksh-morning.2.mov",
-        "aksh-morning.3.mov",
-        "aksh-morning.4.mov"
-      ],
+/* =========================================================
+   TIME-BASED ATMOSPHERE
+========================================================= */
 
-      afternoon: [
-        "aksh-afternoon.1.mov",
-        "aksh-afternoon.2.mov",
-        "aksh-afternoon.3.mov",
-        "aksh-afternoon.4.mov"
-      ],
+const sky = document.querySelector(".sky");
+const sun = document.querySelector(".sun");
+const warmGlow = document.querySelector(".warm-glow");
+const lavender = document.querySelector(".lavender");
+const nightSky = document.querySelector(".night-sky");
+const moon = document.querySelector(".moon");
+const stars = document.querySelector(".stars");
+const rain = document.querySelector(".rain");
 
-      evening: [
-        "aksh-evening.1.mov",
-        "aksh-evening.2.mov",
-        "aksh-evening.3.mov"
-      ],
 
-      night: [
-        "aksh-night.1.mov",
-        "aksh-night.2.mov"
-      ]
+function updateAtmosphere(){
 
-    };
+  const now = new Date();
 
+  const hour = now.getHours();
+  const minute = now.getMinutes();
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+  const total = hour * 60 + minute;
 
-    const video =
-      document.getElementById("pageVideo");
 
-    const soundButton =
-      document.getElementById("soundButton");
+  /* RESET */
 
-    const timeLabel =
-      document.getElementById("timeLabel");
+  warmGlow.style.opacity = ".55";
+  lavender.style.opacity = "0";
+  nightSky.style.opacity = "0";
+  moon.style.opacity = "0";
+  stars.style.opacity = "0";
+  rain.style.opacity = "0";
+  sun.style.opacity = "1";
 
-    const emotionCards =
-      document.querySelectorAll(".emotion-card");
 
+  /* =======================================================
+     MORNING
+     5:00 AM — 11:59 AM
+  ======================================================= */
 
-    /* =====================================================
-       STATE
-    ===================================================== */
+  if(total >= 300 && total < 720){
 
-    let soundEnabled = false;
+    sky.style.background =
+      "linear-gradient(180deg,#a9c4dc 0%,#c6d9e8 45%,#dbe4e9 100%)";
 
-    let activePeriod = null;
+    sun.style.opacity = ".55";
 
-    let activeVideoIndex = -1;
+  }
 
-    let activePlaylist = [];
 
-    let switching = false;
+  /* =======================================================
+     AFTERNOON
+     12:00 PM — 4:59 PM
+  ======================================================= */
 
+  else if(total >= 720 && total < 1020){
 
-    /* =====================================================
-       CURRENT MINUTES
-    ===================================================== */
+    sky.style.background =
+      "linear-gradient(180deg,#e7b47e 0%,#eac99b 45%,#d8b48f 100%)";
 
-    function getMinutesNow() {
+    sun.style.opacity = ".95";
 
-      const now = new Date();
+    warmGlow.style.opacity = "1";
 
-      return (
-        now.getHours() * 60 +
-        now.getMinutes()
-      );
+  }
 
-    }
 
+  /* =======================================================
+     EVENING
+     5:00 PM — 6:59 PM
+  ======================================================= */
 
-    /* =====================================================
-       CURRENT PERIOD
-    ===================================================== */
+  else if(total >= 1020 && total < 1140){
 
-    function getCurrentPeriod() {
+    sky.style.background =
+      "linear-gradient(180deg,#71849d 0%,#7e8196 45%,#635b70 100%)";
 
-      const minutes =
-        getMinutesNow();
+    sun.style.opacity = ".3";
 
+    rain.style.opacity = ".75";
 
-      if (minutes < 300) {
-        return "night";
-      }
+  }
 
 
-      if (minutes < 720) {
-        return "morning";
-      }
+  /* =======================================================
+     PURPLE / LAVENDER EVENING
+     7:00 PM — 7:59 PM
+  ======================================================= */
 
+  else if(total >= 1140 && total < 1200){
 
-      if (minutes < 1020) {
-        return "afternoon";
-      }
+    sky.style.background =
+      "linear-gradient(180deg,#514a78 0%,#765d91 55%,#a27da4 100%)";
 
+    sun.style.opacity = ".12";
 
-      if (minutes < 1200) {
-        return "evening";
-      }
+    rain.style.opacity = ".35";
 
+    lavender.style.opacity = "1";
 
-      return "night";
+  }
 
-    }
 
+  /* =======================================================
+     NIGHT
+     8:00 PM — 4:59 AM
+  ======================================================= */
 
-    /* =====================================================
-       EXACT VIDEO
-    ===================================================== */
+  else{
 
-    function getVideoIndex(period) {
+    sky.style.background =
+      "linear-gradient(180deg,#15162e 0%,#26234d 52%,#4b3563 100%)";
 
-      const minutes =
-        getMinutesNow();
+    sun.style.opacity = "0";
 
+    warmGlow.style.opacity = "0";
 
-      if (period === "morning") {
+    rain.style.opacity = "0";
 
-        if (minutes < 360) return 0;
+    lavender.style.opacity = "0";
 
-        if (minutes < 480) return 1;
+    nightSky.style.opacity = "1";
 
-        if (minutes < 600) return 2;
+    moon.style.opacity = "1";
 
-        return 3;
+    stars.style.opacity = "1";
 
-      }
+  }
 
+}
 
-      if (period === "afternoon") {
 
-        if (minutes < 780) return 0;
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
-        if (minutes < 870) return 1;
+updateAtmosphere();
 
-        if (minutes < 960) return 2;
 
-        return 3;
+/* =========================================================
+   KEEP ATMOSPHERE SYNCHRONIZED
+========================================================= */
 
-      }
+setInterval(
+  updateAtmosphere,
+  30000
+);
 
 
-      if (period === "evening") {
+/* =========================================================
+   SOUND BUTTON
+========================================================= */
 
-        if (minutes < 1065) return 0;
+const sound = document.getElementById("sound");
 
-        if (minutes < 1140) return 1;
+let soundOn = false;
 
-        return 2;
+sound.addEventListener("click",()=>{
 
-      }
+  soundOn = !soundOn;
 
+  sound.textContent =
+    soundOn ? "🔊" : "🔇";
 
-      if (minutes >= 1200) {
-        return 0;
-      }
+  sound.setAttribute(
+    "aria-label",
+    soundOn
+      ? "Sound is on"
+      : "Sound is off"
+  );
 
-      return 1;
+});
 
-    }
-
-
-    /* =====================================================
-       TIME LABEL
-    ===================================================== */
-
-    function updateTimeLabel(period) {
-
-      timeLabel.textContent =
-        period.toUpperCase();
-
-    }
-
-
-    /* =====================================================
-       LOAD VIDEO
-    ===================================================== */
-
-    function loadVideo(index) {
-
-      if (
-        !activePlaylist[index] ||
-        switching
-      ) {
-        return;
-      }
-
-
-      switching = true;
-
-
-      video.pause();
-
-      video.removeAttribute("src");
-
-      video.load();
-
-
-      video.classList.remove("visible");
-
-
-      video.src =
-        activePlaylist[index];
-
-
-      video.load();
-
-
-      const ready = () => {
-
-        video.removeEventListener(
-          "canplay",
-          ready
-        );
-
-
-        video.muted =
-          !soundEnabled;
-
-
-        video
-          .play()
-          .catch(() => {});
-
-
-        requestAnimationFrame(() => {
-
-          video.classList.add("visible");
-
-        });
-
-
-        switching = false;
-
-      };
-
-
-      video.addEventListener(
-        "canplay",
-        ready,
-        {
-          once: true
-        }
-      );
-
-    }
-
-
-    /* =====================================================
-       CHECK VIDEO
-    ===================================================== */
-
-    function checkVideo() {
-
-      const period =
-        getCurrentPeriod();
-
-
-      const index =
-        getVideoIndex(period);
-
-
-      if (
-        period !== activePeriod
-      ) {
-
-        activePeriod =
-          period;
-
-        activePlaylist =
-          VIDEO_GROUPS[period];
-
-        updateTimeLabel(period);
-
-      }
-
-
-      if (
-        index !== activeVideoIndex
-      ) {
-
-        activeVideoIndex =
-          index;
-
-        loadVideo(index);
-
-      }
-
-    }
-
-
-    /* =====================================================
-       LOOP SAME VIDEO
-    ===================================================== */
-
-    video.addEventListener(
-      "ended",
-      () => {
-
-        const period =
-          getCurrentPeriod();
-
-        const index =
-          getVideoIndex(period);
-
-
-        if (
-          period === activePeriod &&
-          index === activeVideoIndex
-        ) {
-
-          video.currentTime = 0;
-
-          video.play().catch(() => {});
-
-        }
-
-        else {
-
-          checkVideo();
-
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       SOUND
-    ===================================================== */
-
-    soundButton.addEventListener(
-      "click",
-      () => {
-
-        soundEnabled =
-          !soundEnabled;
-
-
-        video.muted =
-          !soundEnabled;
-
-
-        soundButton.textContent =
-          soundEnabled
-            ? "🔊"
-            : "🔇";
-
-
-        soundButton.setAttribute(
-          "aria-label",
-          soundEnabled
-            ? "Mute sound"
-            : "Turn sound on"
-        );
-
-
-        video.play().catch(() => {});
-
-      }
-    );
-
-
-    /* =====================================================
-       EMOTION CARD SELECTION
-    ===================================================== */
-
-    emotionCards.forEach(
-      card => {
-
-        card.addEventListener(
-          "click",
-          () => {
-
-            emotionCards.forEach(
-              item => {
-
-                item.classList.remove(
-                  "selected"
-                );
-
-              }
-            );
-
-
-            card.classList.add(
-              "selected"
-            );
-
-
-            /*
-              The selection is intentionally kept
-              on this page for now.
-
-              We will connect each emotion to its
-              dedicated Page 2 flow later.
-            */
-
-          }
-        );
-
-      }
-    );
-
-
-    /* =====================================================
-       START
-    ===================================================== */
-
-    checkVideo();
-
-
-    /* =====================================================
-       KEEP TIME SYNCHRONIZED
-    ===================================================== */
-
-    setInterval(
-      checkVideo,
-      1000
-    );
-
-
-    /* =====================================================
-       IOS / MOBILE RETURN
-    ===================================================== */
-
-    document.addEventListener(
-      "visibilitychange",
-      () => {
-
-        if (
-          !document.hidden &&
-          video.src &&
-          video.paused
-        ) {
-
-          video.muted =
-            !soundEnabled;
-
-          video.play().catch(() => {});
-
-        }
-
-      }
-    );
-
-
-  </script>
+</script>
 
 </body>
 </html>
