@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#111827">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#172433">
 <title>AKSH — How are you feeling today?</title>
 
 <style>
@@ -20,307 +20,347 @@ body{
 }
 
 body{
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
+    overflow-x:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     color:#fff;
-    background:#18202b;
-
+    background:#172433;
     -webkit-font-smoothing:antialiased;
 }
 
-/* =========================================================
-   PAGE
-========================================================= */
-
 .page{
     position:relative;
-
-    width:100%;
     min-height:100svh;
     min-height:100vh;
-
     overflow:hidden;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
     isolation:isolate;
 }
 
 
 /* =========================================================
-   PREMIUM LIVING BACKGROUND
+   ATMOSPHERIC BACKGROUND
 ========================================================= */
 
-.background{
-    position:absolute;
+.sky{
+    position:fixed;
     inset:0;
-
-    z-index:-5;
+    z-index:-20;
+    overflow:hidden;
 
     background:
         radial-gradient(
-            ellipse at 12% 18%,
-            rgba(170,205,226,.52) 0%,
-            rgba(170,205,226,.18) 23%,
-            transparent 48%
+            ellipse at 15% 15%,
+            rgba(204,227,238,.65) 0%,
+            rgba(204,227,238,.25) 22%,
+            transparent 46%
         ),
-
         radial-gradient(
-            ellipse at 88% 18%,
-            rgba(226,193,222,.42) 0%,
-            rgba(226,193,222,.12) 25%,
+            ellipse at 85% 25%,
+            rgba(224,201,224,.55) 0%,
+            rgba(224,201,224,.20) 24%,
             transparent 50%
         ),
-
         radial-gradient(
-            ellipse at 50% 70%,
-            rgba(202,170,202,.20) 0%,
+            ellipse at 48% 80%,
+            rgba(170,178,211,.30) 0%,
             transparent 48%
         ),
-
         linear-gradient(
             135deg,
-            #26394b 0%,
-            #506176 38%,
-            #71667b 67%,
-            #292c3d 100%
+            #30485a 0%,
+            #657587 38%,
+            #766d80 66%,
+            #272d3d 100%
         );
-
-    animation:
-        backgroundBreathing 18s ease-in-out infinite alternate;
 }
 
-@keyframes backgroundBreathing{
 
+/* moving light */
+
+.light{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(65px);
+    pointer-events:none;
+}
+
+.light.a{
+    width:70vw;
+    height:28vw;
+    left:-20vw;
+    top:5vh;
+    background:rgba(221,239,246,.27);
+    animation:floatA 17s ease-in-out infinite alternate;
+}
+
+.light.b{
+    width:65vw;
+    height:25vw;
+    right:-18vw;
+    top:18vh;
+    background:rgba(238,210,235,.25);
+    animation:floatB 20s ease-in-out infinite alternate;
+}
+
+.light.c{
+    width:80vw;
+    height:30vw;
+    left:10vw;
+    bottom:-15vw;
+    background:rgba(173,173,209,.22);
+    animation:floatC 22s ease-in-out infinite alternate;
+}
+
+@keyframes floatA{
     0%{
-        transform:scale(1);
+        transform:translate3d(0,0,0) scale(1);
     }
-
     100%{
-        transform:scale(1.045);
+        transform:translate3d(9vw,3vh,0) scale(1.12);
+    }
+}
+
+@keyframes floatB{
+    0%{
+        transform:translate3d(0,0,0) scale(1);
+    }
+    100%{
+        transform:translate3d(-8vw,5vh,0) scale(1.1);
+    }
+}
+
+@keyframes floatC{
+    0%{
+        transform:translate3d(0,0,0);
+    }
+    100%{
+        transform:translate3d(-5vw,-4vh,0);
     }
 }
 
 
 /* =========================================================
-   CLOUD-LIKE LIGHT
+   CLOUD FORMS
 ========================================================= */
 
 .cloud{
     position:absolute;
-
-    border-radius:50%;
-
-    filter:blur(45px);
-
+    display:flex;
+    align-items:center;
     pointer-events:none;
+    filter:blur(2px);
+    opacity:.34;
+}
 
-    opacity:.48;
+.cloud span{
+    display:block;
+    position:relative;
+    border-radius:50%;
+    background:rgba(244,248,249,.52);
+    box-shadow:
+        0 12px 35px rgba(255,255,255,.07);
+}
+
+.cloud span:nth-child(1){
+    width:120px;
+    height:70px;
+}
+
+.cloud span:nth-child(2){
+    width:170px;
+    height:100px;
+    margin-left:-30px;
+}
+
+.cloud span:nth-child(3){
+    width:125px;
+    height:72px;
+    margin-left:-35px;
+}
+
+.cloud span:nth-child(4){
+    width:90px;
+    height:55px;
+    margin-left:-25px;
 }
 
 .cloud.one{
-    width:55vw;
-    height:22vw;
-
-    max-width:760px;
-    max-height:310px;
-
-    left:-12%;
-    top:8%;
-
-    background:
-        rgba(220,235,242,.28);
-
-    animation:
-        cloudOne 16s ease-in-out infinite alternate;
+    width:500px;
+    height:120px;
+    left:-130px;
+    top:16%;
+    animation:cloudOne 25s ease-in-out infinite alternate;
 }
 
 .cloud.two{
-    width:48vw;
-    height:20vw;
-
-    max-width:680px;
-    max-height:290px;
-
-    right:-10%;
-    top:16%;
-
-    background:
-        rgba(241,220,239,.25);
-
-    animation:
-        cloudTwo 19s ease-in-out infinite alternate;
+    width:520px;
+    height:120px;
+    right:-180px;
+    top:31%;
+    transform:scale(.82);
+    opacity:.25;
+    animation:cloudTwo 29s ease-in-out infinite alternate;
 }
 
 .cloud.three{
-    width:65vw;
-    height:25vw;
-
-    max-width:850px;
-    max-height:340px;
-
+    width:600px;
+    height:120px;
     left:18%;
-    bottom:-13%;
-
-    background:
-        rgba(188,183,214,.20);
-
-    animation:
-        cloudThree 21s ease-in-out infinite alternate;
+    bottom:5%;
+    transform:scale(.7);
+    opacity:.16;
+    animation:cloudThree 32s ease-in-out infinite alternate;
 }
 
 @keyframes cloudOne{
-
     from{
-        transform:translateX(0) translateY(0);
+        transform:translateX(0);
     }
-
     to{
-        transform:translateX(80px) translateY(18px);
+        transform:translateX(170px) translateY(25px);
     }
 }
 
 @keyframes cloudTwo{
-
     from{
-        transform:translateX(0);
+        transform:translateX(0) scale(.82);
     }
-
     to{
-        transform:translateX(-75px) translateY(25px);
+        transform:translateX(-160px) translateY(-18px) scale(.88);
     }
 }
 
 @keyframes cloudThree{
-
     from{
-        transform:translateX(0);
+        transform:translateX(0) scale(.7);
     }
-
     to{
-        transform:translateX(-55px) translateY(-20px);
+        transform:translateX(-130px) translateY(-25px) scale(.76);
     }
 }
 
 
 /* =========================================================
-   CINEMATIC OVERLAY
+   ATMOSPHERIC GRAIN
 ========================================================= */
 
-.overlay{
+.grain{
     position:absolute;
-    inset:0;
-
-    z-index:-2;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(14,21,30,.12) 0%,
-            rgba(14,18,28,.02) 40%,
-            rgba(10,13,21,.54) 100%
-        );
-
+    inset:-50%;
+    z-index:2;
     pointer-events:none;
+    opacity:.035;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+
+    animation:grainMove .25s steps(2) infinite;
+}
+
+@keyframes grainMove{
+    0%{transform:translate(0,0)}
+    25%{transform:translate(2%,1%)}
+    50%{transform:translate(-1%,2%)}
+    75%{transform:translate(1%,-2%)}
+    100%{transform:translate(-2%,-1%)}
 }
 
 
 /* =========================================================
-   TOP BRAND
+   DARK CINEMATIC EDGE
+========================================================= */
+
+.vignette{
+    position:absolute;
+    inset:0;
+    z-index:3;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 35%,
+            rgba(5,9,16,.12) 68%,
+            rgba(5,8,15,.52) 100%
+        );
+}
+
+
+/* =========================================================
+   BRAND
 ========================================================= */
 
 .brand{
     position:absolute;
-
     z-index:20;
 
-    top:max(24px,env(safe-area-inset-top));
-
+    top:max(20px,env(safe-area-inset-top));
     left:50%;
-
     transform:translateX(-50%);
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
 
     text-align:center;
 }
 
 .brand img{
-    width:62px;
-    height:62px;
-
+    display:block;
+    width:58px;
+    height:58px;
     object-fit:contain;
 
     filter:
         drop-shadow(
-            0 8px 24px rgba(0,0,0,.28)
+            0 8px 24px rgba(0,0,0,.3)
         );
 }
 
-.brand-name{
-    margin-top:5px;
+.brand-word{
+    margin-top:3px;
 
-    font-size:10px;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:.34em;
 
-    font-weight:800;
-
-    letter-spacing:.30em;
-
-    text-transform:uppercase;
-
-    color:rgba(255,255,255,.82);
+    color:rgba(255,255,255,.76);
 }
 
 
 /* =========================================================
-   MAIN CONTENT
+   CONTENT
 ========================================================= */
 
 .content{
     position:relative;
-
     z-index:10;
 
-    width:min(
-        1180px,
-        calc(100% - 36px)
-    );
+    width:min(1160px,calc(100% - 30px));
+
+    min-height:100svh;
+
+    margin:auto;
 
     padding:
-        125px 0
-        max(42px,env(safe-area-inset-bottom));
+        130px 0
+        max(35px,env(safe-area-inset-bottom));
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
 
     text-align:center;
 }
 
-
-/* =========================================================
-   HEADING
-========================================================= */
-
 .eyebrow{
-    font-size:9px;
-
-    font-weight:800;
-
-    letter-spacing:.34em;
-
-    text-transform:uppercase;
-
-    color:rgba(255,255,255,.66);
-
     margin-bottom:15px;
 
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.62);
+
     text-shadow:
-        0 3px 18px rgba(0,0,0,.25);
+        0 4px 18px rgba(0,0,0,.3);
 }
 
 h1{
@@ -330,30 +370,22 @@ h1{
         serif;
 
     font-size:
-        clamp(
-            44px,
-            7vw,
-            82px
-        );
+        clamp(43px,7vw,80px);
 
     font-weight:400;
 
-    line-height:1;
+    line-height:.99;
 
     letter-spacing:-.055em;
 
     text-shadow:
-        0 8px 35px rgba(0,0,0,.28);
+        0 9px 35px rgba(0,0,0,.32);
 }
 
 .intro{
-    width:min(
-        620px,
-        100%
-    );
+    width:min(600px,100%);
 
-    margin:
-        18px auto 0;
+    margin-top:17px;
 
     font-family:
         Georgia,
@@ -361,62 +393,51 @@ h1{
         serif;
 
     font-size:
-        clamp(
-            15px,
-            2vw,
-            19px
-        );
+        clamp(14px,2vw,18px);
 
     line-height:1.55;
 
-    color:rgba(255,255,255,.84);
+    color:rgba(255,255,255,.78);
 
     text-shadow:
-        0 4px 18px rgba(0,0,0,.20);
+        0 4px 18px rgba(0,0,0,.25);
 }
 
 
 /* =========================================================
-   FOUR EMOTION CARDS
+   CARDS
 ========================================================= */
 
 .cards{
     width:100%;
-
-    margin:
-        40px auto 0;
+    margin-top:38px;
 
     display:grid;
+    grid-template-columns:repeat(4,1fr);
 
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:15px;
+    gap:14px;
 }
 
 .card{
     position:relative;
 
-    min-height:235px;
+    min-height:225px;
 
-    padding:25px 23px;
+    padding:24px 21px;
 
+    border:1px solid rgba(255,255,255,.23);
     border-radius:26px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.24);
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.19),
-            rgba(255,255,255,.065)
+            rgba(255,255,255,.17),
+            rgba(255,255,255,.055)
         );
 
     box-shadow:
-        0 24px 65px
-        rgba(0,0,0,.18);
+        0 25px 70px rgba(0,0,0,.20),
+        inset 0 1px rgba(255,255,255,.10);
 
     color:#fff;
 
@@ -424,35 +445,33 @@ h1{
 
     cursor:pointer;
 
-    appearance:none;
-    -webkit-appearance:none;
+    font:inherit;
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
 
     transition:
-        transform .32s ease,
-        background .32s ease,
-        border-color .32s ease,
-        box-shadow .32s ease;
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        background .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
 }
 
 .card:hover{
-    transform:translateY(-8px);
+    transform:translateY(-9px);
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.27),
-            rgba(255,255,255,.09)
+            rgba(255,255,255,.25),
+            rgba(255,255,255,.075)
         );
 
-    border-color:
-        rgba(255,255,255,.44);
+    border-color:rgba(255,255,255,.42);
 
     box-shadow:
-        0 34px 80px
-        rgba(0,0,0,.25);
+        0 35px 90px rgba(0,0,0,.28),
+        inset 0 1px rgba(255,255,255,.14);
 }
 
 .card:active{
@@ -460,39 +479,28 @@ h1{
 }
 
 .card:focus-visible{
-    outline:
-        2px solid
-        rgba(255,255,255,.9);
-
+    outline:2px solid rgba(255,255,255,.9);
     outline-offset:4px;
 }
-
-
-/* number */
 
 .number{
     position:absolute;
 
     top:17px;
-    right:19px;
+    right:18px;
 
     font-size:8px;
-
     font-weight:800;
-
     letter-spacing:.18em;
 
-    color:rgba(255,255,255,.42);
+    color:rgba(255,255,255,.4);
 }
 
-
-/* icon */
-
 .icon{
-    width:53px;
-    height:53px;
+    width:52px;
+    height:52px;
 
-    margin-bottom:28px;
+    margin-bottom:27px;
 
     border-radius:17px;
 
@@ -500,22 +508,15 @@ h1{
     align-items:center;
     justify-content:center;
 
-    border:
-        1px solid
-        rgba(255,255,255,.19);
+    background:rgba(255,255,255,.10);
 
-    background:
-        rgba(255,255,255,.105);
+    border:1px solid rgba(255,255,255,.18);
 
     font-size:22px;
 
     box-shadow:
-        inset 0 1px
-        rgba(255,255,255,.08);
+        inset 0 1px rgba(255,255,255,.08);
 }
-
-
-/* title */
 
 .card h2{
     font-family:
@@ -523,43 +524,34 @@ h1{
         "Times New Roman",
         serif;
 
-    font-size:22px;
-
+    font-size:21px;
     font-weight:400;
 
     line-height:1.12;
-
-    letter-spacing:-.02em;
 }
-
-
-/* description */
 
 .card p{
     margin-top:10px;
 
-    font-size:10px;
+    max-width:220px;
 
+    font-size:10px;
     line-height:1.55;
 
-    color:rgba(255,255,255,.67);
+    color:rgba(255,255,255,.64);
 }
-
-
-/* arrow */
 
 .arrow{
     position:absolute;
 
-    left:23px;
-    bottom:18px;
+    left:21px;
+    bottom:17px;
 
     font-size:18px;
 
-    color:rgba(255,255,255,.72);
+    color:rgba(255,255,255,.7);
 
-    transition:
-        transform .25s ease;
+    transition:transform .25s ease;
 }
 
 .card:hover .arrow{
@@ -568,54 +560,45 @@ h1{
 
 
 /* =========================================================
-   BOTTOM
+   FOOTER NOTE
 ========================================================= */
 
 .bottom-note{
-    margin-top:22px;
+    margin-top:21px;
 
     font-size:8px;
-
     font-weight:700;
-
     letter-spacing:.17em;
-
     text-transform:uppercase;
 
-    color:rgba(255,255,255,.52);
-
-    text-shadow:
-        0 3px 15px rgba(0,0,0,.2);
+    color:rgba(255,255,255,.48);
 }
 
 
 /* =========================================================
-   PAGE TRANSITION
+   TRANSITION
 ========================================================= */
 
-.page-transition{
+.transition{
     position:fixed;
     inset:0;
-
     z-index:100;
 
     background:
         linear-gradient(
             135deg,
-            #26394b,
-            #71667b,
-            #292c3d
+            #30485a,
+            #766d80,
+            #272d3d
         );
 
     opacity:0;
-
     pointer-events:none;
 
-    transition:
-        opacity .45s ease;
+    transition:opacity .45s ease;
 }
 
-.page-transition.show{
+.transition.show{
     opacity:1;
 }
 
@@ -627,14 +610,12 @@ h1{
 @media(max-width:950px){
 
     .cards{
-        grid-template-columns:
-            repeat(2,1fr);
-
         max-width:720px;
+        grid-template-columns:repeat(2,1fr);
     }
 
     .card{
-        min-height:205px;
+        min-height:200px;
     }
 }
 
@@ -646,27 +627,21 @@ h1{
 @media(max-width:600px){
 
     .brand{
-        top:max(
-            14px,
-            env(safe-area-inset-top)
-        );
+        top:max(13px,env(safe-area-inset-top));
     }
 
     .brand img{
-        width:49px;
-        height:49px;
+        width:48px;
+        height:48px;
     }
 
-    .brand-name{
-        font-size:7px;
-        margin-top:3px;
+    .brand-word{
+        font-size:6px;
     }
 
     .content{
-        width:
-            calc(100% - 24px);
-
-        padding-top:92px;
+        width:calc(100% - 20px);
+        padding-top:95px;
     }
 
     .eyebrow{
@@ -675,75 +650,79 @@ h1{
     }
 
     h1{
-        font-size:
-            clamp(
-                36px,
-                10.5vw,
-                52px
-            );
+        font-size:clamp(36px,10.5vw,51px);
     }
 
     .intro{
-        margin-top:12px;
-        font-size:13px;
+        margin-top:11px;
+        font-size:12px;
+        max-width:350px;
     }
 
     .cards{
-        margin-top:24px;
-        gap:9px;
+        margin-top:23px;
+        gap:8px;
     }
 
     .card{
-        min-height:184px;
-
-        padding:
-            18px 15px;
-
+        min-height:182px;
+        padding:17px 14px;
         border-radius:20px;
     }
 
     .number{
         top:12px;
-        right:13px;
+        right:12px;
         font-size:6px;
     }
 
     .icon{
-        width:40px;
-        height:40px;
-
-        margin-bottom:19px;
-
-        border-radius:13px;
-
-        font-size:17px;
+        width:39px;
+        height:39px;
+        margin-bottom:18px;
+        border-radius:12px;
+        font-size:16px;
     }
 
     .card h2{
-        font-size:17px;
+        font-size:16px;
     }
 
     .card p{
         margin-top:7px;
         font-size:8px;
-        line-height:1.42;
+        line-height:1.4;
     }
 
     .arrow{
-        left:15px;
-        bottom:12px;
+        left:14px;
+        bottom:11px;
         font-size:15px;
     }
 
     .bottom-note{
-        margin-top:14px;
+        margin-top:13px;
         font-size:6px;
+    }
+
+    .cloud.one{
+        transform:scale(.62);
+        transform-origin:left center;
+    }
+
+    .cloud.two{
+        transform:scale(.55);
+        transform-origin:right center;
+    }
+
+    .cloud.three{
+        transform:scale(.48);
     }
 }
 
 
 /* =========================================================
-   SMALL PHONE
+   VERY SMALL PHONES
 ========================================================= */
 
 @media(max-width:380px){
@@ -757,20 +736,20 @@ h1{
     }
 
     .cards{
-        margin-top:18px;
+        margin-top:17px;
     }
 
     .card{
-        min-height:160px;
-        padding:14px 12px;
+        min-height:157px;
+        padding:13px 11px;
     }
 
     .icon{
-        width:34px;
-        height:34px;
-        margin-bottom:14px;
-        border-radius:11px;
-        font-size:15px;
+        width:33px;
+        height:33px;
+        margin-bottom:13px;
+        border-radius:10px;
+        font-size:14px;
     }
 
     .card h2{
@@ -782,8 +761,8 @@ h1{
     }
 
     .arrow{
-        left:12px;
-        bottom:9px;
+        left:11px;
+        bottom:8px;
     }
 }
 
@@ -797,20 +776,20 @@ h1{
 ) and (max-height:600px){
 
     .brand{
-        top:10px;
+        top:8px;
     }
 
     .brand img{
-        width:38px;
-        height:38px;
+        width:37px;
+        height:37px;
     }
 
-    .brand-name{
+    .brand-word{
         display:none;
     }
 
     .content{
-        padding-top:55px;
+        padding-top:50px;
     }
 
     .eyebrow{
@@ -822,23 +801,23 @@ h1{
     }
 
     .intro{
-        margin-top:6px;
+        margin-top:5px;
         font-size:10px;
     }
 
     .cards{
-        margin-top:12px;
+        margin-top:11px;
     }
 
     .card{
-        min-height:135px;
-        padding:13px;
+        min-height:132px;
+        padding:12px;
     }
 
     .icon{
-        width:32px;
-        height:32px;
-        margin-bottom:9px;
+        width:31px;
+        height:31px;
+        margin-bottom:8px;
     }
 
     .card h2{
@@ -864,8 +843,8 @@ h1{
     *,
     *::before,
     *::after{
-        animation:none !important;
-        transition:none !important;
+        animation:none!important;
+        transition:none!important;
     }
 }
 </style>
@@ -875,19 +854,52 @@ h1{
 
 <main class="page">
 
-    <!-- BACKGROUND -->
-    <div class="background">
+    <!-- =================================================
+         PAGE 1 BACKGROUND
+         Completely independent from Page 0 videos.
+    ================================================== -->
 
-        <div class="cloud one"></div>
-        <div class="cloud two"></div>
-        <div class="cloud three"></div>
+    <div class="sky">
+
+        <div class="light a"></div>
+        <div class="light b"></div>
+        <div class="light c"></div>
+
+
+        <div class="cloud one">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+
+        <div class="cloud two">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+
+        <div class="cloud three">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+
+        <div class="grain"></div>
+        <div class="vignette"></div>
 
     </div>
 
-    <div class="overlay"></div>
 
+    <!-- =================================================
+         AKSH
+    ================================================== -->
 
-    <!-- AKSH BRAND -->
     <div class="brand">
 
         <img
@@ -895,14 +907,17 @@ h1{
             alt="AKSH"
         >
 
-        <div class="brand-name">
+        <div class="brand-word">
             AKSH
         </div>
 
     </div>
 
 
-    <!-- MAIN CONTENT -->
+    <!-- =================================================
+         MAIN PAGE 1
+    ================================================== -->
+
     <section class="content">
 
         <div class="eyebrow">
@@ -922,25 +937,21 @@ h1{
         </p>
 
 
-        <!-- FOUR EMOTION CARDS -->
         <div class="cards">
 
 
-            <!-- ANXIOUS -->
+            <!-- 01 -->
 
             <button
                 class="card"
                 type="button"
                 data-emotion="anxious"
+                aria-label="Anxious"
             >
 
-                <span class="number">
-                    01
-                </span>
+                <span class="number">01</span>
 
-                <div class="icon">
-                    ◌
-                </div>
+                <div class="icon">◌</div>
 
                 <h2>
                     Anxious
@@ -951,28 +962,23 @@ h1{
                     worried or unable to slow down.
                 </p>
 
-                <span class="arrow">
-                    →
-                </span>
+                <span class="arrow">→</span>
 
             </button>
 
 
-            <!-- OVERWHELMED -->
+            <!-- 02 -->
 
             <button
                 class="card"
                 type="button"
                 data-emotion="overwhelmed"
+                aria-label="Overwhelmed"
             >
 
-                <span class="number">
-                    02
-                </span>
+                <span class="number">02</span>
 
-                <div class="icon">
-                    ≋
-                </div>
+                <div class="icon">≋</div>
 
                 <h2>
                     Overwhelmed
@@ -983,28 +989,23 @@ h1{
                     and you need some breathing room.
                 </p>
 
-                <span class="arrow">
-                    →
-                </span>
+                <span class="arrow">→</span>
 
             </button>
 
 
-            <!-- NEED SOMEONE -->
+            <!-- 03 -->
 
             <button
                 class="card"
                 type="button"
                 data-emotion="talk"
+                aria-label="Need someone to talk"
             >
 
-                <span class="number">
-                    03
-                </span>
+                <span class="number">03</span>
 
-                <div class="icon">
-                    ◇
-                </div>
+                <div class="icon">◇</div>
 
                 <h2>
                     Need someone to talk
@@ -1015,28 +1016,23 @@ h1{
                     alone. Someone can be here with you.
                 </p>
 
-                <span class="arrow">
-                    →
-                </span>
+                <span class="arrow">→</span>
 
             </button>
 
 
-            <!-- EXPLORING -->
+            <!-- 04 -->
 
             <button
                 class="card"
                 type="button"
                 data-emotion="exploring"
+                aria-label="Just exploring"
             >
 
-                <span class="number">
-                    04
-                </span>
+                <span class="number">04</span>
 
-                <div class="icon">
-                    ✦
-                </div>
+                <div class="icon">✦</div>
 
                 <h2>
                     Just exploring
@@ -1047,9 +1043,7 @@ h1{
                     emotions, growth or AKSH.
                 </p>
 
-                <span class="arrow">
-                    →
-                </span>
+                <span class="arrow">→</span>
 
             </button>
 
@@ -1064,10 +1058,9 @@ h1{
     </section>
 
 
-    <!-- TRANSITION -->
     <div
-        class="page-transition"
-        id="pageTransition"
+        class="transition"
+        id="transition"
     ></div>
 
 </main>
@@ -1075,81 +1068,88 @@ h1{
 
 <script>
 
-/*
-=========================================================
-AKSH PAGE 1 NAVIGATION
-=========================================================
-
-Each emotion card:
-
-1. Saves the selected emotion.
-2. Creates a smooth transition.
-3. Opens page2.html.
-
-No video.
-No music.
-No sound button.
-No changes to index.html.
-=========================================================
-*/
+/* =========================================================
+   PAGE 1 → PAGE 2
+========================================================= */
 
 const cards =
     document.querySelectorAll(".card");
 
 const transition =
-    document.getElementById("pageTransition");
+    document.getElementById("transition");
 
 
 cards.forEach(function(card){
 
-    card.addEventListener(
-        "click",
-        function(){
+    card.addEventListener("click",function(){
 
-            const emotion =
-                this.dataset.emotion;
+        const emotion =
+            this.dataset.emotion;
 
 
-            /*
-            Save selected emotion.
-            Page 2 can read this later.
-            */
+        /*
+         * Remember the visitor's choice.
+         * Page 2 can use this later.
+         */
 
-            try{
+        try{
 
-                sessionStorage.setItem(
-                    "akshEmotion",
-                    emotion
-                );
+            sessionStorage.setItem(
+                "akshEmotion",
+                emotion
+            );
 
-            }catch(error){
-
-                /* Navigation still works
-                   if storage is unavailable. */
-
-            }
-
+        }catch(error){
 
             /*
-            Start page transition.
-            */
-
-            transition.classList.add("show");
-
-
-            /*
-            Move to Page 2.
-            */
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "page2.html";
-
-            },450);
+             * Navigation still works even if
+             * browser storage is unavailable.
+             */
 
         }
-    );
+
+
+        /*
+         * Premium transition.
+         */
+
+        transition.classList.add("show");
+
+
+        /*
+         * Open Page 2.
+         */
+
+        setTimeout(function(){
+
+            window.location.href =
+                "page2.html";
+
+        },450);
+
+    });
+
+});
+
+
+/* Keyboard accessibility */
+
+cards.forEach(function(card){
+
+    card.addEventListener("keydown",function(event){
+
+        if(
+            event.key === "Enter" ||
+            event.key === " "
+        ){
+
+            event.preventDefault();
+
+            this.click();
+
+        }
+
+    });
 
 });
 
