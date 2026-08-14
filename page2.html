@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#171522">
+<meta name="description" content="AKSH — A safe space for every mind">
+<title>AKSH — Your Space</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#171522;
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+}
+
+.page{
+  position:relative;
+  width:100%;
+  height:100svh;
+  min-height:100vh;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+
+/* =========================================================
+   LIVING BACKGROUND
+========================================================= */
+
+.background{
+  position:absolute;
+  inset:0;
+  z-index:-10;
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 70% 25%,
+      rgba(193,172,225,.34),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #30334c 0%,
+      #5a536e 48%,
+      #27293d 100%
+    );
+}
+
+.glow{
+  position:absolute;
+  width:65vw;
+  height:65vw;
+  max-width:800px;
+  max-height:800px;
+
+  border-radius:50%;
+
+  top:-28%;
+  right:-18%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.16),
+      rgba(255,255,255,0) 68%
+    );
+
+  filter:blur(12px);
+
+  animation:
+    breathe 9s ease-in-out infinite alternate;
+}
+
+@keyframes breathe{
+  from{
+    transform:scale(.95);
+    opacity:.65;
+  }
+
+  to{
+    transform:scale(1.08);
+    opacity:1;
+  }
+}
+
+
+/* Floating atmospheric shapes */
+
+.orb{
+  position:absolute;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      rgba(255,255,255,.20),
+      rgba(255,255,255,0)
+    );
+
+  filter:blur(4px);
+
+  opacity:.45;
+}
+
+.orb.one{
+  width:280px;
+  height:280px;
+
+  left:-100px;
+  bottom:-90px;
+
+  animation:
+    floatOne 14s ease-in-out infinite alternate;
+}
+
+.orb.two{
+  width:190px;
+  height:190px;
+
+  right:12%;
+  bottom:-50px;
+
+  animation:
+    floatTwo 11s ease-in-out infinite alternate;
+}
+
+@keyframes floatOne{
+  from{transform:translate(0,0)}
+  to{transform:translate(55px,-40px)}
+}
+
+@keyframes floatTwo{
+  from{transform:translate(0,0)}
+  to{transform:translate(-35px,-55px)}
+}
+
+
+/* =========================================================
+   CINEMATIC OVERLAY
+========================================================= */
+
+.overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10,11,19,.18),
+      rgba(10,11,19,.03) 42%,
+      rgba(8,9,15,.60) 100%
+    );
+
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+  position:absolute;
+
+  z-index:20;
+
+  top:max(18px,env(safe-area-inset-top));
+  left:max(20px,env(safe-area-inset-left));
+  right:max(20px,env(safe-area-inset-right));
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand img{
+  width:48px;
+  height:48px;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(
+      0 5px 18px rgba(0,0,0,.30)
+    );
+}
+
+.back{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  color:#fff;
+  text-decoration:none;
+
+  border:1px solid rgba(255,255,255,.25);
+
+  background:rgba(0,0,0,.14);
+
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+
+  transition:.25s ease;
+}
+
+.back:hover{
+  transform:translateX(-3px);
+  background:rgba(0,0,0,.28);
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.content{
+  position:relative;
+  z-index:10;
+
+  width:min(920px,calc(100% - 34px));
+  height:100%;
+
+  margin:auto;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:
+    75px 0
+    max(40px,env(safe-area-inset-bottom));
+}
+
+
+/* =========================================================
+   EMOTION LABEL
+========================================================= */
+
+.label{
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:.30em;
+
+  text-transform:uppercase;
+
+  color:rgba(255,255,255,.65);
+
+  margin-bottom:17px;
+
+  text-shadow:
+    0 2px 14px rgba(0,0,0,.3);
+}
+
+
+/* =========================================================
+   MAIN MESSAGE
+========================================================= */
+
+.title{
+  max-width:800px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-weight:400;
+
+  font-size:
+    clamp(
+      42px,
+      7vw,
+      82px
+    );
+
+  line-height:1.02;
+
+  letter-spacing:-.05em;
+
+  text-shadow:
+    0 6px 35px rgba(0,0,0,.28);
+}
+
+.description{
+  max-width:610px;
+
+  margin-top:21px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(
+      16px,
+      2vw,
+      20px
+    );
+
+  line-height:1.55;
+
+  color:rgba(255,255,255,.88);
+
+  text-shadow:
+    0 3px 20px rgba(0,0,0,.28);
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.actions{
+  margin-top:34px;
+
+  display:flex;
+  flex-wrap:wrap;
+
+  justify-content:center;
+
+  gap:12px;
+}
+
+.primary,
+.secondary{
+
+  min-width:175px;
+
+  padding:14px 20px;
+
+  border-radius:999px;
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:10px;
+
+  text-decoration:none;
+
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:.12em;
+
+  text-transform:uppercase;
+
+  cursor:pointer;
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    border-color .25s ease;
+}
+
+.primary{
+
+  color:#292433;
+
+  background:rgba(255,255,255,.94);
+
+  border:1px solid rgba(255,255,255,.7);
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.18);
+}
+
+.secondary{
+
+  color:#fff;
+
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.28);
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.primary:hover,
+.secondary:hover{
+  transform:translateY(-3px);
+}
+
+.primary:hover{
+  background:#fff;
+}
+
+.secondary:hover{
+  background:rgba(255,255,255,.16);
+}
+
+
+/* =========================================================
+   SUPPORT LINE
+========================================================= */
+
+.support{
+  margin-top:27px;
+
+  font-size:8px;
+
+  font-weight:700;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+  color:rgba(255,255,255,.52);
+
+  text-shadow:
+    0 2px 12px rgba(0,0,0,.3);
+}
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+.sound{
+  position:absolute;
+
+  z-index:30;
+
+  left:max(20px,env(safe-area-inset-left));
+  bottom:max(20px,env(safe-area-inset-bottom));
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.25);
+
+  background:rgba(0,0,0,.14);
+
+  color:#fff;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+  .topbar{
+    top:max(14px,env(safe-area-inset-top));
+    left:max(15px,env(safe-area-inset-left));
+    right:max(15px,env(safe-area-inset-right));
+  }
+
+  .brand img{
+    width:43px;
+    height:43px;
+  }
+
+  .back{
+    width:38px;
+    height:38px;
+  }
+
+  .content{
+    width:calc(100% - 28px);
+    padding-top:70px;
+  }
+
+  .label{
+    font-size:7px;
+    margin-bottom:12px;
+  }
+
+  .title{
+    font-size:
+      clamp(
+        38px,
+        11vw,
+        55px
+      );
+  }
+
+  .description{
+    max-width:350px;
+
+    margin-top:15px;
+
+    font-size:15px;
+  }
+
+  .actions{
+    margin-top:26px;
+
+    width:100%;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:9px;
+  }
+
+  .primary,
+  .secondary{
+    width:min(290px,100%);
+    min-width:0;
+  }
+
+  .support{
+    margin-top:20px;
+    font-size:7px;
+  }
+
+  .sound{
+    left:max(15px,env(safe-area-inset-left));
+    bottom:max(15px,env(safe-area-inset-bottom));
+
+    width:38px;
+    height:38px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:370px){
+
+  .title{
+    font-size:34px;
+  }
+
+  .description{
+    font-size:13px;
+  }
+
+  .actions{
+    margin-top:21px;
+  }
+
+  .support{
+    margin-top:14px;
+  }
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media(
+  orientation:landscape
+) and (max-height:600px){
+
+  .content{
+    padding-top:50px;
+  }
+
+  .label{
+    margin-bottom:8px;
+  }
+
+  .title{
+    font-size:38px;
+  }
+
+  .description{
+    margin-top:9px;
+    font-size:13px;
+  }
+
+  .actions{
+    margin-top:15px;
+  }
+
+  .support{
+    margin-top:10px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation:none!important;
+    transition:none!important;
+  }
+}
+</style>
+</head>
+
+
+<body>
+
+<main class="page">
+
+
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
+
+  <div class="background">
+
+    <div class="glow"></div>
+
+    <div class="orb one"></div>
+
+    <div class="orb two"></div>
+
+  </div>
+
+  <div class="overlay"></div>
+
+
+  <!-- =====================================================
+       TOP BAR
+  ====================================================== -->
+
+  <header class="topbar">
+
+    <a
+      href="page1.html"
+      class="brand"
+      aria-label="Back to feelings"
+    >
+
+      <img
+        src="aksh-icon.PNG"
+        alt="AKSH"
+      >
+
+    </a>
+
+
+    <a
+      href="page1.html"
+      class="back"
+      aria-label="Back"
+    >
+      ←
+    </a>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <section class="content">
+
+    <div class="label">
+      You're here. That's enough.
+    </div>
+
+
+    <h1 class="title">
+      You don't have to<br>
+      figure it all out right now.
+    </h1>
+
+
+    <p class="description">
+      Take a breath. Take your time.
+      There is a space here where you can simply be —
+      without judgment, without pressure.
+    </p>
+
+
+    <!-- =================================================
+         ACTIONS
+    ================================================== -->
+
+    <div class="actions">
+
+      <a
+        href="#"
+        class="primary"
+        id="gentleStart"
+      >
+        Take a gentle moment
+        <span>→</span>
+      </a>
+
+
+      <a
+        href="#"
+        class="secondary"
+        id="talkNow"
+      >
+        Talk to someone
+      </a>
+
+    </div>
+
+
+    <div class="support">
+      You choose the pace. AKSH is here with you.
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       SOUND
+  ====================================================== -->
+
+  <button
+    class="sound"
+    id="sound"
+    type="button"
+    aria-label="Sound is off"
+  >
+    🔇
+  </button>
+
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   BUTTON INTERACTIONS
+========================================================= */
+
+const gentleStart =
+  document.getElementById("gentleStart");
+
+const talkNow =
+  document.getElementById("talkNow");
+
+
+gentleStart.addEventListener(
+  "click",
+  function(event){
+
+    event.preventDefault();
+
+    document.body.animate(
+      [
+        {
+          opacity:1
+        },
+        {
+          opacity:.65
+        },
+        {
+          opacity:1
+        }
+      ],
+      {
+        duration:650,
+        easing:"ease-in-out"
+      }
+    );
+
+  }
+);
+
+
+talkNow.addEventListener(
+  "click",
+  function(event){
+
+    event.preventDefault();
+
+    alert(
+      "Human support will be connected here."
+    );
+
+  }
+);
+
+
+/* =========================================================
+   SOUND CONTROL
+========================================================= */
+
+const sound =
+  document.getElementById("sound");
+
+let soundOn = false;
+
+
+sound.addEventListener(
+  "click",
+  function(){
+
+    soundOn = !soundOn;
+
+    sound.textContent =
+      soundOn ? "🔊" : "🔇";
+
+    sound.setAttribute(
+      "aria-label",
+      soundOn
+        ? "Sound is on"
+        : "Sound is off"
+    );
+
+  }
+);
+
+</script>
+
+</body>
+</html>
