@@ -2,576 +2,1188 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#172433">
-<title>AKSH — How are you feeling today?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta name="theme-color" content="#101820">
+<meta name="description" content="AKSH — A Safe Space For Every Mind.">
+<meta name="author" content="AKSH Mental Wellness">
+
+<title>AKSH — A Safe Space For Every Mind</title>
 
 <style>
+
+/* =========================================================
+   AKSH PAGE 1
+   Premium Main Experience
+========================================================= */
+
+:root{
+    --white:#ffffff;
+    --soft-white:rgba(255,255,255,.82);
+    --muted:rgba(255,255,255,.58);
+
+    --glass:rgba(255,255,255,.085);
+    --glass-hover:rgba(255,255,255,.13);
+
+    --border:rgba(255,255,255,.18);
+    --border-soft:rgba(255,255,255,.10);
+
+    --dark:#101820;
+    --dark-2:#17232c;
+
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-html,
-body{
-    width:100%;
-    min-height:100%;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
+    min-height:100vh;
     overflow-x:hidden;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    color:#fff;
-    background:#172433;
+
+    background:#101820;
+    color:var(--white);
+
+    font-family:var(--sans);
+
     -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
 }
+
+button,
+a{
+    font:inherit;
+}
+
+button{
+    border:0;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+
+/* =========================================================
+   CINEMATIC BACKGROUND
+========================================================= */
 
 .page{
     position:relative;
-    min-height:100svh;
     min-height:100vh;
     overflow:hidden;
     isolation:isolate;
 }
 
-
-/* =========================================================
-   ATMOSPHERIC BACKGROUND
-========================================================= */
-
-.sky{
-    position:fixed;
+.background{
+    position:absolute;
     inset:0;
-    z-index:-20;
+    z-index:-10;
     overflow:hidden;
 
     background:
         radial-gradient(
-            ellipse at 15% 15%,
-            rgba(204,227,238,.65) 0%,
-            rgba(204,227,238,.25) 22%,
-            transparent 46%
+            ellipse at 18% 20%,
+            rgba(154,194,205,.55) 0%,
+            rgba(154,194,205,.18) 25%,
+            transparent 52%
         ),
+
         radial-gradient(
-            ellipse at 85% 25%,
-            rgba(224,201,224,.55) 0%,
-            rgba(224,201,224,.20) 24%,
-            transparent 50%
+            ellipse at 80% 25%,
+            rgba(195,169,195,.42) 0%,
+            rgba(195,169,195,.12) 27%,
+            transparent 54%
         ),
+
         radial-gradient(
-            ellipse at 48% 80%,
-            rgba(170,178,211,.30) 0%,
-            transparent 48%
+            ellipse at 50% 80%,
+            rgba(91,113,140,.30) 0%,
+            transparent 52%
         ),
+
         linear-gradient(
             135deg,
-            #30485a 0%,
-            #657587 38%,
-            #766d80 66%,
-            #272d3d 100%
+            #263b49 0%,
+            #526877 34%,
+            #716d7e 64%,
+            #202a35 100%
         );
 }
 
 
-/* moving light */
+/* Moving atmospheric glow */
 
-.light{
+.glow{
     position:absolute;
     border-radius:50%;
-    filter:blur(65px);
     pointer-events:none;
+
+    filter:blur(75px);
+
+    will-change:transform;
 }
 
-.light.a{
-    width:70vw;
-    height:28vw;
-    left:-20vw;
-    top:5vh;
-    background:rgba(221,239,246,.27);
-    animation:floatA 17s ease-in-out infinite alternate;
-}
-
-.light.b{
+.glow-1{
     width:65vw;
-    height:25vw;
+    height:38vw;
+
+    left:-22vw;
+    top:5vh;
+
+    background:rgba(212,237,242,.24);
+
+    animation:
+        glowOne 18s ease-in-out infinite alternate;
+}
+
+.glow-2{
+    width:60vw;
+    height:35vw;
+
     right:-18vw;
-    top:18vh;
-    background:rgba(238,210,235,.25);
-    animation:floatB 20s ease-in-out infinite alternate;
+    top:20vh;
+
+    background:rgba(235,207,232,.20);
+
+    animation:
+        glowTwo 21s ease-in-out infinite alternate;
 }
 
-.light.c{
-    width:80vw;
-    height:30vw;
-    left:10vw;
-    bottom:-15vw;
-    background:rgba(173,173,209,.22);
-    animation:floatC 22s ease-in-out infinite alternate;
+.glow-3{
+    width:75vw;
+    height:35vw;
+
+    left:15vw;
+    bottom:-20vw;
+
+    background:rgba(149,163,194,.20);
+
+    animation:
+        glowThree 24s ease-in-out infinite alternate;
 }
 
-@keyframes floatA{
-    0%{
+@keyframes glowOne{
+
+    from{
         transform:translate3d(0,0,0) scale(1);
     }
-    100%{
-        transform:translate3d(9vw,3vh,0) scale(1.12);
+
+    to{
+        transform:translate3d(12vw,4vh,0) scale(1.12);
     }
 }
 
-@keyframes floatB{
-    0%{
+@keyframes glowTwo{
+
+    from{
         transform:translate3d(0,0,0) scale(1);
     }
-    100%{
-        transform:translate3d(-8vw,5vh,0) scale(1.1);
+
+    to{
+        transform:translate3d(-10vw,5vh,0) scale(1.1);
     }
 }
 
-@keyframes floatC{
-    0%{
+@keyframes glowThree{
+
+    from{
         transform:translate3d(0,0,0);
     }
-    100%{
-        transform:translate3d(-5vw,-4vh,0);
+
+    to{
+        transform:translate3d(-8vw,-5vh,0);
     }
 }
 
 
 /* =========================================================
-   CLOUD FORMS
+   CLOUDS
 ========================================================= */
 
 .cloud{
     position:absolute;
+
+    width:480px;
+    height:130px;
+
     display:flex;
     align-items:center;
+
+    opacity:.22;
+
+    filter:blur(3px);
+
     pointer-events:none;
-    filter:blur(2px);
-    opacity:.34;
 }
 
 .cloud span{
     display:block;
-    position:relative;
+
     border-radius:50%;
-    background:rgba(244,248,249,.52);
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(255,255,255,.72),
+            rgba(255,255,255,.18)
+        );
+
     box-shadow:
-        0 12px 35px rgba(255,255,255,.07);
+        0 15px 40px rgba(255,255,255,.06);
 }
 
 .cloud span:nth-child(1){
-    width:120px;
-    height:70px;
+    width:125px;
+    height:72px;
 }
 
 .cloud span:nth-child(2){
-    width:170px;
-    height:100px;
-    margin-left:-30px;
+    width:180px;
+    height:105px;
+    margin-left:-32px;
 }
 
 .cloud span:nth-child(3){
-    width:125px;
-    height:72px;
-    margin-left:-35px;
+    width:135px;
+    height:78px;
+    margin-left:-38px;
 }
 
 .cloud span:nth-child(4){
-    width:90px;
-    height:55px;
-    margin-left:-25px;
+    width:100px;
+    height:58px;
+    margin-left:-30px;
 }
 
-.cloud.one{
-    width:500px;
-    height:120px;
-    left:-130px;
-    top:16%;
-    animation:cloudOne 25s ease-in-out infinite alternate;
+.cloud-1{
+    left:-120px;
+    top:18%;
+
+    animation:
+        cloudOne 28s ease-in-out infinite alternate;
 }
 
-.cloud.two{
-    width:520px;
-    height:120px;
+.cloud-2{
     right:-180px;
-    top:31%;
+    top:35%;
+
     transform:scale(.82);
-    opacity:.25;
-    animation:cloudTwo 29s ease-in-out infinite alternate;
+
+    opacity:.16;
+
+    animation:
+        cloudTwo 31s ease-in-out infinite alternate;
 }
 
-.cloud.three{
-    width:600px;
-    height:120px;
+.cloud-3{
     left:18%;
-    bottom:5%;
-    transform:scale(.7);
-    opacity:.16;
-    animation:cloudThree 32s ease-in-out infinite alternate;
+    bottom:4%;
+
+    transform:scale(.72);
+
+    opacity:.10;
+
+    animation:
+        cloudThree 34s ease-in-out infinite alternate;
 }
 
 @keyframes cloudOne{
+
     from{
         transform:translateX(0);
     }
+
     to{
-        transform:translateX(170px) translateY(25px);
+        transform:translateX(180px) translateY(22px);
     }
 }
 
 @keyframes cloudTwo{
+
     from{
         transform:translateX(0) scale(.82);
     }
+
     to{
-        transform:translateX(-160px) translateY(-18px) scale(.88);
+        transform:translateX(-170px) translateY(-20px) scale(.88);
     }
 }
 
 @keyframes cloudThree{
+
     from{
-        transform:translateX(0) scale(.7);
+        transform:translateX(0) scale(.72);
     }
+
     to{
-        transform:translateX(-130px) translateY(-25px) scale(.76);
+        transform:translateX(-140px) translateY(-25px) scale(.78);
     }
 }
 
 
 /* =========================================================
-   ATMOSPHERIC GRAIN
+   CINEMATIC DARK OVERLAY
+========================================================= */
+
+.background::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(4,8,13,.38) 0%,
+            rgba(4,8,13,.08) 35%,
+            rgba(4,8,13,.18) 62%,
+            rgba(4,8,13,.72) 100%
+        );
+}
+
+
+/* =========================================================
+   FILM GRAIN
 ========================================================= */
 
 .grain{
     position:absolute;
     inset:-50%;
+
     z-index:2;
+
     pointer-events:none;
+
     opacity:.035;
 
     background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.65'/%3E%3C/svg%3E");
 
-    animation:grainMove .25s steps(2) infinite;
+    animation:grain .3s steps(2) infinite;
 }
 
-@keyframes grainMove{
-    0%{transform:translate(0,0)}
-    25%{transform:translate(2%,1%)}
-    50%{transform:translate(-1%,2%)}
-    75%{transform:translate(1%,-2%)}
-    100%{transform:translate(-2%,-1%)}
+@keyframes grain{
+
+    0%{
+        transform:translate(0,0);
+    }
+
+    25%{
+        transform:translate(2%,-1%);
+    }
+
+    50%{
+        transform:translate(-1%,2%);
+    }
+
+    75%{
+        transform:translate(1%,1%);
+    }
+
+    100%{
+        transform:translate(-2%,-2%);
+    }
 }
 
 
 /* =========================================================
-   DARK CINEMATIC EDGE
+   NAVIGATION
 ========================================================= */
 
-.vignette{
+.navbar{
     position:absolute;
-    inset:0;
-    z-index:3;
-    pointer-events:none;
+
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:50;
+
+    width:100%;
+
+    padding:
+        22px
+        max(28px,5vw)
+        18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
 
     background:
-        radial-gradient(
-            ellipse at center,
-            transparent 35%,
-            rgba(5,9,16,.12) 68%,
-            rgba(5,8,15,.52) 100%
+        linear-gradient(
+            180deg,
+            rgba(7,12,18,.42),
+            transparent
         );
+
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
 }
 
 
-/* =========================================================
-   BRAND
-========================================================= */
+/* Brand */
 
 .brand{
-    position:absolute;
-    z-index:20;
+    display:flex;
+    align-items:center;
+    gap:11px;
 
-    top:max(20px,env(safe-area-inset-top));
-    left:50%;
-    transform:translateX(-50%);
-
-    text-align:center;
+    flex-shrink:0;
 }
 
 .brand img{
-    display:block;
-    width:58px;
-    height:58px;
+    width:42px;
+    height:42px;
+
     object-fit:contain;
 
     filter:
         drop-shadow(
-            0 8px 24px rgba(0,0,0,.3)
+            0 7px 18px rgba(0,0,0,.28)
         );
 }
 
-.brand-word{
-    margin-top:3px;
+.brand-text{
+    display:flex;
+    flex-direction:column;
+}
 
-    font-size:8px;
-    font-weight:700;
-    letter-spacing:.34em;
+.brand-name{
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.19em;
+}
+
+.brand-sub{
+    margin-top:2px;
+
+    font-size:7px;
+    letter-spacing:.17em;
+
+    color:rgba(255,255,255,.55);
+}
+
+
+/* Desktop navigation */
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:clamp(16px,2.1vw,34px);
+}
+
+.nav-links a{
+    position:relative;
+
+    font-size:10px;
+    font-weight:600;
+
+    letter-spacing:.04em;
+
+    color:rgba(255,255,255,.67);
+
+    transition:
+        color .25s ease;
+}
+
+.nav-links a::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-7px;
+
+    width:0;
+    height:1px;
+
+    background:#fff;
+
+    transition:
+        width .25s ease;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+
+/* My Space */
+
+.my-space{
+    padding:10px 15px;
+
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:100px;
+
+    background:rgba(255,255,255,.07);
+
+    color:#fff!important;
+
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+}
+
+
+/* Mobile menu button */
+
+.menu-button{
+    display:none;
+
+    width:42px;
+    height:42px;
+
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:50%;
+
+    background:rgba(255,255,255,.07);
+
+    color:#fff;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+
+    min-height:100svh;
+    min-height:100vh;
+
+    padding:
+        125px
+        max(24px,6vw)
+        95px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+.hero-inner{
+    width:min(940px,100%);
+
+    margin:auto;
+}
+
+
+/* Small welcome */
+
+.kicker{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    margin-bottom:22px;
+
+    font-size:9px;
+    font-weight:800;
+
+    letter-spacing:.38em;
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.68);
+}
+
+.kicker::before,
+.kicker::after{
+    content:"";
+
+    width:30px;
+    height:1px;
+
+    background:rgba(255,255,255,.3);
+}
+
+
+/* Main heading */
+
+.hero h1{
+    font-family:var(--serif);
+
+    font-size:
+        clamp(57px,8.5vw,120px);
+
+    font-weight:400;
+
+    line-height:.88;
+
+    letter-spacing:-.065em;
+
+    text-shadow:
+        0 12px 45px rgba(0,0,0,.35);
+}
+
+.hero h1 span{
+    display:block;
+
+    font-style:italic;
 
     color:rgba(255,255,255,.76);
 }
 
 
-/* =========================================================
-   CONTENT
-========================================================= */
+/* Hero copy */
 
-.content{
-    position:relative;
-    z-index:10;
+.hero-copy{
+    width:min(600px,100%);
 
-    width:min(1160px,calc(100% - 30px));
+    margin:
+        30px
+        auto
+        0;
 
-    min-height:100svh;
+    font-family:var(--serif);
 
-    margin:auto;
+    font-size:
+        clamp(14px,1.7vw,18px);
 
-    padding:
-        130px 0
-        max(35px,env(safe-area-inset-bottom));
+    line-height:1.65;
+
+    color:rgba(255,255,255,.72);
+
+    text-shadow:
+        0 6px 25px rgba(0,0,0,.25);
+}
+
+
+/* CTA */
+
+.hero-actions{
+    margin-top:35px;
 
     display:flex;
-    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:13px;
+}
+
+.primary-button,
+.secondary-button{
+    min-height:49px;
+
+    padding:0 24px;
+
+    display:inline-flex;
     align-items:center;
     justify-content:center;
 
-    text-align:center;
-}
+    border-radius:100px;
 
-.eyebrow{
-    margin-bottom:15px;
+    cursor:pointer;
 
-    font-size:9px;
+    font-size:10px;
     font-weight:800;
-    letter-spacing:.34em;
-    text-transform:uppercase;
 
-    color:rgba(255,255,255,.62);
+    letter-spacing:.08em;
 
-    text-shadow:
-        0 4px 18px rgba(0,0,0,.3);
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        border-color .3s ease;
 }
 
-h1{
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+.primary-button{
+    background:#fff;
+    color:#16212b;
 
-    font-size:
-        clamp(43px,7vw,80px);
-
-    font-weight:400;
-
-    line-height:.99;
-
-    letter-spacing:-.055em;
-
-    text-shadow:
-        0 9px 35px rgba(0,0,0,.32);
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.2);
 }
 
-.intro{
-    width:min(600px,100%);
+.secondary-button{
+    border:1px solid rgba(255,255,255,.23);
 
-    margin-top:17px;
+    background:rgba(255,255,255,.06);
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    color:#fff;
 
-    font-size:
-        clamp(14px,2vw,18px);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+}
 
-    line-height:1.55;
+.primary-button:hover,
+.secondary-button:hover{
+    transform:translateY(-4px);
+}
 
-    color:rgba(255,255,255,.78);
-
-    text-shadow:
-        0 4px 18px rgba(0,0,0,.25);
+.secondary-button:hover{
+    background:rgba(255,255,255,.12);
+    border-color:rgba(255,255,255,.4);
 }
 
 
 /* =========================================================
-   CARDS
+   HERO FLOATING INFORMATION
 ========================================================= */
 
-.cards{
-    width:100%;
-    margin-top:38px;
+.hero-info{
+    position:absolute;
+
+    left:max(24px,5vw);
+    bottom:40px;
+
+    width:225px;
+
+    padding:17px;
+
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:20px;
+
+    background:rgba(7,12,18,.20);
+
+    text-align:left;
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 20px 55px rgba(0,0,0,.16);
+}
+
+.hero-info-label{
+    font-size:7px;
+    font-weight:800;
+
+    letter-spacing:.25em;
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.46);
+}
+
+.hero-info-title{
+    margin-top:7px;
+
+    font-family:var(--serif);
+
+    font-size:18px;
+}
+
+.hero-info-text{
+    margin-top:5px;
+
+    font-size:8px;
+    line-height:1.5;
+
+    color:rgba(255,255,255,.58);
+}
+
+
+/* Scroll indicator */
+
+.scroll-indicator{
+    position:absolute;
+
+    right:max(24px,5vw);
+    bottom:42px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    transform:rotate(90deg);
+    transform-origin:right center;
+
+    font-size:7px;
+    font-weight:800;
+
+    letter-spacing:.28em;
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.48);
+}
+
+.scroll-line{
+    width:45px;
+    height:1px;
+
+    background:rgba(255,255,255,.35);
+}
+
+
+/* =========================================================
+   EMOTIONAL SECTION
+========================================================= */
+
+.feeling-section{
+    position:relative;
+
+    min-height:100svh;
+    min-height:100vh;
+
+    padding:
+        125px
+        max(20px,6vw)
+        110px;
+
+    display:flex;
+    align-items:center;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(13,22,30,.25),
+            rgba(13,22,30,.88)
+        );
+}
+
+.feeling-inner{
+    width:min(1180px,100%);
+
+    margin:auto;
+}
+
+
+/* Section heading */
+
+.section-label{
+    font-size:8px;
+    font-weight:800;
+
+    letter-spacing:.32em;
+    text-transform:uppercase;
+
+    color:rgba(255,255,255,.43);
+}
+
+.feeling-heading{
+    margin-top:15px;
+
+    font-family:var(--serif);
+
+    font-size:
+        clamp(43px,6vw,75px);
+
+    font-weight:400;
+
+    line-height:.98;
+
+    letter-spacing:-.05em;
+}
+
+.feeling-description{
+    width:min(530px,100%);
+
+    margin-top:17px;
+
+    font-family:var(--serif);
+
+    font-size:14px;
+    line-height:1.6;
+
+    color:rgba(255,255,255,.62);
+}
+
+
+/* =========================================================
+   EMOTION CARDS
+========================================================= */
+
+.emotion-grid{
+    margin-top:45px;
 
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:
+        repeat(4,1fr);
 
     gap:14px;
 }
 
-.card{
+.emotion-card{
     position:relative;
 
-    min-height:225px;
+    min-height:260px;
 
     padding:24px 21px;
 
-    border:1px solid rgba(255,255,255,.23);
+    overflow:hidden;
+
+    text-align:left;
+
+    border:1px solid var(--border);
+
     border-radius:26px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.17),
-            rgba(255,255,255,.055)
+            rgba(255,255,255,.12),
+            rgba(255,255,255,.035)
         );
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.20),
-        inset 0 1px rgba(255,255,255,.10);
 
     color:#fff;
 
-    text-align:left;
-
     cursor:pointer;
-
-    font:inherit;
 
     backdrop-filter:blur(22px);
     -webkit-backdrop-filter:blur(22px);
 
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.18),
+        inset 0 1px rgba(255,255,255,.08);
+
     transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
-        background .35s ease,
-        border-color .35s ease,
-        box-shadow .35s ease;
+        transform .4s cubic-bezier(.2,.8,.2,1),
+        background .4s ease,
+        border-color .4s ease,
+        box-shadow .4s ease;
 }
 
-.card:hover{
-    transform:translateY(-9px);
+.emotion-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    top:-75px;
+    right:-75px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.16),
+            transparent 70%
+        );
+
+    transition:
+        transform .5s ease;
+}
+
+.emotion-card:hover{
+    transform:translateY(-10px);
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.25),
-            rgba(255,255,255,.075)
+            rgba(255,255,255,.19),
+            rgba(255,255,255,.055)
         );
 
-    border-color:rgba(255,255,255,.42);
+    border-color:rgba(255,255,255,.34);
 
     box-shadow:
-        0 35px 90px rgba(0,0,0,.28),
-        inset 0 1px rgba(255,255,255,.14);
+        0 35px 90px rgba(0,0,0,.27),
+        inset 0 1px rgba(255,255,255,.13);
 }
 
-.card:active{
-    transform:scale(.985);
+.emotion-card:hover::before{
+    transform:scale(1.35);
 }
 
-.card:focus-visible{
-    outline:2px solid rgba(255,255,255,.9);
-    outline-offset:4px;
-}
-
-.number{
+.emotion-number{
     position:absolute;
 
-    top:17px;
-    right:18px;
+    top:19px;
+    right:19px;
 
-    font-size:8px;
+    font-size:7px;
     font-weight:800;
-    letter-spacing:.18em;
 
-    color:rgba(255,255,255,.4);
+    letter-spacing:.2em;
+
+    color:rgba(255,255,255,.38);
 }
 
-.icon{
-    width:52px;
-    height:52px;
-
-    margin-bottom:27px;
-
-    border-radius:17px;
+.emotion-symbol{
+    width:55px;
+    height:55px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:rgba(255,255,255,.10);
+    margin-bottom:34px;
 
-    border:1px solid rgba(255,255,255,.18);
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    background:rgba(255,255,255,.08);
+
+    font-family:var(--serif);
+
+    font-size:23px;
+
+    color:rgba(255,255,255,.9);
+}
+
+.emotion-card h3{
+    max-width:200px;
+
+    font-family:var(--serif);
 
     font-size:22px;
-
-    box-shadow:
-        inset 0 1px rgba(255,255,255,.08);
-}
-
-.card h2{
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size:21px;
     font-weight:400;
 
-    line-height:1.12;
+    line-height:1.08;
 }
 
-.card p{
-    margin-top:10px;
-
+.emotion-card p{
     max-width:220px;
 
-    font-size:10px;
+    margin-top:10px;
+
+    font-size:9px;
     line-height:1.55;
 
-    color:rgba(255,255,255,.64);
+    color:rgba(255,255,255,.54);
 }
 
-.arrow{
+.emotion-arrow{
     position:absolute;
 
     left:21px;
-    bottom:17px;
+    bottom:19px;
 
-    font-size:18px;
+    font-size:19px;
 
-    color:rgba(255,255,255,.7);
+    color:rgba(255,255,255,.72);
 
-    transition:transform .25s ease;
+    transition:
+        transform .3s ease;
 }
 
-.card:hover .arrow{
-    transform:translateX(7px);
+.emotion-card:hover .emotion-arrow{
+    transform:translateX(8px);
 }
 
 
 /* =========================================================
-   FOOTER NOTE
+   LOWER BRAND STATEMENT
 ========================================================= */
 
-.bottom-note{
-    margin-top:21px;
+.brand-statement{
+    margin-top:90px;
 
-    font-size:8px;
-    font-weight:700;
-    letter-spacing:.17em;
-    text-transform:uppercase;
+    padding-top:30px;
+
+    border-top:1px solid rgba(255,255,255,.09);
+
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+
+    gap:30px;
+}
+
+.brand-statement h2{
+    max-width:700px;
+
+    font-family:var(--serif);
+
+    font-size:
+        clamp(28px,4vw,48px);
+
+    font-weight:400;
+
+    line-height:1.05;
+
+    letter-spacing:-.035em;
+}
+
+.brand-statement p{
+    max-width:290px;
+
+    font-size:9px;
+    line-height:1.65;
 
     color:rgba(255,255,255,.48);
+}
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+.mobile-menu{
+    position:fixed;
+
+    inset:0;
+
+    z-index:100;
+
+    display:none;
+
+    padding:
+        100px 25px 40px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(13,22,30,.98),
+            rgba(40,49,62,.98)
+        );
+
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
+}
+
+.mobile-menu.active{
+    display:block;
+}
+
+.mobile-close{
+    position:absolute;
+
+    top:25px;
+    right:25px;
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    background:rgba(255,255,255,.07);
+
+    color:#fff;
+
+    cursor:pointer;
+}
+
+.mobile-links{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+.mobile-links a{
+    font-family:var(--serif);
+
+    font-size:30px;
+
+    color:rgba(255,255,255,.85);
 }
 
 
@@ -579,26 +1191,24 @@ h1{
    TRANSITION
 ========================================================= */
 
-.transition{
+.page-transition{
     position:fixed;
-    inset:0;
-    z-index:100;
 
-    background:
-        linear-gradient(
-            135deg,
-            #30485a,
-            #766d80,
-            #272d3d
-        );
+    inset:0;
+
+    z-index:200;
+
+    background:#111b24;
 
     opacity:0;
+
     pointer-events:none;
 
-    transition:opacity .45s ease;
+    transition:
+        opacity .45s ease;
 }
 
-.transition.show{
+.page-transition.active{
     opacity:1;
 }
 
@@ -607,16 +1217,28 @@ h1{
    TABLET
 ========================================================= */
 
-@media(max-width:950px){
+@media(max-width:1000px){
 
-    .cards{
-        max-width:720px;
+    .nav-links{
+        display:none;
+    }
+
+    .menu-button{
+        display:flex;
+    }
+
+    .hero-info{
+        display:none;
+    }
+
+    .scroll-indicator{
+        display:none;
+    }
+
+    .emotion-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .card{
-        min-height:200px;
-    }
 }
 
 
@@ -626,157 +1248,10 @@ h1{
 
 @media(max-width:600px){
 
-    .brand{
-        top:max(13px,env(safe-area-inset-top));
-    }
-
-    .brand img{
-        width:48px;
-        height:48px;
-    }
-
-    .brand-word{
-        font-size:6px;
-    }
-
-    .content{
-        width:calc(100% - 20px);
-        padding-top:95px;
-    }
-
-    .eyebrow{
-        font-size:6px;
-        margin-bottom:10px;
-    }
-
-    h1{
-        font-size:clamp(36px,10.5vw,51px);
-    }
-
-    .intro{
-        margin-top:11px;
-        font-size:12px;
-        max-width:350px;
-    }
-
-    .cards{
-        margin-top:23px;
-        gap:8px;
-    }
-
-    .card{
-        min-height:182px;
-        padding:17px 14px;
-        border-radius:20px;
-    }
-
-    .number{
-        top:12px;
-        right:12px;
-        font-size:6px;
-    }
-
-    .icon{
-        width:39px;
-        height:39px;
-        margin-bottom:18px;
-        border-radius:12px;
-        font-size:16px;
-    }
-
-    .card h2{
-        font-size:16px;
-    }
-
-    .card p{
-        margin-top:7px;
-        font-size:8px;
-        line-height:1.4;
-    }
-
-    .arrow{
-        left:14px;
-        bottom:11px;
-        font-size:15px;
-    }
-
-    .bottom-note{
-        margin-top:13px;
-        font-size:6px;
-    }
-
-    .cloud.one{
-        transform:scale(.62);
-        transform-origin:left center;
-    }
-
-    .cloud.two{
-        transform:scale(.55);
-        transform-origin:right center;
-    }
-
-    .cloud.three{
-        transform:scale(.48);
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
-@media(max-width:380px){
-
-    .content{
-        padding-top:82px;
-    }
-
-    .intro{
-        font-size:11px;
-    }
-
-    .cards{
-        margin-top:17px;
-    }
-
-    .card{
-        min-height:157px;
-        padding:13px 11px;
-    }
-
-    .icon{
-        width:33px;
-        height:33px;
-        margin-bottom:13px;
-        border-radius:10px;
-        font-size:14px;
-    }
-
-    .card h2{
-        font-size:14px;
-    }
-
-    .card p{
-        font-size:7px;
-    }
-
-    .arrow{
-        left:11px;
-        bottom:8px;
-    }
-}
-
-
-/* =========================================================
-   LANDSCAPE PHONE
-========================================================= */
-
-@media(
-    orientation:landscape
-) and (max-height:600px){
-
-    .brand{
-        top:8px;
+    .navbar{
+        padding:
+            13px
+            17px;
     }
 
     .brand img{
@@ -784,53 +1259,208 @@ h1{
         height:37px;
     }
 
-    .brand-word{
-        display:none;
-    }
-
-    .content{
-        padding-top:50px;
-    }
-
-    .eyebrow{
-        display:none;
-    }
-
-    h1{
-        font-size:34px;
-    }
-
-    .intro{
-        margin-top:5px;
+    .brand-name{
         font-size:10px;
     }
 
-    .cards{
-        margin-top:11px;
+    .brand-sub{
+        font-size:5px;
     }
 
-    .card{
-        min-height:132px;
-        padding:12px;
+    .hero{
+        min-height:100svh;
+
+        padding:
+            105px
+            18px
+            60px;
     }
 
-    .icon{
-        width:31px;
-        height:31px;
-        margin-bottom:8px;
+    .kicker{
+        font-size:6px;
+        letter-spacing:.27em;
+
+        margin-bottom:17px;
     }
 
-    .card h2{
-        font-size:14px;
+    .kicker::before,
+    .kicker::after{
+        width:19px;
     }
 
-    .card p{
+    .hero h1{
+        font-size:
+            clamp(48px,14vw,72px);
+
+        letter-spacing:-.07em;
+    }
+
+    .hero-copy{
+        margin-top:22px;
+
+        font-size:12px;
+
+        line-height:1.6;
+    }
+
+    .hero-actions{
+        margin-top:27px;
+
+        flex-direction:column;
+
+        width:100%;
+    }
+
+    .primary-button,
+    .secondary-button{
+        width:min(300px,100%);
+
+        min-height:47px;
+    }
+
+    .feeling-section{
+        min-height:auto;
+
+        padding:
+            90px
+            15px
+            80px;
+    }
+
+    .section-label{
+        font-size:6px;
+    }
+
+    .feeling-heading{
+        font-size:
+            clamp(42px,12vw,58px);
+    }
+
+    .feeling-description{
+        font-size:12px;
+    }
+
+    .emotion-grid{
+        margin-top:31px;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:8px;
+    }
+
+    .emotion-card{
+        min-height:205px;
+
+        padding:16px 13px;
+
+        border-radius:20px;
+    }
+
+    .emotion-number{
+        top:13px;
+        right:13px;
+        font-size:6px;
+    }
+
+    .emotion-symbol{
+        width:40px;
+        height:40px;
+
+        margin-bottom:23px;
+
+        border-radius:13px;
+
+        font-size:17px;
+    }
+
+    .emotion-card h3{
+        font-size:17px;
+    }
+
+    .emotion-card p{
+        margin-top:7px;
+
         font-size:7px;
+
+        line-height:1.45;
     }
 
-    .bottom-note{
-        display:none;
+    .emotion-arrow{
+        left:13px;
+        bottom:11px;
+
+        font-size:15px;
     }
+
+    .brand-statement{
+        margin-top:60px;
+
+        display:block;
+    }
+
+    .brand-statement h2{
+        font-size:30px;
+    }
+
+    .brand-statement p{
+        margin-top:18px;
+
+        font-size:8px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media(max-width:370px){
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .hero-copy{
+        font-size:11px;
+    }
+
+    .emotion-card{
+        min-height:190px;
+        padding:14px 11px;
+    }
+
+    .emotion-card h3{
+        font-size:15px;
+    }
+
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media(
+    orientation:landscape
+) and (max-height:600px){
+
+    .hero{
+        min-height:720px;
+    }
+
+    .hero h1{
+        font-size:55px;
+    }
+
+    .hero-copy{
+        margin-top:15px;
+    }
+
+    .hero-actions{
+        margin-top:20px;
+    }
+
 }
 
 
@@ -840,33 +1470,45 @@ h1{
 
 @media(prefers-reduced-motion:reduce){
 
+    html{
+        scroll-behavior:auto;
+    }
+
     *,
     *::before,
     *::after{
         animation:none!important;
         transition:none!important;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<main class="page">
 
-    <!-- =================================================
-         PAGE 1 BACKGROUND
-         Completely independent from Page 0 videos.
-    ================================================== -->
+<!-- =======================================================
+     PAGE
+======================================================= -->
 
-    <div class="sky">
-
-        <div class="light a"></div>
-        <div class="light b"></div>
-        <div class="light c"></div>
+<div class="page">
 
 
-        <div class="cloud one">
+    <!-- ===================================================
+         BACKGROUND
+    ==================================================== -->
+
+    <div class="background">
+
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+
+
+        <div class="cloud cloud-1">
             <span></span>
             <span></span>
             <span></span>
@@ -874,7 +1516,7 @@ h1{
         </div>
 
 
-        <div class="cloud two">
+        <div class="cloud cloud-2">
             <span></span>
             <span></span>
             <span></span>
@@ -882,7 +1524,7 @@ h1{
         </div>
 
 
-        <div class="cloud three">
+        <div class="cloud cloud-3">
             <span></span>
             <span></span>
             <span></span>
@@ -891,267 +1533,680 @@ h1{
 
 
         <div class="grain"></div>
-        <div class="vignette"></div>
 
     </div>
 
 
-    <!-- =================================================
-         AKSH
-    ================================================== -->
+    <!-- ===================================================
+         NAVIGATION
+    ==================================================== -->
 
-    <div class="brand">
+    <header class="navbar">
 
-        <img
-            src="aksh-icon.PNG"
-            alt="AKSH"
+
+        <a
+            class="brand"
+            href="page1.html"
+            aria-label="AKSH Home"
         >
 
-        <div class="brand-word">
-            AKSH
-        </div>
+            <img
+                src="aksh-icon.PNG"
+                alt="AKSH"
+            >
+
+            <span class="brand-text">
+
+                <span class="brand-name">
+                    AKSH
+                </span>
+
+                <span class="brand-sub">
+                    MENTAL WELLNESS
+                </span>
+
+            </span>
+
+        </a>
+
+
+        <nav
+            class="nav-links"
+            aria-label="Main navigation"
+        >
+
+            <a href="page1.html">
+                Home
+            </a>
+
+            <a href="#journey">
+                Journey
+            </a>
+
+            <a href="#ai">
+                AI Companion
+            </a>
+
+            <a href="#resources">
+                Resources
+            </a>
+
+            <a href="#journal">
+                Journal
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a
+                href="booking.html"
+                class="my-space"
+            >
+                My Space
+            </a>
+
+        </nav>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open menu"
+        >
+            ☰
+        </button>
+
+    </header>
+
+
+    <!-- ===================================================
+         MOBILE MENU
+    ==================================================== -->
+
+    <div
+        class="mobile-menu"
+        id="mobileMenu"
+        aria-hidden="true"
+    >
+
+        <button
+            class="mobile-close"
+            id="mobileClose"
+            type="button"
+            aria-label="Close menu"
+        >
+            ×
+        </button>
+
+
+        <nav class="mobile-links">
+
+            <a href="page1.html">
+                Home
+            </a>
+
+            <a href="#journey">
+                Journey
+            </a>
+
+            <a href="#ai">
+                AI Companion
+            </a>
+
+            <a href="#resources">
+                Resources
+            </a>
+
+            <a href="#journal">
+                Journal
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="booking.html">
+                My Space
+            </a>
+
+        </nav>
 
     </div>
 
 
-    <!-- =================================================
-         MAIN PAGE 1
-    ================================================== -->
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
 
-    <section class="content">
+    <section
+        class="hero"
+        id="home"
+    >
 
-        <div class="eyebrow">
-            A safe space for every mind
-        </div>
-
-
-        <h1>
-            How are you<br>
-            feeling today?
-        </h1>
+        <div class="hero-inner">
 
 
-        <p class="intro">
-            There is no right answer.
-            Just choose what feels closest to you right now.
-        </p>
+            <div class="kicker">
+                Welcome to AKSH
+            </div>
 
 
-        <div class="cards">
+            <h1>
+
+                A Safe Space
+
+                <span>
+                    For Every Mind
+                </span>
+
+            </h1>
 
 
-            <!-- 01 -->
+            <p class="hero-copy">
 
-            <button
-                class="card"
-                type="button"
-                data-emotion="anxious"
-                aria-label="Anxious"
-            >
+                A place to pause, breathe, understand yourself,
+                find support, or simply explore what is within you.
 
-                <span class="number">01</span>
+                <br>
 
-                <div class="icon">◌</div>
+                You don't have to have a reason to be here.
 
-                <h2>
-                    Anxious
-                </h2>
-
-                <p>
-                    Your mind feels restless,
-                    worried or unable to slow down.
-                </p>
-
-                <span class="arrow">→</span>
-
-            </button>
+            </p>
 
 
-            <!-- 02 -->
+            <div class="hero-actions">
 
-            <button
-                class="card"
-                type="button"
-                data-emotion="overwhelmed"
-                aria-label="Overwhelmed"
-            >
-
-                <span class="number">02</span>
-
-                <div class="icon">≋</div>
-
-                <h2>
-                    Overwhelmed
-                </h2>
-
-                <p>
-                    There is too much happening
-                    and you need some breathing room.
-                </p>
-
-                <span class="arrow">→</span>
-
-            </button>
+                <button
+                    class="primary-button"
+                    id="journeyButton"
+                    type="button"
+                >
+                    Begin Your Journey&nbsp; →
+                </button>
 
 
-            <!-- 03 -->
+                <button
+                    class="secondary-button"
+                    id="howButton"
+                    type="button"
+                >
+                    How It Works
+                </button>
 
-            <button
-                class="card"
-                type="button"
-                data-emotion="talk"
-                aria-label="Need someone to talk"
-            >
-
-                <span class="number">03</span>
-
-                <div class="icon">◇</div>
-
-                <h2>
-                    Need someone to talk
-                </h2>
-
-                <p>
-                    You don't want to carry the thought
-                    alone. Someone can be here with you.
-                </p>
-
-                <span class="arrow">→</span>
-
-            </button>
-
-
-            <!-- 04 -->
-
-            <button
-                class="card"
-                type="button"
-                data-emotion="exploring"
-                aria-label="Just exploring"
-            >
-
-                <span class="number">04</span>
-
-                <div class="icon">✦</div>
-
-                <h2>
-                    Just exploring
-                </h2>
-
-                <p>
-                    You are curious about yourself,
-                    emotions, growth or AKSH.
-                </p>
-
-                <span class="arrow">→</span>
-
-            </button>
-
+            </div>
 
         </div>
 
 
-        <div class="bottom-note">
-            Take your time · You are welcome here
+        <!-- Floating emotional welcome -->
+
+        <div class="hero-info">
+
+            <div class="hero-info-label">
+                A moment for you
+            </div>
+
+            <div class="hero-info-title">
+                You are welcome here.
+            </div>
+
+            <div class="hero-info-text">
+                Take a breath. There is nowhere you need
+                to rush to.
+            </div>
+
+        </div>
+
+
+        <div class="scroll-indicator">
+
+            <span>
+                Scroll to explore
+            </span>
+
+            <span class="scroll-line"></span>
+
         </div>
 
     </section>
 
 
+    <!-- ===================================================
+         EMOTIONAL EXPERIENCE
+    ==================================================== -->
+
+    <section
+        class="feeling-section"
+        id="journey"
+    >
+
+        <div class="feeling-inner">
+
+
+            <div class="section-label">
+                Your journey begins here
+            </div>
+
+
+            <h2 class="feeling-heading">
+                How are you<br>
+                feeling today?
+            </h2>
+
+
+            <p class="feeling-description">
+
+                You don't need the perfect words.
+                Start with whatever feels closest.
+                AKSH will meet you there.
+
+            </p>
+
+
+            <div class="emotion-grid">
+
+
+                <!-- =======================================
+                     ANXIOUS
+                ======================================== -->
+
+                <button
+                    class="emotion-card"
+                    type="button"
+                    data-emotion="anxious"
+                >
+
+                    <span class="emotion-number">
+                        01
+                    </span>
+
+
+                    <div class="emotion-symbol">
+                        ◌
+                    </div>
+
+
+                    <h3>
+                        Anxious
+                    </h3>
+
+
+                    <p>
+                        Your thoughts feel restless,
+                        worried, or difficult to quiet.
+                    </p>
+
+
+                    <span class="emotion-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- =======================================
+                     OVERWHELMED
+                ======================================== -->
+
+                <button
+                    class="emotion-card"
+                    type="button"
+                    data-emotion="overwhelmed"
+                >
+
+                    <span class="emotion-number">
+                        02
+                    </span>
+
+
+                    <div class="emotion-symbol">
+                        ≋
+                    </div>
+
+
+                    <h3>
+                        Overwhelmed
+                    </h3>
+
+
+                    <p>
+                        Everything feels like too much
+                        and you need some space to breathe.
+                    </p>
+
+
+                    <span class="emotion-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- =======================================
+                     SOMEONE TO TALK
+                ======================================== -->
+
+                <button
+                    class="emotion-card"
+                    type="button"
+                    data-emotion="talk"
+                >
+
+                    <span class="emotion-number">
+                        03
+                    </span>
+
+
+                    <div class="emotion-symbol">
+                        ◇
+                    </div>
+
+
+                    <h3>
+                        Need someone<br>
+                        to talk
+                    </h3>
+
+
+                    <p>
+                        You don't want to carry
+                        something alone.
+                    </p>
+
+
+                    <span class="emotion-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- =======================================
+                     EXPLORING
+                ======================================== -->
+
+                <button
+                    class="emotion-card"
+                    type="button"
+                    data-emotion="exploring"
+                >
+
+                    <span class="emotion-number">
+                        04
+                    </span>
+
+
+                    <div class="emotion-symbol">
+                        ✦
+                    </div>
+
+
+                    <h3>
+                        Just exploring
+                    </h3>
+
+
+                    <p>
+                        You are curious about yourself,
+                        growth, emotions, or AKSH.
+                    </p>
+
+
+                    <span class="emotion-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+            <!-- Brand statement -->
+
+            <div class="brand-statement">
+
+                <h2>
+                    Every mind deserves
+                    a place to feel understood.
+                </h2>
+
+
+                <p>
+                    AKSH brings together emotional support,
+                    human connection, thoughtful experiences,
+                    and technology — all in one safe space.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PAGE TRANSITION
+    ==================================================== -->
+
     <div
-        class="transition"
-        id="transition"
+        class="page-transition"
+        id="pageTransition"
     ></div>
 
-</main>
+
+</div>
 
 
 <script>
 
 /* =========================================================
-   PAGE 1 → PAGE 2
+   MOBILE MENU
 ========================================================= */
 
-const cards =
-    document.querySelectorAll(".card");
+const menuButton =
+    document.getElementById("menuButton");
 
-const transition =
-    document.getElementById("transition");
+const mobileMenu =
+    document.getElementById("mobileMenu");
 
-
-cards.forEach(function(card){
-
-    card.addEventListener("click",function(){
-
-        const emotion =
-            this.dataset.emotion;
+const mobileClose =
+    document.getElementById("mobileClose");
 
 
-        /*
-         * Remember the visitor's choice.
-         * Page 2 can use this later.
-         */
+menuButton.addEventListener(
+    "click",
+    function(){
 
-        try{
+        mobileMenu.classList.add("active");
 
-            sessionStorage.setItem(
-                "akshEmotion",
-                emotion
-            );
+        mobileMenu.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
-        }catch(error){
+    }
+);
+
+
+mobileClose.addEventListener(
+    "click",
+    function(){
+
+        mobileMenu.classList.remove("active");
+
+        mobileMenu.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+);
+
+
+document
+    .querySelectorAll(".mobile-links a")
+    .forEach(function(link){
+
+        link.addEventListener(
+            "click",
+            function(){
+
+                mobileMenu.classList.remove("active");
+
+                mobileMenu.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   HERO — BEGIN JOURNEY
+========================================================= */
+
+const journeyButton =
+    document.getElementById("journeyButton");
+
+const feelingSection =
+    document.getElementById("journey");
+
+
+journeyButton.addEventListener(
+    "click",
+    function(){
+
+        feelingSection.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+);
+
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+const howButton =
+    document.getElementById("howButton");
+
+
+howButton.addEventListener(
+    "click",
+    function(){
+
+        feelingSection.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+);
+
+
+/* =========================================================
+   EMOTION SELECTION
+========================================================= */
+
+const emotionCards =
+    document.querySelectorAll(".emotion-card");
+
+const pageTransition =
+    document.getElementById("pageTransition");
+
+
+emotionCards.forEach(function(card){
+
+    card.addEventListener(
+        "click",
+        function(){
+
+            const emotion =
+                this.dataset.emotion;
+
 
             /*
-             * Navigation still works even if
-             * browser storage is unavailable.
+             * Save the selected emotional state.
+             * A future page can read this value.
              */
 
+            try{
+
+                sessionStorage.setItem(
+                    "akshEmotion",
+                    emotion
+                );
+
+            }catch(error){
+
+                /*
+                 * Navigation remains functional even
+                 * if browser storage is unavailable.
+                 */
+
+            }
+
+
+            /*
+             * Smooth AKSH transition.
+             */
+
+            pageTransition.classList.add(
+                "active"
+            );
+
+
+            /*
+             * For now Page 2 is the next destination.
+             * We will build page2.html separately.
+             */
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "page2.html";
+
+                },
+                450
+            );
+
         }
-
-
-        /*
-         * Premium transition.
-         */
-
-        transition.classList.add("show");
-
-
-        /*
-         * Open Page 2.
-         */
-
-        setTimeout(function(){
-
-            window.location.href =
-                "page2.html";
-
-        },450);
-
-    });
+    );
 
 });
 
 
-/* Keyboard accessibility */
+/* =========================================================
+   ESCAPE KEY — MOBILE MENU
+========================================================= */
 
-cards.forEach(function(card){
+document.addEventListener(
+    "keydown",
+    function(event){
 
-    card.addEventListener("keydown",function(event){
+        if(event.key === "Escape"){
 
-        if(
-            event.key === "Enter" ||
-            event.key === " "
-        ){
+            mobileMenu.classList.remove(
+                "active"
+            );
 
-            event.preventDefault();
-
-            this.click();
+            mobileMenu.setAttribute(
+                "aria-hidden",
+                "true"
+            );
 
         }
 
-    });
-
-});
+    }
+);
 
 </script>
 
