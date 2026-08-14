@@ -3,302 +3,302 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#11131d">
-<meta name="description" content="AKSH — How are you feeling today?">
+<meta name="theme-color" content="#111827">
 <title>AKSH — How are you feeling today?</title>
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html,
 body{
-  width:100%;
-  min-height:100%;
+    width:100%;
+    min-height:100%;
 }
 
 body{
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 
-  background:#11131d;
-  color:#fff;
+    color:#fff;
+    background:#18202b;
 
-  -webkit-font-smoothing:antialiased;
+    -webkit-font-smoothing:antialiased;
 }
 
-.page{
-  position:relative;
-  min-height:100svh;
-  min-height:100vh;
-  overflow:hidden;
-  isolation:isolate;
+/* =========================================================
+   PAGE
+========================================================= */
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.page{
+    position:relative;
+
+    width:100%;
+    min-height:100svh;
+    min-height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    isolation:isolate;
 }
 
 
 /* =========================================================
-   BACKGROUND
+   PREMIUM LIVING BACKGROUND
 ========================================================= */
 
 .background{
-  position:fixed;
-  inset:0;
-  z-index:-10;
+    position:absolute;
+    inset:0;
 
-  background:
-    radial-gradient(
-      circle at 18% 20%,
-      rgba(153,188,214,.28),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 82% 30%,
-      rgba(210,170,213,.20),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 50% 90%,
-      rgba(221,164,124,.13),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
-      #1c2535 0%,
-      #36384c 48%,
-      #171925 100%
-    );
+    z-index:-5;
 
-  animation:
-    backgroundMove 18s ease-in-out infinite alternate;
+    background:
+        radial-gradient(
+            ellipse at 12% 18%,
+            rgba(170,205,226,.52) 0%,
+            rgba(170,205,226,.18) 23%,
+            transparent 48%
+        ),
+
+        radial-gradient(
+            ellipse at 88% 18%,
+            rgba(226,193,222,.42) 0%,
+            rgba(226,193,222,.12) 25%,
+            transparent 50%
+        ),
+
+        radial-gradient(
+            ellipse at 50% 70%,
+            rgba(202,170,202,.20) 0%,
+            transparent 48%
+        ),
+
+        linear-gradient(
+            135deg,
+            #26394b 0%,
+            #506176 38%,
+            #71667b 67%,
+            #292c3d 100%
+        );
+
+    animation:
+        backgroundBreathing 18s ease-in-out infinite alternate;
 }
 
-@keyframes backgroundMove{
-  from{
-    transform:scale(1);
-  }
+@keyframes backgroundBreathing{
 
-  to{
-    transform:scale(1.045);
-  }
-}
+    0%{
+        transform:scale(1);
+    }
 
-
-/* soft atmospheric glow */
-
-.background::before{
-  content:"";
-
-  position:absolute;
-
-  width:70vw;
-  height:70vw;
-
-  max-width:900px;
-  max-height:900px;
-
-  top:-32%;
-  right:-20%;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.12),
-      transparent 68%
-    );
-
-  filter:blur(12px);
-
-  animation:
-    glowMove 12s ease-in-out infinite alternate;
-}
-
-@keyframes glowMove{
-  from{
-    transform:translate(0,0) scale(.94);
-  }
-
-  to{
-    transform:translate(-45px,35px) scale(1.08);
-  }
+    100%{
+        transform:scale(1.045);
+    }
 }
 
 
 /* =========================================================
-   ATMOSPHERIC LIGHT
+   CLOUD-LIKE LIGHT
 ========================================================= */
 
-.light{
-  position:fixed;
-  z-index:-5;
+.cloud{
+    position:absolute;
 
-  width:45vw;
-  height:20vw;
+    border-radius:50%;
 
-  border-radius:50%;
+    filter:blur(45px);
 
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(255,255,255,.10),
-      transparent 70%
-    );
+    pointer-events:none;
 
-  filter:blur(25px);
-
-  pointer-events:none;
+    opacity:.48;
 }
 
-.light.one{
-  left:-12%;
-  bottom:5%;
+.cloud.one{
+    width:55vw;
+    height:22vw;
 
-  animation:
-    lightOne 13s ease-in-out infinite alternate;
+    max-width:760px;
+    max-height:310px;
+
+    left:-12%;
+    top:8%;
+
+    background:
+        rgba(220,235,242,.28);
+
+    animation:
+        cloudOne 16s ease-in-out infinite alternate;
 }
 
-.light.two{
-  right:-12%;
-  bottom:18%;
+.cloud.two{
+    width:48vw;
+    height:20vw;
 
-  animation:
-    lightTwo 16s ease-in-out infinite alternate;
+    max-width:680px;
+    max-height:290px;
+
+    right:-10%;
+    top:16%;
+
+    background:
+        rgba(241,220,239,.25);
+
+    animation:
+        cloudTwo 19s ease-in-out infinite alternate;
 }
 
-@keyframes lightOne{
-  from{
-    transform:translateX(0);
-  }
+.cloud.three{
+    width:65vw;
+    height:25vw;
 
-  to{
-    transform:translateX(90px);
-  }
+    max-width:850px;
+    max-height:340px;
+
+    left:18%;
+    bottom:-13%;
+
+    background:
+        rgba(188,183,214,.20);
+
+    animation:
+        cloudThree 21s ease-in-out infinite alternate;
 }
 
-@keyframes lightTwo{
-  from{
-    transform:translateX(0);
-  }
+@keyframes cloudOne{
 
-  to{
-    transform:translateX(-90px);
-  }
+    from{
+        transform:translateX(0) translateY(0);
+    }
+
+    to{
+        transform:translateX(80px) translateY(18px);
+    }
+}
+
+@keyframes cloudTwo{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-75px) translateY(25px);
+    }
+}
+
+@keyframes cloudThree{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-55px) translateY(-20px);
+    }
 }
 
 
 /* =========================================================
-   OVERLAY
+   CINEMATIC OVERLAY
 ========================================================= */
 
 .overlay{
-  position:fixed;
-  inset:0;
-  z-index:-2;
+    position:absolute;
+    inset:0;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(8,10,17,.15),
-      transparent 35%,
-      rgba(5,7,13,.62) 100%
-    );
+    z-index:-2;
 
-  pointer-events:none;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(14,21,30,.12) 0%,
+            rgba(14,18,28,.02) 40%,
+            rgba(10,13,21,.54) 100%
+        );
+
+    pointer-events:none;
 }
 
 
 /* =========================================================
-   TOP BAR
+   TOP BRAND
 ========================================================= */
 
-.topbar{
-  position:fixed;
+.brand{
+    position:absolute;
 
-  z-index:50;
+    z-index:20;
 
-  top:max(18px,env(safe-area-inset-top));
+    top:max(24px,env(safe-area-inset-top));
 
-  left:max(20px,env(safe-area-inset-left));
+    left:50%;
 
-  right:max(20px,env(safe-area-inset-right));
+    transform:translateX(-50%);
 
-  display:flex;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 
-  align-items:center;
-
-  justify-content:space-between;
+    text-align:center;
 }
 
-.logo img{
-  width:50px;
-  height:50px;
+.brand img{
+    width:62px;
+    height:62px;
 
-  object-fit:contain;
+    object-fit:contain;
 
-  filter:
-    drop-shadow(
-      0 6px 20px rgba(0,0,0,.35)
-    );
+    filter:
+        drop-shadow(
+            0 8px 24px rgba(0,0,0,.28)
+        );
 }
 
-.back{
-  width:42px;
-  height:42px;
+.brand-name{
+    margin-top:5px;
 
-  border-radius:50%;
+    font-size:10px;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    font-weight:800;
 
-  color:#fff;
+    letter-spacing:.30em;
 
-  text-decoration:none;
+    text-transform:uppercase;
 
-  border:1px solid rgba(255,255,255,.25);
-
-  background:
-    rgba(0,0,0,.14);
-
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-
-  transition:
-    transform .25s ease,
-    background .25s ease;
-}
-
-.back:hover{
-  transform:translateX(-3px);
-
-  background:
-    rgba(255,255,255,.12);
+    color:rgba(255,255,255,.82);
 }
 
 
 /* =========================================================
-   MAIN
+   MAIN CONTENT
 ========================================================= */
 
 .content{
-  width:min(1100px,calc(100% - 34px));
+    position:relative;
 
-  padding:
-    105px 0
-    max(35px,env(safe-area-inset-bottom));
+    z-index:10;
 
-  text-align:center;
+    width:min(
+        1180px,
+        calc(100% - 36px)
+    );
+
+    padding:
+        125px 0
+        max(42px,env(safe-area-inset-bottom));
+
+    text-align:center;
 }
 
 
@@ -307,290 +307,335 @@ body{
 ========================================================= */
 
 .eyebrow{
-  margin-bottom:14px;
+    font-size:9px;
 
-  font-size:9px;
+    font-weight:800;
 
-  font-weight:800;
+    letter-spacing:.34em;
 
-  letter-spacing:.32em;
+    text-transform:uppercase;
 
-  text-transform:uppercase;
+    color:rgba(255,255,255,.66);
 
-  color:rgba(255,255,255,.58);
+    margin-bottom:15px;
+
+    text-shadow:
+        0 3px 18px rgba(0,0,0,.25);
 }
 
 h1{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  font-size:
-    clamp(
-      42px,
-      7vw,
-      78px
-    );
+    font-size:
+        clamp(
+            44px,
+            7vw,
+            82px
+        );
 
-  font-weight:400;
+    font-weight:400;
 
-  line-height:1.02;
+    line-height:1;
 
-  letter-spacing:-.055em;
+    letter-spacing:-.055em;
 
-  text-shadow:
-    0 8px 35px rgba(0,0,0,.30);
+    text-shadow:
+        0 8px 35px rgba(0,0,0,.28);
 }
 
 .intro{
-  max-width:620px;
-
-  margin:
-    17px auto 0;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:
-    clamp(
-      15px,
-      2vw,
-      19px
+    width:min(
+        620px,
+        100%
     );
 
-  line-height:1.5;
+    margin:
+        18px auto 0;
 
-  color:rgba(255,255,255,.76);
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(
+            15px,
+            2vw,
+            19px
+        );
+
+    line-height:1.55;
+
+    color:rgba(255,255,255,.84);
+
+    text-shadow:
+        0 4px 18px rgba(0,0,0,.20);
 }
 
 
 /* =========================================================
-   EMOTION CARDS
+   FOUR EMOTION CARDS
 ========================================================= */
 
 .cards{
-  width:100%;
+    width:100%;
 
-  max-width:1050px;
+    margin:
+        40px auto 0;
 
-  margin:
-    38px auto 0;
+    display:grid;
 
-  display:grid;
+    grid-template-columns:
+        repeat(4,1fr);
 
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap:14px;
+    gap:15px;
 }
 
 .card{
-  position:relative;
+    position:relative;
 
-  min-height:250px;
+    min-height:235px;
 
-  padding:26px 22px;
+    padding:25px 23px;
 
-  border-radius:27px;
+    border-radius:26px;
 
-  border:1px solid rgba(255,255,255,.20);
+    border:
+        1px solid
+        rgba(255,255,255,.24);
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.15),
-      rgba(255,255,255,.055)
-    );
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.19),
+            rgba(255,255,255,.065)
+        );
 
-  color:#fff;
+    box-shadow:
+        0 24px 65px
+        rgba(0,0,0,.18);
 
-  text-align:left;
+    color:#fff;
 
-  cursor:pointer;
+    text-align:left;
 
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
+    cursor:pointer;
 
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.17);
+    appearance:none;
+    -webkit-appearance:none;
 
-  transition:
-    transform .35s ease,
-    background .35s ease,
-    border-color .35s ease,
-    box-shadow .35s ease;
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    transition:
+        transform .32s ease,
+        background .32s ease,
+        border-color .32s ease,
+        box-shadow .32s ease;
 }
 
 .card:hover{
-  transform:translateY(-9px);
+    transform:translateY(-8px);
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.23),
-      rgba(255,255,255,.08)
-    );
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.27),
+            rgba(255,255,255,.09)
+        );
 
-  border-color:
-    rgba(255,255,255,.42);
+    border-color:
+        rgba(255,255,255,.44);
 
-  box-shadow:
-    0 35px 85px rgba(0,0,0,.27);
+    box-shadow:
+        0 34px 80px
+        rgba(0,0,0,.25);
 }
 
 .card:active{
-  transform:scale(.98);
+    transform:scale(.985);
 }
 
 .card:focus-visible{
-  outline:
-    2px solid rgba(255,255,255,.8);
+    outline:
+        2px solid
+        rgba(255,255,255,.9);
 
-  outline-offset:4px;
+    outline-offset:4px;
 }
 
 
 /* number */
 
-.card-number{
-  position:absolute;
+.number{
+    position:absolute;
 
-  top:19px;
-  right:20px;
+    top:17px;
+    right:19px;
 
-  font-size:8px;
+    font-size:8px;
 
-  font-weight:800;
+    font-weight:800;
 
-  letter-spacing:.16em;
+    letter-spacing:.18em;
 
-  color:rgba(255,255,255,.40);
+    color:rgba(255,255,255,.42);
 }
 
 
 /* icon */
 
-.card-icon{
-  width:55px;
-  height:55px;
+.icon{
+    width:53px;
+    height:53px;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    margin-bottom:28px;
 
-  margin-bottom:30px;
+    border-radius:17px;
 
-  border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-  background:
-    rgba(255,255,255,.10);
+    border:
+        1px solid
+        rgba(255,255,255,.19);
 
-  border:
-    1px solid rgba(255,255,255,.18);
+    background:
+        rgba(255,255,255,.105);
 
-  font-size:23px;
+    font-size:22px;
+
+    box-shadow:
+        inset 0 1px
+        rgba(255,255,255,.08);
 }
 
 
 /* title */
 
 .card h2{
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  font-size:23px;
+    font-size:22px;
 
-  font-weight:400;
+    font-weight:400;
 
-  line-height:1.12;
+    line-height:1.12;
+
+    letter-spacing:-.02em;
 }
 
 
 /* description */
 
 .card p{
-  margin-top:11px;
+    margin-top:10px;
 
-  font-size:10px;
+    font-size:10px;
 
-  line-height:1.55;
+    line-height:1.55;
 
-  color:rgba(255,255,255,.62);
+    color:rgba(255,255,255,.67);
 }
 
 
 /* arrow */
 
-.card-arrow{
-  position:absolute;
+.arrow{
+    position:absolute;
 
-  left:22px;
-  bottom:20px;
+    left:23px;
+    bottom:18px;
 
-  font-size:18px;
+    font-size:18px;
 
-  color:rgba(255,255,255,.68);
+    color:rgba(255,255,255,.72);
 
-  transition:
-    transform .25s ease;
+    transition:
+        transform .25s ease;
 }
 
-.card:hover .card-arrow{
-  transform:translateX(6px);
+.card:hover .arrow{
+    transform:translateX(7px);
 }
 
 
 /* =========================================================
-   BOTTOM LINE
+   BOTTOM
 ========================================================= */
 
 .bottom-note{
-  margin-top:23px;
+    margin-top:22px;
 
-  font-size:8px;
+    font-size:8px;
 
-  font-weight:700;
+    font-weight:700;
 
-  letter-spacing:.16em;
+    letter-spacing:.17em;
 
-  text-transform:uppercase;
+    text-transform:uppercase;
 
-  color:rgba(255,255,255,.46);
+    color:rgba(255,255,255,.52);
+
+    text-shadow:
+        0 3px 15px rgba(0,0,0,.2);
 }
 
 
 /* =========================================================
-   LOADING / TRANSITION
+   PAGE TRANSITION
 ========================================================= */
 
-.transition{
-  position:fixed;
-  inset:0;
+.page-transition{
+    position:fixed;
+    inset:0;
 
-  z-index:100;
+    z-index:100;
 
-  pointer-events:none;
+    background:
+        linear-gradient(
+            135deg,
+            #26394b,
+            #71667b,
+            #292c3d
+        );
 
-  background:
-    linear-gradient(
-      135deg,
-      #141724,
-      #3b3c50
-    );
+    opacity:0;
 
-  opacity:0;
+    pointer-events:none;
 
-  transition:
-    opacity .45s ease;
+    transition:
+        opacity .45s ease;
 }
 
-.transition.active{
-  opacity:1;
+.page-transition.show{
+    opacity:1;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:950px){
+
+    .cards{
+        grid-template-columns:
+            repeat(2,1fr);
+
+        max-width:720px;
+    }
+
+    .card{
+        min-height:205px;
+    }
 }
 
 
@@ -598,224 +643,215 @@ h1{
    MOBILE
 ========================================================= */
 
-@media(max-width:850px){
-
-  .cards{
-    grid-template-columns:
-      repeat(2,1fr);
-
-    max-width:620px;
-  }
-
-  .card{
-    min-height:210px;
-  }
-}
-
-
 @media(max-width:600px){
 
-  .topbar{
-    top:max(13px,env(safe-area-inset-top));
+    .brand{
+        top:max(
+            14px,
+            env(safe-area-inset-top)
+        );
+    }
 
-    left:max(14px,env(safe-area-inset-left));
+    .brand img{
+        width:49px;
+        height:49px;
+    }
 
-    right:max(14px,env(safe-area-inset-right));
-  }
+    .brand-name{
+        font-size:7px;
+        margin-top:3px;
+    }
 
-  .logo img{
-    width:43px;
-    height:43px;
-  }
+    .content{
+        width:
+            calc(100% - 24px);
 
-  .back{
-    width:38px;
-    height:38px;
-  }
+        padding-top:92px;
+    }
 
-  .content{
-    width:calc(100% - 24px);
+    .eyebrow{
+        font-size:6px;
+        margin-bottom:10px;
+    }
 
-    padding-top:76px;
-  }
+    h1{
+        font-size:
+            clamp(
+                36px,
+                10.5vw,
+                52px
+            );
+    }
 
-  .eyebrow{
-    font-size:7px;
-    margin-bottom:10px;
-  }
+    .intro{
+        margin-top:12px;
+        font-size:13px;
+    }
 
-  h1{
-    font-size:
-      clamp(
-        35px,
-        10vw,
-        49px
-      );
-  }
+    .cards{
+        margin-top:24px;
+        gap:9px;
+    }
 
-  .intro{
-    margin-top:11px;
-    font-size:13px;
-    max-width:350px;
-  }
+    .card{
+        min-height:184px;
 
-  .cards{
-    margin-top:23px;
+        padding:
+            18px 15px;
 
-    gap:9px;
+        border-radius:20px;
+    }
 
-    grid-template-columns:
-      repeat(2,1fr);
-  }
+    .number{
+        top:12px;
+        right:13px;
+        font-size:6px;
+    }
 
-  .card{
-    min-height:185px;
+    .icon{
+        width:40px;
+        height:40px;
 
-    padding:18px 15px;
+        margin-bottom:19px;
 
-    border-radius:20px;
-  }
+        border-radius:13px;
 
-  .card-number{
-    top:13px;
-    right:14px;
-    font-size:6px;
-  }
+        font-size:17px;
+    }
 
-  .card-icon{
-    width:40px;
-    height:40px;
+    .card h2{
+        font-size:17px;
+    }
 
-    margin-bottom:20px;
+    .card p{
+        margin-top:7px;
+        font-size:8px;
+        line-height:1.42;
+    }
 
-    border-radius:13px;
+    .arrow{
+        left:15px;
+        bottom:12px;
+        font-size:15px;
+    }
 
-    font-size:18px;
-  }
-
-  .card h2{
-    font-size:17px;
-  }
-
-  .card p{
-    margin-top:7px;
-    font-size:8px;
-    line-height:1.4;
-  }
-
-  .card-arrow{
-    left:15px;
-    bottom:13px;
-    font-size:15px;
-  }
-
-  .bottom-note{
-    margin-top:15px;
-    font-size:6px;
-  }
+    .bottom-note{
+        margin-top:14px;
+        font-size:6px;
+    }
 }
 
 
 /* =========================================================
-   SMALL PHONES
+   SMALL PHONE
 ========================================================= */
 
 @media(max-width:380px){
 
-  .content{
-    padding-top:68px;
-  }
+    .content{
+        padding-top:82px;
+    }
 
-  .intro{
-    font-size:11px;
-  }
+    .intro{
+        font-size:11px;
+    }
 
-  .cards{
-    margin-top:17px;
-  }
+    .cards{
+        margin-top:18px;
+    }
 
-  .card{
-    min-height:158px;
-    padding:14px 12px;
-  }
+    .card{
+        min-height:160px;
+        padding:14px 12px;
+    }
 
-  .card-icon{
-    width:34px;
-    height:34px;
+    .icon{
+        width:34px;
+        height:34px;
+        margin-bottom:14px;
+        border-radius:11px;
+        font-size:15px;
+    }
 
-    margin-bottom:14px;
+    .card h2{
+        font-size:14px;
+    }
 
-    border-radius:11px;
+    .card p{
+        font-size:7px;
+    }
 
-    font-size:15px;
-  }
-
-  .card h2{
-    font-size:14px;
-  }
-
-  .card p{
-    font-size:7px;
-  }
-
-  .card-arrow{
-    left:12px;
-    bottom:10px;
-  }
+    .arrow{
+        left:12px;
+        bottom:9px;
+    }
 }
 
 
 /* =========================================================
-   LANDSCAPE MOBILE
+   LANDSCAPE PHONE
 ========================================================= */
 
 @media(
-  orientation:landscape
+    orientation:landscape
 ) and (max-height:600px){
 
-  .content{
-    padding-top:62px;
-  }
+    .brand{
+        top:10px;
+    }
 
-  .eyebrow{
-    display:none;
-  }
+    .brand img{
+        width:38px;
+        height:38px;
+    }
 
-  h1{
-    font-size:35px;
-  }
+    .brand-name{
+        display:none;
+    }
 
-  .intro{
-    margin-top:6px;
-    font-size:11px;
-  }
+    .content{
+        padding-top:55px;
+    }
 
-  .cards{
-    margin-top:13px;
-  }
+    .eyebrow{
+        display:none;
+    }
 
-  .card{
-    min-height:145px;
-    padding:14px;
-  }
+    h1{
+        font-size:34px;
+    }
 
-  .card-icon{
-    width:34px;
-    height:34px;
-    margin-bottom:10px;
-  }
+    .intro{
+        margin-top:6px;
+        font-size:10px;
+    }
 
-  .card h2{
-    font-size:15px;
-  }
+    .cards{
+        margin-top:12px;
+    }
 
-  .card p{
-    font-size:7px;
-  }
+    .card{
+        min-height:135px;
+        padding:13px;
+    }
 
-  .bottom-note{
-    display:none;
-  }
+    .icon{
+        width:32px;
+        height:32px;
+        margin-bottom:9px;
+    }
+
+    .card h2{
+        font-size:14px;
+    }
+
+    .card p{
+        font-size:7px;
+    }
+
+    .bottom-note{
+        display:none;
+    }
 }
 
 
@@ -825,368 +861,297 @@ h1{
 
 @media(prefers-reduced-motion:reduce){
 
-  *,
-  *::before,
-  *::after{
-    animation:none!important;
-    transition:none!important;
-  }
+    *,
+    *::before,
+    *::after{
+        animation:none !important;
+        transition:none !important;
+    }
 }
 </style>
 </head>
-
 
 <body>
 
 <main class="page">
 
+    <!-- BACKGROUND -->
+    <div class="background">
 
-  <!-- =====================================================
-       BACKGROUND
-  ====================================================== -->
+        <div class="cloud one"></div>
+        <div class="cloud two"></div>
+        <div class="cloud three"></div>
 
-  <div class="background"></div>
-
-  <div class="light one"></div>
-  <div class="light two"></div>
-
-  <div class="overlay"></div>
-
-
-  <!-- =====================================================
-       TOP BAR
-  ====================================================== -->
-
-  <header class="topbar">
-
-    <a
-      href="index.html"
-      class="logo"
-      aria-label="Back to AKSH welcome page"
-    >
-
-      <img
-        src="aksh-icon.PNG"
-        alt="AKSH"
-      >
-
-    </a>
-
-
-    <a
-      href="index.html"
-      class="back"
-      aria-label="Back"
-    >
-      ←
-    </a>
-
-  </header>
-
-
-  <!-- =====================================================
-       PAGE CONTENT
-  ====================================================== -->
-
-  <section class="content">
-
-    <div class="eyebrow">
-      AKSH · A safe space for every mind
     </div>
 
-
-    <h1>
-      How are you<br>
-      feeling today?
-    </h1>
+    <div class="overlay"></div>
 
 
-    <p class="intro">
-      There is no right answer here.
-      Just choose what feels closest to you right now.
-    </p>
+    <!-- AKSH BRAND -->
+    <div class="brand">
 
+        <img
+            src="aksh-icon.PNG"
+            alt="AKSH"
+        >
 
-    <!-- =================================================
-         FOUR EMOTION CARDS
-    ================================================== -->
-
-    <div class="cards">
-
-
-      <!-- 01 ANXIOUS -->
-
-      <button
-        class="card"
-        type="button"
-        data-emotion="anxious"
-        aria-label="I feel anxious"
-      >
-
-        <span class="card-number">
-          01
-        </span>
-
-        <div class="card-icon">
-          ◌
+        <div class="brand-name">
+            AKSH
         </div>
-
-        <h2>
-          Anxious
-        </h2>
-
-        <p>
-          Your mind feels restless,
-          worried or unable to slow down.
-        </p>
-
-        <span class="card-arrow">
-          →
-        </span>
-
-      </button>
-
-
-      <!-- 02 OVERWHELMED -->
-
-      <button
-        class="card"
-        type="button"
-        data-emotion="overwhelmed"
-        aria-label="I feel overwhelmed"
-      >
-
-        <span class="card-number">
-          02
-        </span>
-
-        <div class="card-icon">
-          ≋
-        </div>
-
-        <h2>
-          Overwhelmed
-        </h2>
-
-        <p>
-          There is simply too much happening
-          and you need some breathing room.
-        </p>
-
-        <span class="card-arrow">
-          →
-        </span>
-
-      </button>
-
-
-      <!-- 03 SOMEONE TO TALK -->
-
-      <button
-        class="card"
-        type="button"
-        data-emotion="talk"
-        aria-label="I need someone to talk to"
-      >
-
-        <span class="card-number">
-          03
-        </span>
-
-        <div class="card-icon">
-          ◇
-        </div>
-
-        <h2>
-          Need someone to talk
-        </h2>
-
-        <p>
-          You don't want to carry the thought
-          alone. You would like someone there.
-        </p>
-
-        <span class="card-arrow">
-          →
-        </span>
-
-      </button>
-
-
-      <!-- 04 EXPLORING -->
-
-      <button
-        class="card"
-        type="button"
-        data-emotion="exploring"
-        aria-label="I am just exploring"
-      >
-
-        <span class="card-number">
-          04
-        </span>
-
-        <div class="card-icon">
-          ✦
-        </div>
-
-        <h2>
-          Just exploring
-        </h2>
-
-        <p>
-          You are curious about yourself,
-          emotions, growth or what AKSH offers.
-        </p>
-
-        <span class="card-arrow">
-          →
-        </span>
-
-      </button>
-
 
     </div>
 
 
-    <div class="bottom-note">
-      Take your time · You are welcome here
-    </div>
+    <!-- MAIN CONTENT -->
+    <section class="content">
 
-  </section>
+        <div class="eyebrow">
+            A safe space for every mind
+        </div>
 
 
-  <!-- =====================================================
-       TRANSITION
-  ====================================================== -->
+        <h1>
+            How are you<br>
+            feeling today?
+        </h1>
 
-  <div
-    class="transition"
-    id="transition"
-    aria-hidden="true"
-  ></div>
 
+        <p class="intro">
+            There is no right answer.
+            Just choose what feels closest to you right now.
+        </p>
+
+
+        <!-- FOUR EMOTION CARDS -->
+        <div class="cards">
+
+
+            <!-- ANXIOUS -->
+
+            <button
+                class="card"
+                type="button"
+                data-emotion="anxious"
+            >
+
+                <span class="number">
+                    01
+                </span>
+
+                <div class="icon">
+                    ◌
+                </div>
+
+                <h2>
+                    Anxious
+                </h2>
+
+                <p>
+                    Your mind feels restless,
+                    worried or unable to slow down.
+                </p>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </button>
+
+
+            <!-- OVERWHELMED -->
+
+            <button
+                class="card"
+                type="button"
+                data-emotion="overwhelmed"
+            >
+
+                <span class="number">
+                    02
+                </span>
+
+                <div class="icon">
+                    ≋
+                </div>
+
+                <h2>
+                    Overwhelmed
+                </h2>
+
+                <p>
+                    There is too much happening
+                    and you need some breathing room.
+                </p>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </button>
+
+
+            <!-- NEED SOMEONE -->
+
+            <button
+                class="card"
+                type="button"
+                data-emotion="talk"
+            >
+
+                <span class="number">
+                    03
+                </span>
+
+                <div class="icon">
+                    ◇
+                </div>
+
+                <h2>
+                    Need someone to talk
+                </h2>
+
+                <p>
+                    You don't want to carry the thought
+                    alone. Someone can be here with you.
+                </p>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </button>
+
+
+            <!-- EXPLORING -->
+
+            <button
+                class="card"
+                type="button"
+                data-emotion="exploring"
+            >
+
+                <span class="number">
+                    04
+                </span>
+
+                <div class="icon">
+                    ✦
+                </div>
+
+                <h2>
+                    Just exploring
+                </h2>
+
+                <p>
+                    You are curious about yourself,
+                    emotions, growth or AKSH.
+                </p>
+
+                <span class="arrow">
+                    →
+                </span>
+
+            </button>
+
+
+        </div>
+
+
+        <div class="bottom-note">
+            Take your time · You are welcome here
+        </div>
+
+    </section>
+
+
+    <!-- TRANSITION -->
+    <div
+        class="page-transition"
+        id="pageTransition"
+    ></div>
 
 </main>
 
 
 <script>
 
-/* =========================================================
-   PAGE 1 → PAGE 2
+/*
+=========================================================
+AKSH PAGE 1 NAVIGATION
 =========================================================
 
-   Every emotion card goes to page2.html.
+Each emotion card:
 
-   The selected emotion is saved temporarily so that
-   page2.html can later use the correct emotional
-   experience.
+1. Saves the selected emotion.
+2. Creates a smooth transition.
+3. Opens page2.html.
 
-========================================================= */
+No video.
+No music.
+No sound button.
+No changes to index.html.
+=========================================================
+*/
 
 const cards =
-  document.querySelectorAll(".card");
+    document.querySelectorAll(".card");
 
 const transition =
-  document.getElementById("transition");
+    document.getElementById("pageTransition");
 
 
-cards.forEach(card => {
+cards.forEach(function(card){
 
-  card.addEventListener("click", function(){
+    card.addEventListener(
+        "click",
+        function(){
 
-    const emotion =
-      this.dataset.emotion;
-
-    /*
-      Save the visitor's selection.
-
-      This does NOT require a database.
-      It stays in the visitor's browser.
-    */
-
-    try{
-
-      sessionStorage.setItem(
-        "akshEmotion",
-        emotion
-      );
-
-    }catch(error){
-
-      /*
-        If browser storage is unavailable,
-        navigation still continues.
-      */
-
-    }
+            const emotion =
+                this.dataset.emotion;
 
 
-    /*
-      Premium transition before opening Page 2.
-    */
+            /*
+            Save selected emotion.
+            Page 2 can read this later.
+            */
 
-    transition.classList.add("active");
+            try{
 
+                sessionStorage.setItem(
+                    "akshEmotion",
+                    emotion
+                );
 
-    /*
-      Small delay lets the transition appear
-      before the new page loads.
-    */
+            }catch(error){
 
-    setTimeout(function(){
+                /* Navigation still works
+                   if storage is unavailable. */
 
-      window.location.href =
-        "page2.html";
-
-    },420);
-
-  });
-
-});
+            }
 
 
-/* =========================================================
-   KEYBOARD ACCESSIBILITY
-========================================================= */
+            /*
+            Start page transition.
+            */
 
-cards.forEach(card => {
-
-  card.addEventListener(
-    "keydown",
-    function(event){
-
-      if(
-        event.key === "Enter" ||
-        event.key === " "
-      ){
-
-        event.preventDefault();
-
-        this.click();
-
-      }
-
-    }
-  );
-
-});
+            transition.classList.add("show");
 
 
-/* =========================================================
-   PREVENT BROKEN BACK/EMPTY NAVIGATION
-========================================================= */
+            /*
+            Move to Page 2.
+            */
 
-window.addEventListener(
-  "pageshow",
-  function(){
+            setTimeout(function(){
 
-    transition.classList.remove(
-      "active"
+                window.location.href =
+                    "page2.html";
+
+            },450);
+
+        }
     );
 
-  }
-);
+});
 
 </script>
 
