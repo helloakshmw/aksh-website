@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta name="theme-color" content="#171923">
+<meta name="description" content="AKSH — A quiet space when everything feels like too much.">
+
+<title>AKSH — When Everything Feels Like Too Much</title>
+
+<style>
+:root{
+    --text:#f8f5ef;
+    --soft:rgba(248,245,239,.74);
+    --muted:rgba(248,245,239,.50);
+    --line:rgba(255,255,255,.14);
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:#11151d;
+    color:var(--text);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+}
+
+button,
+a{
+    font:inherit;
+}
+
+button{
+    border:0;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.page{
+    position:relative;
+    min-height:100svh;
+    overflow:hidden;
+    isolation:isolate;
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background{
+    position:absolute;
+    inset:0;
+    z-index:-10;
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 12% 18%,
+            rgba(178,171,201,.22),
+            transparent 38%
+        ),
+        radial-gradient(
+            ellipse at 88% 25%,
+            rgba(129,151,169,.20),
+            transparent 40%
+        ),
+        radial-gradient(
+            ellipse at 50% 105%,
+            rgba(101,91,125,.25),
+            transparent 55%
+        ),
+        linear-gradient(
+            145deg,
+            #1a202b 0%,
+            #333a48 46%,
+            #171b25 100%
+        );
+}
+
+.background::before{
+    content:"";
+    position:absolute;
+    inset:-15%;
+
+    background:
+        radial-gradient(
+            ellipse at 22% 40%,
+            rgba(255,255,255,.10),
+            transparent 22%
+        ),
+        radial-gradient(
+            ellipse at 75% 28%,
+            rgba(255,255,255,.08),
+            transparent 25%
+        ),
+        radial-gradient(
+            ellipse at 55% 75%,
+            rgba(177,159,194,.10),
+            transparent 24%
+        );
+
+    filter:blur(55px);
+
+    animation:
+        slowClouds 20s ease-in-out infinite alternate;
+}
+
+.background::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5,8,13,.34),
+            rgba(5,8,13,.06) 42%,
+            rgba(5,8,13,.78)
+        );
+}
+
+@keyframes slowClouds{
+    0%{
+        transform:translate3d(-2%,0,0) scale(1);
+    }
+
+    100%{
+        transform:translate3d(3%,2%,0) scale(1.08);
+    }
+}
+
+
+/* =====================================================
+   SOFT LIGHT
+===================================================== */
+
+.light{
+    position:absolute;
+
+    width:380px;
+    height:380px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(225,218,238,.12),
+            transparent 68%
+        );
+
+    filter:blur(20px);
+
+    pointer-events:none;
+
+    animation:
+        lightMove 16s ease-in-out infinite alternate;
+}
+
+.light.one{
+    top:-170px;
+    left:-120px;
+}
+
+.light.two{
+    right:-180px;
+    bottom:-130px;
+
+    animation-delay:-7s;
+}
+
+@keyframes lightMove{
+    to{
+        transform:translate(80px,35px) scale(1.1);
+    }
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.nav{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+
+    z-index:20;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:
+        20px
+        max(20px,5vw);
+
+    border-bottom:1px solid rgba(255,255,255,.07);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5,8,13,.38),
+            transparent
+        );
+
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand img{
+    width:40px;
+    height:40px;
+    object-fit:contain;
+
+    filter:
+        drop-shadow(
+            0 8px 18px rgba(0,0,0,.28)
+        );
+}
+
+.brand-copy{
+    display:flex;
+    flex-direction:column;
+}
+
+.brand-name{
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.18em;
+}
+
+.brand-sub{
+    margin-top:2px;
+
+    font-size:6px;
+    letter-spacing:.18em;
+
+    color:rgba(255,255,255,.45);
+}
+
+.back{
+    font-size:9px;
+    letter-spacing:.12em;
+
+    color:rgba(255,255,255,.58);
+
+    transition:.25s ease;
+}
+
+.back:hover{
+    color:#fff;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    min-height:100svh;
+    min-height:100vh;
+
+    padding:
+        125px
+        max(20px,7vw)
+        70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.content{
+    width:min(1120px,100%);
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.eyebrow{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    font-size:8px;
+    font-weight:800;
+
+    letter-spacing:.3em;
+    text-transform:uppercase;
+
+    color:var(--muted);
+}
+
+.eyebrow::before{
+    content:"";
+
+    width:34px;
+    height:1px;
+
+    background:rgba(255,255,255,.38);
+}
+
+.heading{
+    max-width:900px;
+
+    margin-top:22px;
+
+    font-family:var(--serif);
+    font-weight:400;
+
+    font-size:clamp(48px,8vw,94px);
+    line-height:.91;
+
+    letter-spacing:-.065em;
+}
+
+.heading em{
+    display:block;
+    color:rgba(255,255,255,.62);
+}
+
+.intro{
+    max-width:650px;
+
+    margin-top:27px;
+
+    font-family:var(--serif);
+
+    font-size:16px;
+    line-height:1.65;
+
+    color:var(--soft);
+}
+
+
+/* =====================================================
+   OVERWHELMED EXPERIENCE
+===================================================== */
+
+.experience{
+    margin-top:50px;
+
+    display:grid;
+
+    grid-template-columns:
+        .9fr
+        1.1fr;
+
+    gap:18px;
+}
+
+
+/* =====================================================
+   RESET CARD
+===================================================== */
+
+.reset-card{
+    position:relative;
+
+    min-height:430px;
+
+    padding:35px;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    border:1px solid var(--line);
+    border-radius:32px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.105),
+            rgba(255,255,255,.035)
+        );
+
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    overflow:hidden;
+}
+
+.reset-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:330px;
+    height:330px;
+
+    top:-140px;
+    right:-120px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(213,204,225,.15),
+            transparent 70%
+        );
+
+    animation:
+        gentlePulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes gentlePulse{
+    to{
+        transform:scale(1.18);
+        opacity:.7;
+    }
+}
+
+.card-label{
+    position:relative;
+    z-index:2;
+
+    font-size:8px;
+    font-weight:800;
+
+    letter-spacing:.25em;
+    text-transform:uppercase;
+
+    color:var(--muted);
+}
+
+.reset-content{
+    position:relative;
+    z-index:2;
+}
+
+.reset-content h2{
+    max-width:460px;
+
+    font-family:var(--serif);
+
+    font-size:clamp(35px,4vw,51px);
+
+    font-weight:400;
+
+    line-height:1.02;
+
+    letter-spacing:-.045em;
+}
+
+.reset-content p{
+    max-width:430px;
+
+    margin-top:18px;
+
+    font-family:var(--serif);
+
+    font-size:14px;
+
+    line-height:1.65;
+
+    color:var(--soft);
+}
+
+.reset-button{
+    position:relative;
+    z-index:3;
+
+    align-self:flex-start;
+
+    min-height:48px;
+
+    padding:0 23px;
+
+    border-radius:100px;
+
+    background:#f7f4ee;
+
+    color:#1b2028;
+
+    cursor:pointer;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:.08em;
+
+    transition:.3s ease;
+}
+
+.reset-button:hover{
+    transform:translateY(-3px);
+}
+
+
+/* =====================================================
+   ONE THING CARD
+===================================================== */
+
+.one-thing{
+    min-height:430px;
+
+    padding:35px;
+
+    border:1px solid var(--line);
+    border-radius:32px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+}
+
+.one-label{
+    font-size:8px;
+    font-weight:800;
+
+    letter-spacing:.25em;
+    text-transform:uppercase;
+
+    color:var(--muted);
+}
+
+.one-thing h2{
+    max-width:570px;
+
+    margin-top:25px;
+
+    font-family:var(--serif);
+
+    font-size:clamp(34px,4vw,48px);
+
+    font-weight:400;
+
+    line-height:1.04;
+
+    letter-spacing:-.045em;
+}
+
+.one-thing > p{
+    max-width:570px;
+
+    margin-top:17px;
+
+    font-family:var(--serif);
+
+    font-size:14px;
+
+    line-height:1.65;
+
+    color:var(--soft);
+}
+
+
+/* =====================================================
+   SMALL STEPS
+===================================================== */
+
+.steps{
+    margin-top:27px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:9px;
+}
+
+.step{
+    min-height:105px;
+
+    padding:17px;
+
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:18px;
+
+    background:rgba(255,255,255,.045);
+
+    cursor:pointer;
+
+    text-align:left;
+
+    transition:.3s ease;
+}
+
+.step:hover,
+.step.active{
+    background:rgba(255,255,255,.105);
+    transform:translateY(-3px);
+}
+
+.step-number{
+    display:block;
+
+    font-size:7px;
+    letter-spacing:.2em;
+
+    color:rgba(255,255,255,.38);
+}
+
+.step-title{
+    display:block;
+
+    margin-top:18px;
+
+    font-size:10px;
+    font-weight:700;
+}
+
+.step-description{
+    display:block;
+
+    margin-top:5px;
+
+    font-size:7px;
+
+    line-height:1.4;
+
+    color:var(--muted);
+}
+
+
+/* =====================================================
+   STEP MESSAGE
+===================================================== */
+
+.step-message{
+    min-height:48px;
+
+    margin-top:14px;
+
+    padding:14px 17px;
+
+    border-left:2px solid rgba(255,255,255,.35);
+
+    background:rgba(255,255,255,.035);
+
+    font-family:var(--serif);
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    color:var(--soft);
+
+    transition:.3s ease;
+}
+
+
+/* =====================================================
+   SUPPORT BUTTONS
+===================================================== */
+
+.support-actions{
+    margin-top:13px;
+
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+}
+
+.support-button{
+    min-height:43px;
+
+    padding:0 18px;
+
+    border:1px solid var(--line);
+
+    border-radius:100px;
+
+    background:rgba(255,255,255,.055);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:8px;
+    font-weight:700;
+
+    transition:.3s ease;
+}
+
+.support-button:hover{
+    background:rgba(255,255,255,.12);
+    transform:translateY(-2px);
+}
+
+
+/* =====================================================
+   BOTTOM MESSAGE
+===================================================== */
+
+.bottom{
+    margin-top:42px;
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:flex-end;
+
+    gap:30px;
+
+    padding-top:24px;
+
+    border-top:1px solid rgba(255,255,255,.09);
+}
+
+.bottom h3{
+    max-width:680px;
+
+    font-family:var(--serif);
+
+    font-size:clamp(24px,3vw,37px);
+
+    font-weight:400;
+
+    line-height:1.08;
+}
+
+.bottom p{
+    max-width:310px;
+
+    font-size:9px;
+
+    line-height:1.65;
+
+    color:var(--muted);
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    bottom:24px;
+
+    z-index:100;
+
+    transform:
+        translate(-50%,30px);
+
+    opacity:0;
+    pointer-events:none;
+
+    padding:12px 18px;
+
+    border:1px solid var(--line);
+
+    border-radius:100px;
+
+    background:rgba(13,17,24,.91);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    font-size:9px;
+
+    color:#fff;
+
+    transition:.35s ease;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+    .nav{
+        padding:14px 17px;
+    }
+
+    .brand img{
+        width:36px;
+        height:36px;
+    }
+
+    .main{
+        padding:
+            105px
+            16px
+            55px;
+    }
+
+    .heading{
+        font-size:
+            clamp(47px,13vw,70px);
+    }
+
+    .intro{
+        font-size:14px;
+    }
+
+    .experience{
+        grid-template-columns:1fr;
+
+        margin-top:38px;
+    }
+
+    .reset-card,
+    .one-thing{
+        min-height:420px;
+
+        padding:25px;
+    }
+
+    .one-thing h2{
+        font-size:35px;
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    .step{
+        min-height:75px;
+    }
+
+    .step-title{
+        margin-top:11px;
+    }
+
+    .bottom{
+        display:block;
+    }
+
+    .bottom p{
+        margin-top:17px;
+    }
+}
+
+
+@media(max-width:430px){
+
+    .heading{
+        font-size:46px;
+    }
+
+    .reset-card,
+    .one-thing{
+        border-radius:27px;
+    }
+
+    .reset-content h2{
+        font-size:34px;
+    }
+
+    .one-thing h2{
+        font-size:32px;
+    }
+
+    .support-actions{
+        flex-direction:column;
+    }
+
+    .support-button{
+        width:100%;
+    }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation:none!important;
+        transition:none!important;
+    }
+
+    html{
+        scroll-behavior:auto;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- BACKGROUND -->
+    <div class="background"></div>
+
+    <div class="light one"></div>
+    <div class="light two"></div>
+
+
+    <!-- =================================================
+         NAVIGATION
+    ================================================== -->
+
+    <header class="nav">
+
+        <a
+            href="page1.html"
+            class="brand"
+        >
+
+            <img
+                src="aksh-icon.PNG"
+                alt="AKSH"
+            >
+
+            <span class="brand-copy">
+
+                <span class="brand-name">
+                    AKSH
+                </span>
+
+                <span class="brand-sub">
+                    MENTAL WELLNESS
+                </span>
+
+            </span>
+
+        </a>
+
+
+        <a
+            href="page2.html"
+            class="back"
+        >
+            ← Back
+        </a>
+
+    </header>
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="main">
+
+        <div class="content">
+
+
+            <div class="eyebrow">
+                A little less at once
+            </div>
+
+
+            <h1 class="heading">
+                When everything
+                <em>feels like too much.</em>
+            </h1>
+
+
+            <p class="intro">
+                You don't need to finish everything right now.
+                You don't need to have all the answers.
+                Let's make this moment smaller, softer,
+                and easier to hold.
+            </p>
+
+
+            <section class="experience">
+
+
+                <!-- =====================================
+                     RESET
+                ====================================== -->
+
+                <article class="reset-card">
+
+                    <div class="card-label">
+                        First, pause
+                    </div>
+
+
+                    <div class="reset-content">
+
+                        <h2>
+                            You are allowed
+                            to put everything
+                            down for a moment.
+                        </h2>
+
+                        <p>
+                            Let the unfinished things stay
+                            unfinished for a little while.
+                            Nothing needs to be solved in
+                            this exact moment.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="reset-button"
+                        id="pauseButton"
+                    >
+                        Give me a moment
+                    </button>
+
+                </article>
+
+
+                <!-- =====================================
+                     ONE THING
+                ====================================== -->
+
+                <article class="one-thing">
+
+                    <div class="one-label">
+                        One thing at a time
+                    </div>
+
+
+                    <h2>
+                        You don't have to
+                        handle everything.
+                    </h2>
+
+
+                    <p>
+                        Choose just one small thing
+                        that feels possible right now.
+                    </p>
+
+
+                    <div class="steps">
+
+                        <button
+                            class="step active"
+                            data-message="Put both feet on the floor. Notice the surface beneath you. That's enough for now."
+                        >
+
+                            <span class="step-number">
+                                01
+                            </span>
+
+                            <span class="step-title">
+                                Ground
+                            </span>
+
+                            <span class="step-description">
+                                Come back to this moment
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="step"
+                            data-message="Take one slow breath. You don't need to make it perfect. Just breathe naturally."
+                        >
+
+                            <span class="step-number">
+                                02
+                            </span>
+
+                            <span class="step-title">
+                                Breathe
+                            </span>
+
+                            <span class="step-description">
+                                Give your body some space
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            class="step"
+                            data-message="Choose one thing that matters right now. Everything else can wait."
+                        >
+
+                            <span class="step-number">
+                                03
+                            </span>
+
+                            <span class="step-title">
+                                Choose
+                            </span>
+
+                            <span class="step-description">
+                                One small next step
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="step-message"
+                        id="stepMessage"
+                    >
+                        Put both feet on the floor.
+                        Notice the surface beneath you.
+                        That's enough for now.
+                    </div>
+
+
+                    <div class="support-actions">
+
+                        <button
+                            class="support-button"
+                            data-message="A quiet moment is always available here."
+                        >
+                            Stay here
+                        </button>
+
+                        <button
+                            class="support-button"
+                            data-message="Support can be explored whenever you are ready."
+                        >
+                            Explore support
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <div class="bottom">
+
+                <h3>
+                    You don't have to carry
+                    tomorrow's weight today.
+                </h3>
+
+                <p>
+                    One breath.
+                    One moment.
+                    One small step.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PAUSE BUTTON
+========================================================= */
+
+const pauseButton =
+    document.getElementById("pauseButton");
+
+const toast =
+    document.getElementById("toast");
+
+
+function showToast(message){
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(
+        function(){
+            toast.classList.remove("show");
+        },
+        2400
+    );
+}
+
+
+pauseButton.addEventListener(
+    "click",
+    function(){
+
+        showToast(
+            "Nothing needs to be solved right now."
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SMALL STEPS
+========================================================= */
+
+const steps =
+    document.querySelectorAll(".step");
+
+const stepMessage =
+    document.getElementById("stepMessage");
+
+
+steps.forEach(
+    function(step){
+
+        step.addEventListener(
+            "click",
+            function(){
+
+                steps.forEach(
+                    function(item){
+                        item.classList.remove("active");
+                    }
+                );
+
+                step.classList.add("active");
+
+                stepMessage.style.opacity = "0";
+
+                setTimeout(
+                    function(){
+
+                        stepMessage.textContent =
+                            step.dataset.message;
+
+                        stepMessage.style.opacity = "1";
+
+                    },
+                    150
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SUPPORT ACTIONS
+========================================================= */
+
+const supportButtons =
+    document.querySelectorAll(".support-button");
+
+
+supportButtons.forEach(
+    function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                showToast(
+                    button.dataset.message
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+            toast.classList.remove("show");
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
