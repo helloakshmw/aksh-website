@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#151728">
+<meta name="description" content="AKSH — Choose how you'd like to be supported.">
+<title>AKSH — Choose Your Support</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:#fff;
+  background:#151728;
+  -webkit-font-smoothing:antialiased;
+}
+
+.page{
+  position:relative;
+  width:100%;
+  height:100svh;
+  min-height:100vh;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+
+/* =========================================================
+   PREMIUM BACKGROUND
+========================================================= */
+
+.background{
+  position:absolute;
+  inset:0;
+  z-index:-10;
+
+  background:
+    radial-gradient(
+      ellipse at 18% 18%,
+      rgba(173,198,222,.28),
+      transparent 32%
+    ),
+    radial-gradient(
+      ellipse at 82% 30%,
+      rgba(177,157,211,.22),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      #20263a 0%,
+      #353650 48%,
+      #171a2b 100%
+    );
+}
+
+.background::before{
+  content:"";
+  position:absolute;
+  width:65vw;
+  height:65vw;
+  max-width:850px;
+  max-height:850px;
+
+  left:-28%;
+  bottom:-45%;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(205,184,229,.24),
+      transparent 67%
+    );
+
+  filter:blur(12px);
+
+  animation:floatGlow 12s ease-in-out infinite alternate;
+}
+
+.background::after{
+  content:"";
+  position:absolute;
+  width:45vw;
+  height:45vw;
+  max-width:600px;
+  max-height:600px;
+
+  right:-20%;
+  top:-25%;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.10),
+      transparent 68%
+    );
+
+  filter:blur(8px);
+
+  animation:floatGlowTwo 15s ease-in-out infinite alternate;
+}
+
+@keyframes floatGlow{
+  from{
+    transform:translate(0,0) scale(.94);
+  }
+  to{
+    transform:translate(55px,-30px) scale(1.08);
+  }
+}
+
+@keyframes floatGlowTwo{
+  from{
+    transform:translate(0,0);
+  }
+  to{
+    transform:translate(-45px,35px);
+  }
+}
+
+
+/* =========================================================
+   SOFT LIGHT PARTICLES
+========================================================= */
+
+.particles{
+  position:absolute;
+  inset:0;
+
+  opacity:.5;
+
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.42) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(255,255,255,.22) 1px,transparent 1.5px);
+
+  background-size:
+    125px 137px,
+    193px 177px;
+
+  background-position:
+    20px 40px,
+    90px 15px;
+
+  animation:particleMove 18s linear infinite;
+}
+
+@keyframes particleMove{
+  from{
+    transform:translateY(0);
+  }
+  to{
+    transform:translateY(-100px);
+  }
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10,12,22,.16),
+      transparent 35%,
+      rgba(7,9,16,.55) 100%
+    );
+
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+  position:absolute;
+  z-index:20;
+
+  top:max(18px,env(safe-area-inset-top));
+  left:max(20px,env(safe-area-inset-left));
+  right:max(20px,env(safe-area-inset-right));
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand img{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+
+  filter:
+    drop-shadow(
+      0 5px 18px rgba(0,0,0,.28)
+    );
+}
+
+.back{
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#fff;
+  text-decoration:none;
+
+  border:1px solid rgba(255,255,255,.24);
+
+  background:rgba(0,0,0,.13);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
+  transition:.25s ease;
+}
+
+.back:hover{
+  transform:translateX(-3px);
+  background:rgba(0,0,0,.25);
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.content{
+  position:relative;
+  z-index:10;
+
+  width:min(1080px,calc(100% - 32px));
+  height:100%;
+
+  margin:auto;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  padding:
+    76px 0
+    max(40px,env(safe-area-inset-bottom));
+}
+
+.eyebrow{
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.30em;
+  text-transform:uppercase;
+
+  color:rgba(255,255,255,.62);
+
+  margin-bottom:15px;
+}
+
+h1{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:clamp(39px,6vw,70px);
+
+  font-weight:400;
+
+  line-height:1.03;
+
+  letter-spacing:-.045em;
+
+  text-shadow:
+    0 6px 30px rgba(0,0,0,.28);
+}
+
+.intro{
+  max-width:600px;
+
+  margin-top:15px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:clamp(14px,1.8vw,18px);
+
+  line-height:1.5;
+
+  color:rgba(255,255,255,.82);
+}
+
+
+/* =========================================================
+   SUPPORT OPTIONS
+========================================================= */
+
+.options{
+  width:100%;
+  max-width:1000px;
+
+  margin-top:27px;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:13px;
+}
+
+.option{
+  position:relative;
+
+  min-height:185px;
+
+  padding:25px 20px 22px;
+
+  border-radius:25px;
+
+  border:1px solid rgba(255,255,255,.22);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.15),
+      rgba(255,255,255,.055)
+    );
+
+  color:#fff;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+
+  box-shadow:
+    0 20px 65px rgba(0,0,0,.15);
+
+  transition:
+    transform .35s ease,
+    background .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
+
+.option:hover{
+  transform:translateY(-8px);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.22),
+      rgba(255,255,255,.08)
+    );
+
+  border-color:rgba(255,255,255,.42);
+
+  box-shadow:
+    0 30px 75px rgba(0,0,0,.24);
+}
+
+.option:active{
+  transform:scale(.98);
+}
+
+.number{
+  position:absolute;
+
+  top:18px;
+  right:19px;
+
+  font-size:8px;
+  font-weight:800;
+
+  letter-spacing:.16em;
+
+  color:rgba(255,255,255,.40);
+}
+
+.icon{
+  width:48px;
+  height:48px;
+
+  border-radius:16px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(255,255,255,.10);
+
+  border:1px solid rgba(255,255,255,.18);
+
+  font-size:22px;
+
+  margin-bottom:20px;
+}
+
+.option h2{
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:22px;
+  font-weight:400;
+
+  line-height:1.15;
+}
+
+.option p{
+  margin-top:9px;
+
+  font-size:10px;
+
+  line-height:1.5;
+
+  color:rgba(255,255,255,.62);
+}
+
+.arrow{
+  position:absolute;
+
+  right:20px;
+  bottom:20px;
+
+  font-size:17px;
+
+  color:rgba(255,255,255,.65);
+
+  transition:transform .25s ease;
+}
+
+.option:hover .arrow{
+  transform:translateX(5px);
+}
+
+
+/* =========================================================
+   HUMAN SUPPORT NOTE
+========================================================= */
+
+.human-note{
+  margin-top:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:8px;
+
+  font-size:8px;
+
+  font-weight:700;
+
+  letter-spacing:.15em;
+
+  text-transform:uppercase;
+
+  color:rgba(255,255,255,.55);
+}
+
+.human-dot{
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:rgba(189,225,199,.85);
+
+  box-shadow:
+    0 0 12px rgba(189,225,199,.7);
+}
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+.sound{
+  position:absolute;
+  z-index:30;
+
+  left:max(20px,env(safe-area-inset-left));
+  bottom:max(20px,env(safe-area-inset-bottom));
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.24);
+
+  background:rgba(0,0,0,.14);
+
+  color:#fff;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:760px){
+
+  .options{
+    grid-template-columns:1fr;
+    max-width:430px;
+    gap:8px;
+    margin-top:21px;
+  }
+
+  .option{
+    min-height:92px;
+
+    padding:
+      14px
+      52px
+      14px
+      70px;
+
+    border-radius:18px;
+  }
+
+  .icon{
+    position:absolute;
+
+    left:14px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:43px;
+    height:43px;
+
+    margin:0;
+
+    border-radius:14px;
+  }
+
+  .option h2{
+    font-size:17px;
+  }
+
+  .option p{
+    margin-top:5px;
+    font-size:8px;
+  }
+
+  .arrow{
+    right:17px;
+    top:50%;
+    bottom:auto;
+
+    transform:translateY(-50%);
+  }
+
+  .option:hover .arrow{
+    transform:translate(4px,-50%);
+  }
+
+  .human-note{
+    margin-top:13px;
+  }
+}
+
+
+@media(max-width:500px){
+
+  .topbar{
+    top:max(14px,env(safe-area-inset-top));
+    left:max(15px,env(safe-area-inset-left));
+    right:max(15px,env(safe-area-inset-right));
+  }
+
+  .brand img{
+    width:43px;
+    height:43px;
+  }
+
+  .back{
+    width:38px;
+    height:38px;
+  }
+
+  .content{
+    width:calc(100% - 26px);
+    padding-top:68px;
+  }
+
+  .eyebrow{
+    font-size:7px;
+    margin-bottom:10px;
+  }
+
+  h1{
+    font-size:clamp(32px,9.5vw,48px);
+  }
+
+  .intro{
+    margin-top:10px;
+    font-size:13px;
+    max-width:340px;
+  }
+
+  .options{
+    margin-top:17px;
+  }
+
+  .option{
+    min-height:78px;
+    padding-left:61px;
+  }
+
+  .icon{
+    width:36px;
+    height:36px;
+    left:13px;
+    border-radius:11px;
+    font-size:17px;
+  }
+
+  .option h2{
+    font-size:15px;
+  }
+
+  .option p{
+    font-size:7px;
+    line-height:1.3;
+  }
+
+  .number{
+    top:11px;
+    right:12px;
+    font-size:6px;
+  }
+
+  .arrow{
+    right:13px;
+    font-size:14px;
+  }
+
+  .human-note{
+    font-size:6px;
+    letter-spacing:.12em;
+  }
+
+  .sound{
+    left:max(15px,env(safe-area-inset-left));
+    bottom:max(15px,env(safe-area-inset-bottom));
+    width:38px;
+    height:38px;
+  }
+}
+
+
+@media(max-width:370px){
+
+  .intro{
+    display:none;
+  }
+
+  .option{
+    min-height:70px;
+  }
+
+  .option p{
+    display:none;
+  }
+
+  .human-note{
+    display:none;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation:none!important;
+    transition:none!important;
+  }
+}
+</style>
+</head>
+
+
+<body>
+
+<main class="page">
+
+
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
+
+  <div class="background">
+    <div class="particles"></div>
+  </div>
+
+  <div class="overlay"></div>
+
+
+  <!-- =====================================================
+       TOP
+  ====================================================== -->
+
+  <header class="topbar">
+
+    <a
+      href="page2.html"
+      class="brand"
+      aria-label="Back to AKSH"
+    >
+
+      <img
+        src="aksh-icon.PNG"
+        alt="AKSH"
+      >
+
+    </a>
+
+    <a
+      href="page2.html"
+      class="back"
+      aria-label="Back"
+    >
+      ←
+    </a>
+
+  </header>
+
+
+  <!-- =====================================================
+       CONTENT
+  ====================================================== -->
+
+  <section class="content">
+
+    <div class="eyebrow">
+      You don't have to choose alone
+    </div>
+
+
+    <h1>
+      What feels right<br>
+      for you?
+    </h1>
+
+
+    <p class="intro">
+      Start with the kind of connection that feels most
+      comfortable. You can always change your mind.
+    </p>
+
+
+    <!-- =================================================
+         SUPPORT OPTIONS
+    ================================================== -->
+
+    <div class="options">
+
+
+      <!-- TEXT -->
+
+      <button
+        class="option"
+        type="button"
+        data-option="text"
+      >
+
+        <span class="number">
+          01
+        </span>
+
+        <div class="icon">
+          ◌
+        </div>
+
+        <h2>
+          Text / Chat
+        </h2>
+
+        <p>
+          Put your thoughts into words,
+          quietly and at your own pace.
+        </p>
+
+        <span class="arrow">
+          →
+        </span>
+
+      </button>
+
+
+      <!-- VOICE -->
+
+      <button
+        class="option"
+        type="button"
+        data-option="voice"
+      >
+
+        <span class="number">
+          02
+        </span>
+
+        <div class="icon">
+          ◇
+        </div>
+
+        <h2>
+          Voice / Talking
+        </h2>
+
+        <p>
+          Sometimes hearing a human voice
+          can make things feel a little lighter.
+        </p>
+
+        <span class="arrow">
+          →
+        </span>
+
+      </button>
+
+
+      <!-- VIDEO -->
+
+      <button
+        class="option"
+        type="button"
+        data-option="video"
+      >
+
+        <span class="number">
+          03
+        </span>
+
+        <div class="icon">
+          ◉
+        </div>
+
+        <h2>
+          Face-to-Face
+        </h2>
+
+        <p>
+          A private video conversation when
+          you'd rather connect face-to-face.
+        </p>
+
+        <span class="arrow">
+          →
+        </span>
+
+      </button>
+
+
+    </div>
+
+
+    <div class="human-note">
+      <span class="human-dot"></span>
+      Real human support will always have a place here
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       SOUND
+  ====================================================== -->
+
+  <button
+    class="sound"
+    id="sound"
+    type="button"
+    aria-label="Sound is off"
+  >
+    🔇
+  </button>
+
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   SUPPORT OPTION HANDLING
+========================================================= */
+
+const options =
+  document.querySelectorAll(".option");
+
+
+options.forEach(option => {
+
+  option.addEventListener("click", () => {
+
+    const selected =
+      option.dataset.option;
+
+    /*
+      These destinations are intentionally
+      placeholders for the upcoming AKSH
+      support pages.
+
+      They do not modify any existing page.
+    */
+
+    if(selected === "text"){
+
+      window.location.href =
+        "chat.html";
+
+    }
+
+    if(selected === "voice"){
+
+      window.location.href =
+        "voice.html";
+
+    }
+
+    if(selected === "video"){
+
+      window.location.href =
+        "video.html";
+
+    }
+
+  });
+
+});
+
+
+/* =========================================================
+   SOUND BUTTON
+========================================================= */
+
+const sound =
+  document.getElementById("sound");
+
+let soundOn = false;
+
+sound.addEventListener("click", () => {
+
+  soundOn = !soundOn;
+
+  sound.textContent =
+    soundOn ? "🔊" : "🔇";
+
+  sound.setAttribute(
+    "aria-label",
+    soundOn
+      ? "Sound is on"
+      : "Sound is off"
+  );
+
+});
+
+</script>
+
+</body>
+</html>
