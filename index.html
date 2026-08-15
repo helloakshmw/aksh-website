@@ -1,489 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#10131d">
-  <meta name="description" content="AKSH — A Safe Space For Every Mind">
-  <title>AKSH</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
-      overflow: hidden;
-      background: #10131d;
-      color: #fff;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-    }
-
-    .arrival {
-      position: relative;
-      width: 100%;
-      height: 100svh;
-      min-height: 100vh;
-      overflow: hidden;
-      background: #10131d;
-      isolation: isolate;
-    }
-
-    /* ================= VIDEO ================= */
-
-    .video-background {
-      position: absolute;
-      inset: 0;
-      z-index: -5;
-      overflow: hidden;
-      background: #10131d;
-    }
-
-    #backgroundVideo {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    #backgroundVideo.ready {
-      opacity: 1;
-    }
-
-    .video-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        linear-gradient(
-          180deg,
-          rgba(0,0,0,0.20) 0%,
-          rgba(0,0,0,0.01) 40%,
-          rgba(0,0,0,0.08) 65%,
-          rgba(0,0,0,0.42) 100%
-        );
-    }
-
-    .soft-atmosphere {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      background:
-        radial-gradient(
-          circle at 50% 42%,
-          rgba(255,255,255,0.08),
-          transparent 46%
-        );
-    }
-
-    /* ================= TOP LEFT SOUND ================= */
-
-    .sound-control {
-      position: absolute;
-      z-index: 30;
-      top: max(20px, env(safe-area-inset-top));
-      left: max(20px, env(safe-area-inset-left));
-    }
-
-    .sound-button {
-      width: 44px;
-      height: 44px;
-
-      border: 1px solid rgba(255,255,255,0.30);
-      border-radius: 50%;
-
-      background: rgba(0,0,0,0.24);
-      color: #fff;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      cursor: pointer;
-      font-size: 17px;
-
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-
-      box-shadow:
-        0 8px 25px rgba(0,0,0,0.18);
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .sound-button:hover {
-      transform: scale(1.06);
-      background: rgba(0,0,0,0.36);
-    }
-
-    /* ================= TOP RIGHT DATE ================= */
-
-    .date-box {
-      position: absolute;
-      z-index: 20;
-
-      top: max(23px, env(safe-area-inset-top));
-      right: max(22px, env(safe-area-inset-right));
-
-      text-align: right;
-
-      color: #fff;
-
-      text-shadow:
-        0 2px 14px rgba(0,0,0,0.35);
-    }
-
-    .day {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .date {
-      margin-top: 5px;
-      font-size: 9px;
-      letter-spacing: 0.05em;
-      opacity: 0.82;
-    }
-
-    /* ================= CENTER ================= */
-
-    .center {
-      position: relative;
-      z-index: 10;
-
-      width: min(900px, calc(100% - 36px));
-      height: 100svh;
-
-      margin: auto;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      text-align: center;
-
-      padding:
-        80px 0
-        max(70px, env(safe-area-inset-bottom));
-    }
-
-    /* ICON ABOVE WELCOME */
-
-    .center-icon {
-      width: 66px;
-      height: 66px;
-
-      object-fit: contain;
-
-      margin-bottom: 14px;
-
-      filter:
-        drop-shadow(0 5px 18px rgba(0,0,0,0.30));
-    }
-
-    .welcome {
-      margin-bottom: 17px;
-
-      font-size: 10px;
-      font-weight: 800;
-
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-
-      color: rgba(255,255,255,0.92);
-
-      text-shadow:
-        0 2px 15px rgba(0,0,0,0.40);
-    }
-
-    .wish {
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: clamp(52px, 8.5vw, 105px);
-
-      line-height: 0.90;
-
-      font-weight: 400;
-
-      letter-spacing: -0.055em;
-
-      color: #fff;
-
-      text-shadow:
-        0 4px 30px rgba(0,0,0,0.30);
-
-      transition:
-        opacity 0.35s ease,
-        transform 0.35s ease;
-    }
-
-    .wish.changing {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-
-    /* SMALL QUOTE */
-
-    .message {
-      max-width: 470px;
-
-      margin-top: 18px;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: clamp(16px, 2.2vw, 21px);
-
-      line-height: 1.45;
-
-      color: rgba(255,255,255,0.94);
-
-      text-shadow:
-        0 3px 20px rgba(0,0,0,0.35);
-    }
-
-    .sub-message {
-      display: none;
-    }
-
-    /* ================= BEGIN JOURNEY ================= */
-
-    .enter {
-      margin-top: 30px;
-
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-
-      padding: 14px 18px 14px 22px;
-
-      border-radius: 999px;
-
-      background: rgba(255,255,255,0.95);
-
-      color: #34283c;
-
-      text-decoration: none;
-
-      font-size: 9px;
-      font-weight: 800;
-
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-
-      box-shadow:
-        0 15px 40px rgba(0,0,0,0.22);
-
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-
-      transition:
-        transform 0.25s ease,
-        background 0.25s ease;
-    }
-
-    .enter:hover {
-      transform: translateY(-3px);
-      background: #fff;
-    }
-
-    .arrow {
-      width: 29px;
-      height: 29px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 50%;
-
-      background: rgba(70,45,82,0.10);
-
-      font-size: 14px;
-    }
-
-    /* ================= TIME LABEL ================= */
-
-    .time-label {
-      position: absolute;
-      z-index: 10;
-
-      right: 24px;
-      bottom: 24px;
-
-      font-size: 8px;
-      font-weight: 700;
-
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-
-      color: rgba(255,255,255,0.62);
-
-      text-shadow:
-        0 2px 10px rgba(0,0,0,0.40);
-    }
-
-    /* ================= LOADING ================= */
-
-    .loading {
-      position: absolute;
-      z-index: 40;
-      inset: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: #10131d;
-
-      transition:
-        opacity 0.7s ease,
-        visibility 0.7s ease;
-    }
-
-    .loading.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loading-text {
-      font-family: Georgia, serif;
-
-      font-size: 21px;
-
-      letter-spacing: 0.38em;
-      margin-left: 0.38em;
-
-      color: rgba(255,255,255,0.90);
-    }
-
-    /* ================= MOBILE ================= */
-
-    @media (max-width: 600px) {
-
-      .sound-control {
-        top: max(16px, env(safe-area-inset-top));
-        left: max(16px, env(safe-area-inset-left));
-      }
-
-      .sound-button {
-        width: 40px;
-        height: 40px;
-        font-size: 15px;
-      }
-
-      .date-box {
-        top: max(20px, env(safe-area-inset-top));
-        right: max(16px, env(safe-area-inset-right));
-      }
-
-      .day {
-        font-size: 8px;
-      }
-
-      .date {
-        font-size: 8px;
-      }
-
-      .center {
-        width: calc(100% - 30px);
-      }
-
-      .center-icon {
-        width: 55px;
-        height: 55px;
-        margin-bottom: 12px;
-      }
-
-      .welcome {
-        font-size: 8px;
-        margin-bottom: 15px;
-      }
-
-      .wish {
-        font-size: clamp(46px, 13vw, 68px);
-      }
-
-      .message {
-        max-width: 330px;
-        font-size: 17px;
-      }
-
-      .enter {
-        margin-top: 26px;
-      }
-
-      .time-label {
-        display: none;
-      }
-    }
-
-    @media (max-width: 360px) {
-
-      .center-icon {
-        width: 48px;
-        height: 48px;
-      }
-
-      .wish {
-        font-size: 43px;
-      }
-
-      .message {
-        font-size: 15px;
-      }
-
-      .enter {
-        margin-top: 23px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      #backgroundVideo,
-      .wish {
-        transition: none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#10131d">
+<meta name="description" content="AKSH — A Safe Space For Every Mind">
+<title>AKSH</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+}
+
+body{
+  overflow:hidden;
+  background:#10131d;
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+.arrival{
+  position:relative;
+  width:100%;
+  height:100svh;
+  min-height:100vh;
+  overflow:hidden;
+  background:#10131d;
+  isolation:isolate;
+}
+
+.video-background{
+  position:absolute;
+  inset:0;
+  z-index:-5;
+  overflow:hidden;
+  background:#10131d;
+}
+
+#backgroundVideo{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  opacity:0;
+  transition:opacity .8s ease;
+}
+
+#backgroundVideo.ready{
+  opacity:1;
+}
+
+.video-overlay{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.20) 0%,
+      rgba(0,0,0,.01) 40%,
+      rgba(0,0,0,.08) 65%,
+      rgba(0,0,0,.42) 100%
+    );
+}
+
+.soft-atmosphere{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(255,255,255,.08),
+      transparent 46%
+    );
+}
+
+/* SOUND */
+
+.sound-control{
+  position:absolute;
+  z-index:30;
+  top:max(20px,env(safe-area-inset-top));
+  left:max(20px,env(safe-area-inset-left));
+}
+
+.sound-button{
+  width:44px;
+  height:44px;
+  border:1px solid rgba(255,255,255,.30);
+  border-radius:50%;
+  background:rgba(0,0,0,.24);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:17px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+  transition:transform .2s ease,background .2s ease;
+}
+
+.sound-button:hover{
+  transform:scale(1.06);
+  background:rgba(0,0,0,.36);
+}
+
+/* DATE */
+
+.date-box{
+  position:absolute;
+  z-index:20;
+  top:max(23px,env(safe-area-inset-top));
+  right:max(22px,env(safe-area-inset-right));
+  text-align:right;
+  color:#fff;
+  text-shadow:0 2px 14px rgba(0,0,0,.35);
+}
+
+.day{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.date{
+  margin-top:5px;
+  font-size:9px;
+  letter-spacing:.05em;
+  opacity:.82;
+}
+
+/* CENTER */
+
+.center{
+  position:relative;
+  z-index:10;
+  width:min(900px,calc(100% - 36px));
+  height:100svh;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:80px 0 max(70px,env(safe-area-inset-bottom));
+}
+
+.center-icon{
+  width:66px;
+  height:66px;
+  object-fit:contain;
+  margin-bottom:14px;
+  filter:drop-shadow(0 5px 18px rgba(0,0,0,.30));
+}
+
+.welcome{
+  margin-bottom:17px;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.92);
+  text-shadow:0 2px 15px rgba(0,0,0,.40);
+}
+
+.wish{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(52px,8.5vw,105px);
+  line-height:.90;
+  font-weight:400;
+  letter-spacing:-.055em;
+  color:#fff;
+  text-shadow:0 4px 30px rgba(0,0,0,.30);
+  transition:opacity .35s ease,transform .35s ease;
+}
+
+.wish.changing{
+  opacity:0;
+  transform:translateY(8px);
+}
+
+.message{
+  max-width:470px;
+  margin-top:18px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(16px,2.2vw,21px);
+  line-height:1.45;
+  color:rgba(255,255,255,.94);
+  text-shadow:0 3px 20px rgba(0,0,0,.35);
+}
+
+/* BEGIN JOURNEY */
+
+.enter{
+  margin-top:30px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:14px 18px 14px 22px;
+  border-radius:999px;
+  background:rgba(255,255,255,.95);
+  color:#34283c;
+  text-decoration:none;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  box-shadow:0 15px 40px rgba(0,0,0,.22);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  transition:transform .25s ease,background .25s ease;
+}
+
+.enter:hover{
+  transform:translateY(-3px);
+  background:#fff;
+}
+
+.arrow{
+  width:29px;
+  height:29px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(70,45,82,.10);
+  font-size:14px;
+}
+
+/* TIME */
+
+.time-label{
+  position:absolute;
+  z-index:10;
+  right:24px;
+  bottom:24px;
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.62);
+  text-shadow:0 2px 10px rgba(0,0,0,.40);
+}
+
+/* LOADING */
+
+.loading{
+  position:absolute;
+  z-index:40;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#10131d;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+
+.loading.hidden{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loading-text{
+  font-family:Georgia,serif;
+  font-size:21px;
+  letter-spacing:.38em;
+  margin-left:.38em;
+  color:rgba(255,255,255,.90);
+}
+
+/* TRANSITION */
+
+.page-transition{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  pointer-events:none;
+  background:#10131d;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .8s ease,visibility .8s ease;
+}
+
+.page-transition.active{
+  opacity:1;
+  visibility:visible;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .sound-control{
+    top:max(16px,env(safe-area-inset-top));
+    left:max(16px,env(safe-area-inset-left));
+  }
+
+  .sound-button{
+    width:40px;
+    height:40px;
+    font-size:15px;
+  }
+
+  .date-box{
+    top:max(20px,env(safe-area-inset-top));
+    right:max(16px,env(safe-area-inset-right));
+  }
+
+  .day{
+    font-size:8px;
+  }
+
+  .date{
+    font-size:8px;
+  }
+
+  .center{
+    width:calc(100% - 30px);
+  }
+
+  .center-icon{
+    width:55px;
+    height:55px;
+    margin-bottom:12px;
+  }
+
+  .welcome{
+    font-size:8px;
+    margin-bottom:15px;
+  }
+
+  .wish{
+    font-size:clamp(46px,13vw,68px);
+  }
+
+  .message{
+    max-width:330px;
+    font-size:17px;
+  }
+
+  .enter{
+    margin-top:26px;
+  }
+
+  .time-label{
+    display:none;
+  }
+}
+
+@media(max-width:360px){
+
+  .center-icon{
+    width:48px;
+    height:48px;
+  }
+
+  .wish{
+    font-size:43px;
+  }
+
+  .message{
+    font-size:15px;
+  }
+
+  .enter{
+    margin-top:23px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  #backgroundVideo,
+  .wish,
+  .page-transition{
+    transition:none;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <section class="arrival">
 
-  <!-- ================= VIDEO ================= -->
+  <!-- VIDEO -->
 
   <div class="video-background">
 
@@ -495,13 +412,12 @@
     ></video>
 
     <div class="video-overlay"></div>
-
     <div class="soft-atmosphere"></div>
 
   </div>
 
 
-  <!-- ================= SOUND TOP LEFT ================= -->
+  <!-- SOUND -->
 
   <div class="sound-control">
 
@@ -518,7 +434,7 @@
   </div>
 
 
-  <!-- ================= DATE TOP RIGHT ================= -->
+  <!-- DATE -->
 
   <div class="date-box">
 
@@ -535,7 +451,7 @@
   </div>
 
 
-  <!-- ================= LOADING ================= -->
+  <!-- LOADING -->
 
   <div
     class="loading"
@@ -547,11 +463,9 @@
   </div>
 
 
-  <!-- ================= CENTER ================= -->
+  <!-- CENTER -->
 
   <main class="center">
-
-    <!-- AKSH ICON -->
 
     <img
       src="aksh-icon.PNG"
@@ -559,15 +473,9 @@
       class="center-icon"
     >
 
-
-    <!-- WELCOME -->
-
     <div class="welcome">
       Welcome to AKSH
     </div>
-
-
-    <!-- GREETING -->
 
     <h1
       class="wish"
@@ -576,9 +484,6 @@
       Good Morning
     </h1>
 
-
-    <!-- SMALL QUOTE -->
-
     <div
       class="message"
       id="message"
@@ -586,12 +491,10 @@
       May today feel a little lighter.
     </div>
 
-
-    <!-- BEGIN JOURNEY -->
-
     <a
       href="page1.html"
       class="enter"
+      id="enterButton"
     >
       Begin Your Journey
 
@@ -603,7 +506,7 @@
   </main>
 
 
-  <!-- ================= TIME LABEL ================= -->
+  <!-- TIME -->
 
   <div
     class="time-label"
@@ -615,10 +518,18 @@
 </section>
 
 
+<!-- PAGE TRANSITION -->
+
+<div
+  class="page-transition"
+  id="pageTransition"
+></div>
+
+
 <script>
 
 /* =========================================================
-   VIDEO FILES
+   13 AKSH ARRIVAL VIDEOS
 ========================================================= */
 
 const VIDEO_GROUPS = {
@@ -679,27 +590,32 @@ const timeLabel =
 const soundButton =
   document.getElementById("soundButton");
 
+const enterButton =
+  document.getElementById("enterButton");
+
+const pageTransition =
+  document.getElementById("pageTransition");
+
 
 /* =========================================================
    STATE
 ========================================================= */
 
 let activePeriod = null;
-
 let activeVideoIndex = -1;
-
 let activePlaylist = [];
-
 let isSwitchingVideo = false;
-
 let soundEnabled = false;
+
+let hasEnteredPage1 = false;
+let autoTransitionTimer = null;
 
 
 /* =========================================================
    CURRENT MINUTES
 ========================================================= */
 
-function getMinutesNow() {
+function getMinutesNow(){
 
   const now = new Date();
 
@@ -715,34 +631,28 @@ function getMinutesNow() {
    CURRENT PERIOD
 ========================================================= */
 
-function getCurrentPeriod() {
+function getCurrentPeriod(){
 
   const minutes =
     getMinutesNow();
 
-
-  if (minutes < 300) {
+  if(minutes < 300){
     return "night";
   }
 
-
-  if (minutes < 720) {
+  if(minutes < 720){
     return "morning";
   }
 
-
-  if (minutes < 1020) {
+  if(minutes < 1020){
     return "afternoon";
   }
 
-
-  if (minutes < 1200) {
+  if(minutes < 1200){
     return "evening";
   }
 
-
   return "night";
-
 }
 
 
@@ -750,63 +660,59 @@ function getCurrentPeriod() {
    EXACT VIDEO SCHEDULE
 ========================================================= */
 
-function getVideoForCurrentTime(period) {
+function getVideoForCurrentTime(period){
 
   const minutes =
     getMinutesNow();
 
 
-  /* MORNING */
+  /* 5:00 AM – 11:59 AM */
 
-  if (period === "morning") {
+  if(period === "morning"){
 
-    if (minutes < 360) return 0;
+    if(minutes < 360) return 0;
 
-    if (minutes < 480) return 1;
+    if(minutes < 480) return 1;
 
-    if (minutes < 600) return 2;
+    if(minutes < 600) return 2;
 
     return 3;
-
   }
 
 
-  /* AFTERNOON */
+  /* 12:00 PM – 4:59 PM */
 
-  if (period === "afternoon") {
+  if(period === "afternoon"){
 
-    if (minutes < 780) return 0;
+    if(minutes < 780) return 0;
 
-    if (minutes < 870) return 1;
+    if(minutes < 870) return 1;
 
-    if (minutes < 960) return 2;
+    if(minutes < 960) return 2;
 
     return 3;
-
   }
 
 
-  /* EVENING */
+  /* 5:00 PM – 7:59 PM */
 
-  if (period === "evening") {
+  if(period === "evening"){
 
-    if (minutes < 1065) return 0;
+    if(minutes < 1065) return 0;
 
-    if (minutes < 1140) return 1;
+    if(minutes < 1140) return 1;
 
     return 2;
-
   }
 
 
-  /* NIGHT */
+  /* 8:00 PM – 4:59 AM */
 
-  if (minutes >= 1200) {
+  if(minutes >= 1200){
     return 0;
   }
 
   return 1;
-
 }
 
 
@@ -814,16 +720,15 @@ function getVideoForCurrentTime(period) {
    DATE
 ========================================================= */
 
-function updateDate() {
+function updateDate(){
 
   const now = new Date();
-
 
   day.textContent =
     now.toLocaleDateString(
       undefined,
       {
-        weekday: "long"
+        weekday:"long"
       }
     ).toUpperCase();
 
@@ -832,9 +737,9 @@ function updateDate() {
     now.toLocaleDateString(
       undefined,
       {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
+        day:"numeric",
+        month:"long",
+        year:"numeric"
       }
     ).toUpperCase();
 
@@ -845,14 +750,13 @@ function updateDate() {
    GREETING
 ========================================================= */
 
-function updateGreeting(period) {
+function updateGreeting(period){
 
   wish.classList.add("changing");
 
-
   setTimeout(() => {
 
-    if (period === "morning") {
+    if(period === "morning"){
 
       wish.textContent =
         "Good Morning";
@@ -865,7 +769,7 @@ function updateGreeting(period) {
 
     }
 
-    else if (period === "afternoon") {
+    else if(period === "afternoon"){
 
       wish.textContent =
         "Good Afternoon";
@@ -878,7 +782,7 @@ function updateGreeting(period) {
 
     }
 
-    else if (period === "evening") {
+    else if(period === "evening"){
 
       wish.textContent =
         "Good Evening";
@@ -891,7 +795,7 @@ function updateGreeting(period) {
 
     }
 
-    else {
+    else{
 
       wish.textContent =
         "Good Night";
@@ -901,13 +805,94 @@ function updateGreeting(period) {
 
       timeLabel.textContent =
         "NIGHT";
-
     }
-
 
     wish.classList.remove("changing");
 
-  }, 350);
+  },350);
+}
+
+
+/* =========================================================
+   GO TO PAGE 1
+========================================================= */
+
+function goToPage1(){
+
+  if(hasEnteredPage1){
+    return;
+  }
+
+  hasEnteredPage1 = true;
+
+
+  if(autoTransitionTimer){
+    clearTimeout(autoTransitionTimer);
+    autoTransitionTimer = null;
+  }
+
+
+  /* Stop the arrival video completely */
+
+  video.pause();
+
+  video.muted = true;
+
+
+  /* Fade to black first */
+
+  pageTransition.classList.add("active");
+
+
+  /*
+    Small delay gives the fade a cinematic feeling
+    before Page 1 loads.
+  */
+
+  setTimeout(() => {
+
+    window.location.href =
+      "page1.html";
+
+  },800);
+
+}
+
+
+/* =========================================================
+   AUTOMATIC PAGE 1 TRANSITION
+========================================================= */
+
+function startAutomaticTransition(){
+
+  if(hasEnteredPage1){
+    return;
+  }
+
+
+  if(autoTransitionTimer){
+    clearTimeout(autoTransitionTimer);
+  }
+
+
+  /*
+    Each arrival video is approximately 4 seconds.
+
+    Once the selected video has completed its first
+    complete play, Page 1 opens automatically.
+  */
+
+  autoTransitionTimer =
+    setTimeout(
+      () => {
+
+        if(!hasEnteredPage1){
+          goToPage1();
+        }
+
+      },
+      4300
+    );
 
 }
 
@@ -916,12 +901,12 @@ function updateGreeting(period) {
    LOAD VIDEO
 ========================================================= */
 
-function loadVideo(videoIndex) {
+function loadVideo(videoIndex){
 
-  if (
+  if(
     !activePlaylist.length ||
     isSwitchingVideo
-  ) {
+  ){
     return;
   }
 
@@ -930,7 +915,7 @@ function loadVideo(videoIndex) {
     activePlaylist[videoIndex];
 
 
-  if (!file) {
+  if(!file){
     return;
   }
 
@@ -938,7 +923,15 @@ function loadVideo(videoIndex) {
   isSwitchingVideo = true;
 
 
+  /*
+    IMPORTANT:
+    Always stop the current video before
+    changing its source.
+  */
+
   video.pause();
+
+  video.currentTime = 0;
 
   video.removeAttribute("src");
 
@@ -967,14 +960,13 @@ function loadVideo(videoIndex) {
       video.play();
 
 
-    if (
+    if(
       playPromise &&
       typeof playPromise.then === "function"
-    ) {
+    ){
 
       playPromise
-        .catch(() => {})
-        .finally(() => {
+        .then(() => {
 
           video.classList.add("ready");
 
@@ -982,17 +974,35 @@ function loadVideo(videoIndex) {
 
           isSwitchingVideo = false;
 
+          startAutomaticTransition();
+
+        })
+        .catch(() => {
+
+          video.classList.add("ready");
+
+          loading.classList.add("hidden");
+
+          isSwitchingVideo = false;
+
+          /*
+            If autoplay is blocked, the user can
+            still tap Begin Your Journey.
+          */
+
         });
 
     }
 
-    else {
+    else{
 
       video.classList.add("ready");
 
       loading.classList.add("hidden");
 
       isSwitchingVideo = false;
+
+      startAutomaticTransition();
 
     }
 
@@ -1002,9 +1012,7 @@ function loadVideo(videoIndex) {
   video.addEventListener(
     "canplay",
     handleReady,
-    {
-      once: true
-    }
+    { once:true }
   );
 
 }
@@ -1018,55 +1026,19 @@ video.addEventListener(
   "ended",
   () => {
 
-    if (isSwitchingVideo) {
-      return;
-    }
-
-
-    const period =
-      getCurrentPeriod();
-
-
-    const correctIndex =
-      getVideoForCurrentTime(period);
-
-
     /*
-      Same scheduled video:
-      replay it.
+      The automatic Page 1 transition normally
+      happens before the video can loop.
+
+      This fallback guarantees that the visitor
+      is never left on Page 0.
     */
 
-    if (
-      period === activePeriod &&
-      correctIndex === activeVideoIndex
-    ) {
+    if(!hasEnteredPage1){
 
-      video.currentTime = 0;
-
-      video.play().catch(() => {});
-
-      return;
+      goToPage1();
 
     }
-
-
-    /*
-      Time window changed:
-      load the correct video.
-    */
-
-    activePeriod =
-      period;
-
-    activePlaylist =
-      VIDEO_GROUPS[period];
-
-    activeVideoIndex =
-      correctIndex;
-
-    updateGreeting(period);
-
-    loadVideo(correctIndex);
 
   }
 );
@@ -1076,7 +1048,12 @@ video.addEventListener(
    SCHEDULE CHECK
 ========================================================= */
 
-function checkSchedule() {
+function checkSchedule(){
+
+  if(hasEnteredPage1){
+    return;
+  }
+
 
   const period =
     getCurrentPeriod();
@@ -1086,9 +1063,11 @@ function checkSchedule() {
     getVideoForCurrentTime(period);
 
 
-  if (
-    period !== activePeriod
-  ) {
+  /*
+    Time period changed.
+  */
+
+  if(period !== activePeriod){
 
     activePeriod =
       period;
@@ -1101,10 +1080,14 @@ function checkSchedule() {
   }
 
 
-  if (
+  /*
+    Load only when necessary.
+  */
+
+  if(
     videoIndex !== activeVideoIndex ||
     !video.src
-  ) {
+  ){
 
     activePlaylist =
       VIDEO_GROUPS[period];
@@ -1149,7 +1132,28 @@ soundButton.addEventListener(
     );
 
 
+    /*
+      User interaction allows the browser
+      to play the video's audio.
+    */
+
     video.play().catch(() => {});
+
+  }
+);
+
+
+/* =========================================================
+   BEGIN YOUR JOURNEY
+========================================================= */
+
+enterButton.addEventListener(
+  "click",
+  (event) => {
+
+    event.preventDefault();
+
+    goToPage1();
 
   }
 );
@@ -1171,6 +1175,10 @@ checkSchedule();
 setInterval(
   () => {
 
+    if(hasEnteredPage1){
+      return;
+    }
+
     updateDate();
 
     checkSchedule();
@@ -1188,11 +1196,12 @@ document.addEventListener(
   "visibilitychange",
   () => {
 
-    if (
+    if(
       !document.hidden &&
+      !hasEnteredPage1 &&
       video.src &&
       video.paused
-    ) {
+    ){
 
       video.muted =
         !soundEnabled;
@@ -1206,7 +1215,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   ERROR
+   VIDEO ERROR
 ========================================================= */
 
 video.addEventListener(
