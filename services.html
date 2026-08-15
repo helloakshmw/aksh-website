@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKSH — Services</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#071018;
+  color:#f7f3eb;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.page{
+  min-height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(101,133,150,.20),transparent 30%),
+    radial-gradient(circle at 85% 70%,rgba(171,112,81,.13),transparent 32%),
+    #071018;
+}
+
+/* NAV */
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:24px 6vw;
+
+  border-bottom:1px solid rgba(255,255,255,.10);
+
+  background:rgba(5,12,18,.38);
+  backdrop-filter:blur(18px);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.logo img{
+  width:43px;
+  height:43px;
+  object-fit:contain;
+}
+
+.logo-name{
+  font-family:Georgia,serif;
+  font-size:21px;
+  letter-spacing:.15em;
+}
+
+.logo-sub{
+  display:block;
+  margin-top:3px;
+  font-size:8px;
+  letter-spacing:.25em;
+  color:rgba(255,255,255,.58);
+}
+
+.nav-links{
+  display:flex;
+  gap:30px;
+}
+
+.nav-links a{
+  font-size:12px;
+  color:rgba(255,255,255,.72);
+}
+
+.nav-links a:hover,
+.nav-links .active{
+  color:#e3c887;
+}
+
+.help{
+  padding:12px 19px;
+
+  border:1px solid rgba(255,255,255,.20);
+  border-radius:999px;
+
+  background:rgba(255,255,255,.07);
+
+  font-size:11px;
+}
+
+/* HERO */
+
+.hero{
+  padding:105px 6vw 70px;
+  text-align:center;
+}
+
+.eyebrow{
+  color:#e3c887;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.32em;
+}
+
+.hero h1{
+  margin-top:22px;
+
+  font-family:Georgia,serif;
+  font-size:clamp(58px,9vw,115px);
+  font-weight:400;
+  line-height:.9;
+  letter-spacing:-.055em;
+}
+
+.hero h1 em{
+  color:#e3c887;
+}
+
+.hero p{
+  max-width:650px;
+  margin:28px auto 0;
+
+  font-family:Georgia,serif;
+  font-size:17px;
+  line-height:1.65;
+
+  color:rgba(255,255,255,.64);
+}
+
+/* SERVICES */
+
+.services{
+  padding:55px 6vw 110px;
+}
+
+.service-grid{
+  max-width:1150px;
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.service-card{
+  min-height:310px;
+
+  padding:30px 25px;
+
+  position:relative;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.085),
+      rgba(255,255,255,.025)
+    );
+
+  backdrop-filter:blur(16px);
+
+  overflow:hidden;
+
+  transition:
+    transform .35s ease,
+    border-color .35s ease,
+    background .35s ease;
+}
+
+.service-card::before{
+  content:"";
+
+  position:absolute;
+  width:180px;
+  height:180px;
+
+  top:-70px;
+  right:-60px;
+
+  border-radius:50%;
+
+  background:rgba(227,200,135,.08);
+
+  filter:blur(3px);
+}
+
+.service-card:hover{
+  transform:translateY(-8px);
+
+  border-color:
+    rgba(227,200,135,.48);
+
+  background:
+    rgba(255,255,255,.09);
+}
+
+.icon{
+  position:absolute;
+  top:25px;
+  left:25px;
+
+  width:50px;
+  height:50px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.15);
+
+  background:rgba(255,255,255,.05);
+
+  color:#e3c887;
+
+  font-size:22px;
+}
+
+.number{
+  position:absolute;
+  top:28px;
+  right:25px;
+
+  font-size:9px;
+  letter-spacing:.2em;
+
+  color:rgba(255,255,255,.32);
+}
+
+.service-card h2{
+  font-family:Georgia,serif;
+  font-size:28px;
+  font-weight:400;
+  line-height:1.05;
+}
+
+.service-card p{
+  margin-top:12px;
+
+  font-size:11px;
+  line-height:1.6;
+
+  color:rgba(255,255,255,.56);
+}
+
+.learn{
+  margin-top:22px;
+
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  color:#e3c887;
+
+  font-size:10px;
+  font-weight:700;
+}
+
+/* CTA */
+
+.cta{
+  padding:110px 6vw;
+
+  text-align:center;
+
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.cta h2{
+  font-family:Georgia,serif;
+  font-size:clamp(45px,7vw,80px);
+  font-weight:400;
+  line-height:.95;
+  letter-spacing:-.05em;
+}
+
+.cta p{
+  max-width:550px;
+  margin:25px auto 0;
+
+  font-family:Georgia,serif;
+  font-size:16px;
+  line-height:1.6;
+
+  color:rgba(255,255,255,.60);
+}
+
+.cta-button{
+  display:inline-flex;
+
+  margin-top:32px;
+  padding:15px 25px;
+
+  border-radius:999px;
+
+  background:#e3c887;
+  color:#101820;
+
+  font-size:11px;
+  font-weight:700;
+
+  transition:.3s;
+}
+
+.cta-button:hover{
+  transform:translateY(-4px);
+}
+
+/* FOOTER */
+
+.footer{
+  padding:28px 6vw;
+
+  border-top:1px solid rgba(255,255,255,.10);
+
+  display:flex;
+  justify-content:space-between;
+
+  color:rgba(255,255,255,.42);
+
+  font-size:9px;
+  letter-spacing:.12em;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .help{
+    display:none;
+  }
+
+  .service-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:600px){
+
+  .nav{
+    padding:20px;
+  }
+
+  .hero{
+    padding:
+      80px
+      20px
+      45px;
+  }
+
+  .hero h1{
+    font-size:
+      clamp(50px,15vw,75px);
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .services{
+    padding:
+      35px
+      20px
+      75px;
+  }
+
+  .service-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service-card{
+    min-height:260px;
+  }
+
+  .cta{
+    padding:
+      80px
+      20px;
+  }
+
+  .footer{
+    padding:
+      25px
+      20px;
+
+    flex-direction:column;
+    gap:10px;
+
+    text-align:center;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="nav">
+
+  <a href="page1.html" class="logo">
+
+    <img src="aksh-icon.PNG" alt="AKSH">
+
+    <div>
+
+      <div class="logo-name">
+        AKSH
+      </div>
+
+      <span class="logo-sub">
+        MENTAL WELLNESS
+      </span>
+
+    </div>
+
+  </a>
+
+
+  <nav class="nav-links">
+
+    <a href="page1.html">
+      Home
+    </a>
+
+    <a href="services.html" class="active">
+      Services
+    </a>
+
+    <a href="human-support.html">
+      Specialists
+    </a>
+
+    <a href="resources.html">
+      Resources
+    </a>
+
+    <a href="page2.html">
+      About Us
+    </a>
+
+  </nav>
+
+
+  <a href="booking.html" class="help">
+    Get Help Now →
+  </a>
+
+</header>
+
+
+<section class="hero">
+
+  <div class="eyebrow">
+    CARE THAT MEETS YOU WHERE YOU ARE
+  </div>
+
+  <h1>
+    Support for<br>
+    every <em>mind.</em>
+  </h1>
+
+  <p>
+    Explore professional mental wellness support designed
+    around different people, different experiences and
+    different stages of life.
+  </p>
+
+</section>
+
+
+<section class="services">
+
+  <div class="service-grid">
+
+
+    <a href="individual.html" class="service-card">
+
+      <div class="icon">♙</div>
+
+      <div class="number">01</div>
+
+      <h2>
+        Individual<br>
+        Counselling
+      </h2>
+
+      <p>
+        A private space to understand yourself,
+        work through what you're experiencing and
+        move forward with greater clarity.
+      </p>
+
+      <span class="learn">
+        Explore →
+      </span>
+
+    </a>
+
+
+    <a href="child-psychology.html" class="service-card">
+
+      <div class="icon">◉</div>
+
+      <div class="number">02</div>
+
+      <h2>
+        Child &<br>
+        Adolescent
+      </h2>
+
+      <p>
+        Support that helps young minds express,
+        understand and navigate their emotional
+        world.
+      </p>
+
+      <span class="learn">
+        Explore →
+      </span>
+
+    </a>
+
+
+    <a href="relationship.html" class="service-card">
+
+      <div class="icon">♡</div>
+
+      <div class="number">03</div>
+
+      <h2>
+        Relationship<br>
+        Support
+      </h2>
+
+      <p>
+        Build healthier communication, understand
+        patterns and create stronger connections.
+      </p>
+
+      <span class="learn">
+        Explore →
+      </span>
+
+    </a>
+
+
+    <a href="stress-anxiety.html" class="service-card">
+
+      <div class="icon">☁</div>
+
+      <div class="number">04</div>
+
+      <h2>
+        Stress &<br>
+        Anxiety
+      </h2>
+
+      <p>
+        Learn to understand difficult emotions and
+        develop healthier ways of responding to
+        everyday pressure.
+      </p>
+
+      <span class="learn">
+        Explore →
+      </span>
+
+    </a>
+
+
+    <a href="emotional-wellness.html" class="service-card">
+
+      <div class="icon">✦</div>
+
+      <div class="number">05</div>
+
+      <h2>
+        Emotional<br>
+        Wellness
+      </h2>
+
+      <p>
+        Support for self-awareness, emotional
+        balance, confidence and personal growth.
+      </p>
+
+      <span class="learn">
+        Explore →
+      </span>
+
+    </a>
+
+
+    <a href="workshops.html" class="service-card">
+
+      <div class="icon">◇</div>
+
+      <div class="number">06</div>
+
+      <h2>
+        Workshops &<br>
+        Programs
+      </h2>
+
+      <p>
+        Educational and wellness experiences for
+        individuals, schools, colleges and
+        organisations.
+      </p>
+
+      <span class="learn">
+        Explore →
+      </span>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+
+<section class="cta">
+
+  <h2>
+    You don't need<br>
+    to figure it all out alone.
+  </h2>
+
+  <p>
+    Whenever you're ready, AKSH is here to help you
+    find the kind of support that feels right for you.
+  </p>
+
+  <a href="booking.html" class="cta-button">
+    Begin Your Journey →
+  </a>
+
+</section>
+
+
+<footer class="footer">
+
+  <span>
+    AKSH · A SAFE SPACE FOR EVERY MIND
+  </span>
+
+  <span>
+    © 2026 AKSH Mental Wellness
+  </span>
+
+</footer>
+
+</div>
+
+</body>
+</html>
