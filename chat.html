@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AKSH — Chat</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
+  color:#263a43;
+  background:#eef7f5;
+}
+
+.page{
+  min-height:100svh;
+  position:relative;
+  overflow:hidden;
+  padding:40px 20px;
+
+  background:
+    radial-gradient(circle at 15% 15%,rgba(255,255,255,.95),transparent 28%),
+    radial-gradient(circle at 85% 20%,rgba(151,202,193,.28),transparent 30%),
+    linear-gradient(145deg,#f5fbfa,#dceeea 58%,#c9e2dc);
+}
+
+.top{
+  position:absolute;
+  z-index:5;
+  top:22px;
+  left:22px;
+  right:22px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:20px;
+  letter-spacing:.18em;
+}
+
+.back{
+  color:#42625e;
+  text-decoration:none;
+  font-size:9px;
+
+  padding:10px 15px;
+  border-radius:100px;
+
+  border:1px solid rgba(45,76,70,.12);
+  background:rgba(255,255,255,.4);
+
+  backdrop-filter:blur(15px);
+}
+
+.chat{
+  position:relative;
+  z-index:3;
+
+  width:min(760px,100%);
+  margin:auto;
+
+  padding-top:75px;
+}
+
+.heading{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.eyebrow{
+  color:#71918b;
+  font-size:8px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+h1{
+  margin:0;
+
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;
+
+  font-size:clamp(38px,6vw,58px);
+  line-height:1;
+
+  letter-spacing:-.05em;
+}
+
+h1 em{
+  color:#4c8e82;
+  font-style:italic;
+}
+
+.subtitle{
+  margin:14px auto 0;
+
+  max-width:440px;
+
+  color:#718680;
+
+  font-size:11px;
+  line-height:1.6;
+}
+
+/* CHAT WINDOW */
+
+.chat-window{
+  height:min(58svh,520px);
+
+  display:flex;
+  flex-direction:column;
+
+  border:1px solid rgba(43,76,70,.1);
+
+  border-radius:28px;
+
+  background:rgba(255,255,255,.42);
+
+  backdrop-filter:blur(24px);
+
+  box-shadow:
+    0 25px 70px rgba(48,88,79,.1);
+
+  overflow:hidden;
+}
+
+.chat-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:14px 17px;
+
+  border-bottom:1px solid rgba(43,76,70,.08);
+
+  font-size:9px;
+}
+
+.status{
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:#65a993;
+
+  box-shadow:0 0 12px rgba(101,169,147,.7);
+}
+
+.chat-header strong{
+  font-weight:650;
+}
+
+.chat-header span{
+  margin-left:auto;
+  color:#829792;
+  font-size:8px;
+}
+
+.messages{
+  flex:1;
+
+  overflow-y:auto;
+
+  padding:20px;
+
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.message{
+  max-width:76%;
+
+  padding:12px 15px;
+
+  border-radius:18px;
+
+  font-size:10px;
+  line-height:1.6;
+}
+
+.ai-message{
+  align-self:flex-start;
+
+  color:#49615d;
+
+  background:rgba(255,255,255,.66);
+
+  border-bottom-left-radius:5px;
+}
+
+.user-message{
+  align-self:flex-end;
+
+  color:white;
+
+  background:#496f68;
+
+  border-bottom-right-radius:5px;
+}
+
+/* INPUT */
+
+.input-area{
+  display:flex;
+  gap:8px;
+
+  padding:10px;
+
+  border-top:1px solid rgba(43,76,70,.08);
+}
+
+.input-area input{
+  flex:1;
+
+  min-width:0;
+
+  border:0;
+  outline:0;
+
+  padding:13px 15px;
+
+  border-radius:16px;
+
+  color:#304844;
+
+  background:rgba(255,255,255,.6);
+
+  font-family:inherit;
+  font-size:10px;
+}
+
+.input-area input::placeholder{
+  color:#8ba09b;
+}
+
+.send{
+  width:44px;
+
+  border:0;
+
+  border-radius:15px;
+
+  color:white;
+
+  background:#365d56;
+
+  cursor:pointer;
+
+  font-size:14px;
+
+  transition:.25s ease;
+}
+
+.send:hover{
+  transform:translateY(-2px);
+}
+
+/* NOTE */
+
+.note{
+  text-align:center;
+
+  margin-top:13px;
+
+  color:#8a9e99;
+
+  font-size:7px;
+  line-height:1.5;
+}
+
+.bottom{
+  position:absolute;
+  z-index:5;
+
+  bottom:20px;
+  left:20px;
+  right:20px;
+
+  text-align:center;
+
+  color:#8aa09a;
+
+  font-size:7px;
+  letter-spacing:.1em;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .top{
+    top:17px;
+    left:17px;
+    right:17px;
+  }
+
+  .logo{
+    font-size:18px;
+  }
+
+  .chat{
+    padding-top:70px;
+  }
+
+  h1{
+    font-size:42px;
+  }
+
+  .chat-window{
+    height:58svh;
+    border-radius:23px;
+  }
+
+  .messages{
+    padding:15px;
+  }
+
+  .message{
+    max-width:84%;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<section class="page">
+
+  <div class="top">
+
+    <div class="logo">
+      AKSH
+    </div>
+
+    <a
+      href="human-support.html"
+      class="back"
+    >
+      ← Support
+    </a>
+
+  </div>
+
+
+  <main class="chat">
+
+    <div class="heading">
+
+      <div class="eyebrow">
+        A quiet conversation
+      </div>
+
+      <h1>
+        You can say<br>
+        <em>anything.</em>
+      </h1>
+
+      <p class="subtitle">
+        Start wherever feels easiest. There is no perfect
+        way to explain what you're feeling.
+      </p>
+
+    </div>
+
+
+    <div class="chat-window">
+
+      <div class="chat-header">
+
+        <div class="status"></div>
+
+        <strong>
+          AKSH Intelligence
+        </strong>
+
+        <span>
+          Here to listen
+        </span>
+
+      </div>
+
+
+      <div
+        class="messages"
+        id="messages"
+      >
+
+        <div class="message ai-message">
+          Hi. I'm here with you. You can start with
+          whatever feels easiest.
+        </div>
+
+      </div>
+
+
+      <div class="input-area">
+
+        <input
+          id="input"
+          type="text"
+          placeholder="Type what's on your mind..."
+          autocomplete="off"
+        >
+
+        <button
+          class="send"
+          onclick="sendMessage()"
+          aria-label="Send"
+        >
+          ↑
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="note">
+      AKSH Intelligence is an AI experience and is not a replacement for professional care.
+    </div>
+
+  </main>
+
+
+  <div class="bottom">
+    A SAFE SPACE FOR EVERY MIND
+  </div>
+
+</section>
+
+
+<script>
+
+const input =
+  document.getElementById("input");
+
+const messages =
+  document.getElementById("messages");
+
+
+function sendMessage(){
+
+  const text =
+    input.value.trim();
+
+  if(!text) return;
+
+
+  const user =
+    document.createElement("div");
+
+  user.className =
+    "message user-message";
+
+  user.textContent =
+    text;
+
+  messages.appendChild(user);
+
+  input.value = "";
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+
+  setTimeout(()=>{
+
+    const ai =
+      document.createElement("div");
+
+    ai.className =
+      "message ai-message";
+
+    ai.textContent =
+      "Thank you for sharing that. You don't have to figure everything out right now. We can take it one thought at a time.";
+
+    messages.appendChild(ai);
+
+    messages.scrollTop =
+      messages.scrollHeight;
+
+  },700);
+
+}
+
+
+input.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Enter"){
+      sendMessage();
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
