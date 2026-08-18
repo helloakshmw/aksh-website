@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AKSH — Explore</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
+  color:#263d38;
+  background:#edf7f3;
+}
+
+.page{
+  min-height:100svh;
+  position:relative;
+  overflow:hidden;
+  padding:40px 24px;
+
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,255,255,.95),transparent 27%),
+    radial-gradient(circle at 82% 18%,rgba(132,197,171,.25),transparent 30%),
+    linear-gradient(145deg,#f4fbf8,#dcefe8 55%,#c6e2d8);
+}
+
+.page::before{
+  content:"";
+  position:absolute;
+  width:50vw;
+  height:18vw;
+  left:-12vw;
+  top:17%;
+  border-radius:50%;
+  background:rgba(255,255,255,.45);
+  filter:blur(25px);
+  animation:cloud 12s ease-in-out infinite alternate;
+}
+
+.page::after{
+  content:"";
+  position:absolute;
+  width:42vw;
+  height:16vw;
+  right:-10vw;
+  bottom:10%;
+  border-radius:50%;
+  background:rgba(70,151,125,.13);
+  filter:blur(30px);
+}
+
+.top{
+  position:absolute;
+  z-index:5;
+  top:25px;
+  left:25px;
+  right:25px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:21px;
+  letter-spacing:.18em;
+}
+
+.back{
+  padding:10px 15px;
+  border-radius:100px;
+
+  color:#31564d;
+  text-decoration:none;
+
+  font-size:10px;
+
+  border:1px solid rgba(49,86,77,.13);
+  background:rgba(255,255,255,.42);
+
+  backdrop-filter:blur(15px);
+}
+
+.content{
+  position:relative;
+  z-index:3;
+
+  width:min(900px,100%);
+  margin:auto;
+  padding-top:125px;
+
+  text-align:center;
+}
+
+.eyebrow{
+  margin-bottom:18px;
+
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.27em;
+  text-transform:uppercase;
+
+  color:#62877b;
+}
+
+h1{
+  margin:0;
+
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;
+
+  font-size:clamp(48px,7vw,74px);
+  line-height:.95;
+  letter-spacing:-.055em;
+}
+
+h1 em{
+  color:#4c917c;
+  font-style:italic;
+}
+
+.message{
+  width:min(520px,100%);
+  margin:24px auto 40px;
+
+  color:#688078;
+
+  font-size:13px;
+  line-height:1.75;
+}
+
+/* =========================================================
+   EXPLORE CARDS
+========================================================= */
+
+.explore-grid{
+  width:min(850px,100%);
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.explore-card{
+  min-height:155px;
+
+  padding:23px 20px;
+
+  border-radius:24px;
+
+  text-align:left;
+  text-decoration:none;
+
+  border:1px solid rgba(38,70,62,.08);
+
+  background:rgba(255,255,255,.43);
+
+  backdrop-filter:blur(18px);
+
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease;
+}
+
+.explore-card:hover{
+  transform:translateY(-7px);
+
+  box-shadow:
+    0 25px 60px rgba(55,104,88,.14);
+}
+
+.icon{
+  display:block;
+
+  margin-bottom:27px;
+
+  font-size:19px;
+}
+
+.explore-card h2{
+  margin:0 0 8px;
+
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:20px;
+  font-weight:400;
+}
+
+.explore-card p{
+  margin:0;
+
+  font-size:9px;
+  line-height:1.55;
+
+  color:#71837d;
+}
+
+.card-ai{
+  background:
+    linear-gradient(145deg,rgba(239,249,255,.72),rgba(210,231,239,.52));
+}
+
+.card-services{
+  background:
+    linear-gradient(145deg,rgba(247,252,239,.72),rgba(216,234,203,.52));
+}
+
+.card-about{
+  background:
+    linear-gradient(145deg,rgba(255,248,235,.72),rgba(237,221,190,.52));
+}
+
+.note{
+  margin-top:30px;
+
+  font-size:8px;
+  color:#8aa099;
+}
+
+.bottom{
+  position:absolute;
+  z-index:5;
+
+  bottom:25px;
+  left:25px;
+  right:25px;
+
+  text-align:center;
+
+  color:#899f97;
+
+  font-size:8px;
+  letter-spacing:.08em;
+}
+
+@keyframes cloud{
+  from{
+    transform:translateX(-15px);
+  }
+
+  to{
+    transform:translateX(35px) scale(1.07);
+  }
+}
+
+@media(max-width:760px){
+
+  .page{
+    padding:30px 20px;
+  }
+
+  .top{
+    top:18px;
+    left:18px;
+    right:18px;
+  }
+
+  .logo{
+    font-size:18px;
+  }
+
+  .content{
+    padding-top:110px;
+  }
+
+  h1{
+    font-size:48px;
+  }
+
+  .message{
+    font-size:12px;
+    margin-bottom:30px;
+  }
+
+  .explore-grid{
+    grid-template-columns:1fr;
+    width:min(340px,100%);
+  }
+
+  .explore-card{
+    min-height:115px;
+  }
+
+  .icon{
+    margin-bottom:17px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<section class="page">
+
+  <div class="top">
+
+    <div class="logo">
+      AKSH
+    </div>
+
+    <a
+      href="homepage.html"
+      class="back"
+    >
+      ← Back to AKSH
+    </a>
+
+  </div>
+
+
+  <main class="content">
+
+    <div class="eyebrow">
+      There is no particular way to begin
+    </div>
+
+    <h1>
+      Take your time.<br>
+      <em>Explore.</em>
+    </h1>
+
+    <p class="message">
+      You don't need to know what you're looking for yet.
+      Look around. Discover what feels useful,
+      interesting, comforting, or simply right for you.
+    </p>
+
+
+    <div class="explore-grid">
+
+      <a
+        href="aksh-ai.html"
+        class="explore-card card-ai"
+      >
+
+        <span class="icon">
+          ✦
+        </span>
+
+        <h2>
+          AKSH Intelligence
+        </h2>
+
+        <p>
+          Explore a quieter way to put your thoughts into words.
+        </p>
+
+      </a>
+
+
+      <a
+        href="services.html"
+        class="explore-card card-services"
+      >
+
+        <span class="icon">
+          ◇
+        </span>
+
+        <h2>
+          What AKSH offers
+        </h2>
+
+        <p>
+          Discover sessions, programs, workshops and support.
+        </p>
+
+      </a>
+
+
+      <a
+        href="about.html"
+        class="explore-card card-about"
+      >
+
+        <span class="icon">
+          ○
+        </span>
+
+        <h2>
+          Meet AKSH
+        </h2>
+
+        <p>
+          Learn about the idea, the people and the space behind AKSH.
+        </p>
+
+      </a>
+
+    </div>
+
+
+    <div class="note">
+      No pressure. No judgement. Just begin wherever you are.
+    </div>
+
+  </main>
+
+
+  <div class="bottom">
+    A SAFE SPACE FOR EVERY MIND
+  </div>
+
+</section>
+
+</body>
+</html>
