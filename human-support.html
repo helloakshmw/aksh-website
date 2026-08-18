@@ -1,438 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AKSH — Someone Is Here</title>
-
-<style>
-*{
-  box-sizing:border-box;
-}
-
-html,body{
-  margin:0;
-  min-height:100%;
-}
-
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
-  color:#30263d;
-  background:#f4effa;
-}
-
-.page{
-  min-height:100svh;
-  position:relative;
-  overflow:hidden;
-  padding:40px 24px;
-
-  background:
-    radial-gradient(circle at 15% 20%,rgba(255,255,255,.95),transparent 27%),
-    radial-gradient(circle at 85% 20%,rgba(193,161,221,.34),transparent 30%),
-    linear-gradient(145deg,#f7f2fc,#e3d7f0 58%,#d1c0e4);
-}
-
-.page::before{
-  content:"";
-  position:absolute;
-  width:50vw;
-  height:18vw;
-  left:-12vw;
-  top:22%;
-  border-radius:50%;
-  background:rgba(255,255,255,.42);
-  filter:blur(25px);
-}
-
-.page::after{
-  content:"";
-  position:absolute;
-  width:40vw;
-  height:15vw;
-  right:-10vw;
-  bottom:12%;
-  border-radius:50%;
-  background:rgba(130,94,165,.13);
-  filter:blur(30px);
-}
-
-.top{
-  position:absolute;
-  z-index:5;
-  top:25px;
-  left:25px;
-  right:25px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:21px;
-  letter-spacing:.18em;
-}
-
-.back{
-  padding:10px 15px;
-  border-radius:100px;
-
-  text-decoration:none;
-  color:#453452;
-
-  font-size:10px;
-
-  border:1px solid rgba(69,52,82,.13);
-  background:rgba(255,255,255,.4);
-
-  backdrop-filter:blur(15px);
-}
-
-.content{
-  position:relative;
-  z-index:3;
-
-  width:min(900px,100%);
-  margin:auto;
-  padding-top:130px;
-
-  text-align:center;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AKSH — Human Support</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
 
-.eyebrow{
-  margin-bottom:18px;
+    body {
+      overflow-x: hidden;
 
-  font-size:8px;
-  font-weight:700;
-  letter-spacing:.27em;
-  text-transform:uppercase;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Segoe UI",
+        sans-serif;
 
-  color:#806b91;
-}
+      color: #352f3b;
 
-h1{
-  margin:0;
+      background: #eee8f0;
+    }
 
-  font-family:Georgia,"Times New Roman",serif;
-  font-weight:400;
+    .page {
+      position: relative;
 
-  font-size:clamp(48px,7vw,74px);
-  line-height:.95;
-  letter-spacing:-.055em;
-}
+      min-height: 100svh;
+
+      overflow: hidden;
 
-h1 em{
-  color:#8060a0;
-  font-style:italic;
-}
+      background:
+        radial-gradient(
+          circle at 13% 17%,
+          rgba(255,255,255,.92),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 86% 25%,
+          rgba(197,170,209,.4),
+          transparent 30%
+        ),
+        linear-gradient(
+          145deg,
+          #f5f1f4 0%,
+          #ebe3ed 53%,
+          #dcd0e2 100%
+        );
+    }
 
-.message{
-  width:min(510px,100%);
-  margin:24px auto 42px;
+    /* =====================================================
+       ATMOSPHERE
+    ===================================================== */
 
-  font-size:13px;
-  line-height:1.75;
+    .glow {
+      position: absolute;
 
-  color:#75667f;
-}
+      border-radius: 50%;
 
-/* =========================================================
-   SUPPORT OPTIONS
-========================================================= */
+      filter: blur(42px);
 
-.support-options{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+      pointer-events: none;
+    }
 
-  width:min(850px,100%);
-  margin:auto;
-}
+    .glow-one {
+      width: 52vw;
+      height: 18vw;
 
-.option{
-  position:relative;
+      top: 18%;
+      left: -12vw;
 
-  min-height:165px;
+      background:
+        rgba(255,255,255,.6);
 
-  padding:24px 20px;
+      animation:
+        floatOne 15s ease-in-out infinite alternate;
+    }
 
-  border-radius:24px;
+    .glow-two {
+      width: 45vw;
+      height: 16vw;
 
-  text-align:left;
-  text-decoration:none;
+      right: -13vw;
+      bottom: 16%;
 
-  border:1px solid rgba(70,45,90,.08);
+      background:
+        rgba(156,122,173,.18);
 
-  background:rgba(255,255,255,.42);
+      animation:
+        floatTwo 18s ease-in-out infinite alternate;
+    }
 
-  backdrop-filter:blur(18px);
+    .glow-three {
+      width: 30vw;
+      height: 12vw;
 
-  transition:
-    transform .35s ease,
-    box-shadow .35s ease;
-}
+      left: 40%;
+      top: 4%;
 
-.option:hover{
-  transform:translateY(-7px);
+      background:
+        rgba(255,255,255,.42);
 
-  box-shadow:
-    0 25px 60px rgba(75,49,99,.14);
-}
+      animation:
+        floatThree 13s ease-in-out infinite alternate;
+    }
 
-.option-icon{
-  display:block;
+    /* =====================================================
+       TOP
+    ===================================================== */
 
-  margin-bottom:30px;
+    .top {
+      position: absolute;
 
-  font-size:20px;
-}
+      z-index: 10;
 
-.option h2{
-  margin:0 0 8px;
+      top: 24px;
+      left: 27px;
+      right: 27px;
 
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:21px;
-  font-weight:400;
-}
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-.option p{
-  margin:0;
+    .logo {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  font-size:9px;
-  line-height:1.55;
+      font-size: 18px;
 
-  color:#776a82;
-}
+      letter-spacing: .2em;
 
-/* TEXT */
+      color: #4a4150;
 
-.text-option{
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.7),rgba(236,224,247,.55));
-}
+      text-decoration: none;
+    }
 
-.text-option .option-icon{
-  color:#7757a0;
-}
+    .back {
+      padding: 9px 14px;
 
-/* VOICE */
+      border:
+        1px solid
+        rgba(67,55,75,.12);
 
-.voice-option{
-  background:
-    linear-gradient(145deg,rgba(249,240,255,.72),rgba(215,196,233,.55));
-}
+      border-radius: 999px;
 
-.voice-option .option-icon{
-  color:#a06b9e;
-}
+      color: #756a7b;
 
-/* VIDEO */
+      background:
+        rgba(255,255,255,.38);
 
-.video-option{
-  background:
-    linear-gradient(145deg,rgba(241,249,247,.72),rgba(204,229,220,.55));
-}
+      backdrop-filter:
+        blur(15px);
 
-.video-option .option-icon{
-  color:#4c917c;
-}
+      font-size: 8px;
 
-.note{
-  margin-top:32px;
+      text-decoration: none;
 
-  font-size:8px;
-  letter-spacing:.04em;
+      transition: .25s ease;
+    }
 
-  color:#9586a0;
-}
+    .back:hover {
+      background:
+        rgba(255,255,255,.65);
 
-.bottom{
-  position:absolute;
-  z-index:5;
+      transform:
+        translateY(-2px);
+    }
 
-  bottom:25px;
-  left:25px;
-  right:25px;
+    /* =====================================================
+       MAIN
+    ===================================================== */
 
-  text-align:center;
+    .content {
+      position: relative;
 
-  color:#9587a0;
+      z-index: 5;
 
-  font-size:8px;
-  letter-spacing:.08em;
-}
+      width: min(1050px, 92%);
 
-/* =========================================================
-   MOBILE
-========================================================= */
+      min-height: 100svh;
 
-@media(max-width:760px){
+      margin: auto;
 
-  .page{
-    padding:30px 20px;
-  }
+      padding:
+        110px
+        20px
+        70px;
 
-  .top{
-    top:18px;
-    left:18px;
-    right:18px;
-  }
+      display: flex;
 
-  .logo{
-    font-size:18px;
-  }
+      flex-direction: column;
 
-  .content{
-    padding-top:115px;
-  }
+      justify-content: center;
 
-  h1{
-    font-size:48px;
-  }
+      align-items: center;
 
-  .message{
-    margin-bottom:30px;
-    font-size:12px;
-  }
+      text-align: center;
+    }
 
-  .support-options{
-    grid-template-columns:1fr;
-    width:min(340px,100%);
-  }
+    .eyebrow {
+      margin-bottom: 13px;
 
-  .option{
-    min-height:115px;
-  }
+      color: #90799a;
 
-  .option-icon{
-    margin-bottom:18px;
-  }
+      font-size: 8px;
 
-  .option h2{
-    font-size:19px;
-  }
+      font-weight: 700;
 
-}
-</style>
+      letter-spacing: .3em;
+
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          42px,
+          6vw,
+          68px
+        );
+
+      line-height: .99;
+
+      font-weight: 400;
+
+      letter-spacing: -.055em;
+
+      color: #352f3b;
+    }
+
+    h1 em {
+      color: #856a91;
+
+      font-style: italic;
+    }
+
+    .intro {
+      width: min(520px, 90%);
+
+      margin:
+        19px auto
+        30px;
+
+      color: #776d7d;
+
+      font-size: 11px;
+
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       PEOPLE
+    ===================================================== */
+
+    .people {
+      width: min(850px, 100%);
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 12px;
+
+      margin-bottom: 25px;
+    }
+
+    .person {
+      position: relative;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+
+      padding: 15px 18px;
+
+      border:
+        1px solid
+        rgba(68,54,76,.09);
+
+      border-radius: 20px;
+
+      text-align: left;
+
+      text-decoration: none;
+
+      color: #3b3440;
+
+      background:
+        rgba(255,255,255,.38);
+
+      backdrop-filter:
+        blur(18px);
+
+      box-shadow:
+        0 14px 40px
+        rgba(70,53,78,.05);
+
+      transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+    }
+
+    .person:hover {
+      transform:
+        translateY(-5px);
+
+      box-shadow:
+        0 22px 48px
+        rgba(70,53,78,.11);
+    }
+
+    .person-photo {
+      width: 58px;
+      height: 58px;
+
+      flex: 0 0 58px;
+
+      border-radius: 50%;
+
+      object-fit: cover;
+
+      border:
+        1px solid
+        rgba(70,53,78,.13);
+
+      background:
+        rgba(255,255,255,.45);
+    }
+
+    .person-placeholder {
+      width: 58px;
+      height: 58px;
+
+      flex: 0 0 58px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      color: #896f94;
+
+      background:
+        rgba(222,207,228,.7);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 22px;
+    }
+
+    .person-name {
+      margin-bottom: 4px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 19px;
+    }
+
+    .person-role {
+      color: #817586;
+
+      font-size: 8px;
+
+      line-height: 1.5;
+
+      letter-spacing: .08em;
+
+      text-transform: uppercase;
+    }
+
+    /* =====================================================
+       OPTIONS
+    ===================================================== */
+
+    .options {
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 8px;
+    }
+
+    .option {
+      padding:
+        11px
+        16px;
+
+      border-radius: 999px;
+
+      border:
+        1px solid
+        rgba(67,55,75,.12);
+
+      color: #67596c;
+
+      background:
+        rgba(255,255,255,.42);
+
+      backdrop-filter:
+        blur(15px);
+
+      font-size: 8px;
+
+      letter-spacing: .08em;
+
+      text-decoration: none;
+
+      transition: .25s ease;
+    }
+
+    .option:hover {
+      background:
+        rgba(255,255,255,.68);
+
+      transform:
+        translateY(-2px);
+    }
+
+    .option.primary {
+      color: #ffffff;
+
+      border-color: transparent;
+
+      background:
+        #7d6388;
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .bottom {
+      position: absolute;
+
+      z-index: 10;
+
+      left: 25px;
+      right: 25px;
+      bottom: 19px;
+
+      display: flex;
+
+      justify-content: center;
+
+      color: #978b9c;
+
+      font-size: 7px;
+
+      letter-spacing: .12em;
+    }
+
+    /* =====================================================
+       ANIMATIONS
+    ===================================================== */
+
+    @keyframes floatOne {
+
+      from {
+        transform:
+          translateX(-20px);
+      }
+
+      to {
+        transform:
+          translateX(45px)
+          translateY(-14px);
+      }
+    }
+
+    @keyframes floatTwo {
+
+      from {
+        transform:
+          translateX(18px);
+      }
+
+      to {
+        transform:
+          translateX(-35px)
+          translateY(-12px);
+      }
+    }
+
+    @keyframes floatThree {
+
+      from {
+        transform:
+          translateX(-15px);
+      }
+
+      to {
+        transform:
+          translateX(25px);
+      }
+    }
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 650px) {
+
+      .top {
+        top: 18px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logo {
+        font-size: 16px;
+      }
+
+      .content {
+        padding:
+          95px
+          18px
+          62px;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+
+      .intro {
+        font-size: 10px;
+
+        margin:
+          16px auto
+          24px;
+      }
+
+      .people {
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+      }
+
+      .person {
+        padding: 12px 14px;
+      }
+
+      .person-photo,
+      .person-placeholder {
+        width: 48px;
+        height: 48px;
+
+        flex-basis: 48px;
+      }
+
+      .person-name {
+        font-size: 17px;
+      }
+
+      .person-role {
+        font-size: 7px;
+      }
+    }
+
+    @media (max-width: 390px) {
+
+      h1 {
+        font-size: 39px;
+      }
+
+      .option {
+        padding:
+          10px
+          13px;
+
+        font-size: 7px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<section class="page">
+  <section class="page">
 
-  <div class="top">
+    <!-- ATMOSPHERE -->
 
-    <div class="logo">
-      AKSH
-    </div>
-
-    <a
-      href="homepage.html"
-      class="back"
-    >
-      ← Back to AKSH
-    </a>
-
-  </div>
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+    <div class="glow glow-three"></div>
 
 
-  <main class="content">
+    <!-- NAVIGATION -->
 
-    <div class="eyebrow">
-      You don't have to be alone with it
-    </div>
-
-    <h1>
-      Someone is<br>
-      <em>here.</em>
-    </h1>
-
-    <p class="message">
-      Sometimes you don't need an answer.
-      You just need someone who will listen,
-      without judgement and without rushing you.
-    </p>
-
-
-    <div class="support-options">
+    <header class="top">
 
       <a
-        href="chat.html"
-        class="option text-option"
+        href="homepage.html"
+        class="logo"
       >
+        AKSH
+      </a>
 
-        <span class="option-icon">
-          ◌
-        </span>
+      <a
+        href="homepage.html"
+        class="back"
+      >
+        ← How I'm Feeling
+      </a>
 
-        <h2>
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="content">
+
+      <div class="eyebrow">
+        You don't have to do this alone
+      </div>
+
+
+      <h1>
+        Sometimes the best<br>
+        thing is to <em>talk.</em>
+      </h1>
+
+
+      <p class="intro">
+        You can choose the kind of support that feels
+        comfortable today. Start with a conversation,
+        take your time, and decide what comes next.
+      </p>
+
+
+      <!-- HUMAN SUPPORT -->
+
+      <div class="people">
+
+        <a
+          href="booking.html"
+          class="person"
+        >
+
+          <div class="person-placeholder">
+            R
+          </div>
+
+          <div>
+
+            <div class="person-name">
+              Radha
+            </div>
+
+            <div class="person-role">
+              Human Support · AKSH
+            </div>
+
+          </div>
+
+        </a>
+
+
+        <a
+          href="booking.html"
+          class="person"
+        >
+
+          <div class="person-placeholder">
+            M
+          </div>
+
+          <div>
+
+            <div class="person-name">
+              Madhav
+            </div>
+
+            <div class="person-role">
+              Human Support · AKSH
+            </div>
+
+          </div>
+
+        </a>
+
+      </div>
+
+
+      <!-- SUPPORT OPTIONS -->
+
+      <div class="options">
+
+        <a
+          href="chat.html"
+          class="option primary"
+        >
           Text / Chat
-        </h2>
+        </a>
 
-        <p>
-          Take your time and say what is on your mind.
-        </p>
-
-      </a>
-
-
-      <a
-        href="voice.html"
-        class="option voice-option"
-      >
-
-        <span class="option-icon">
-          ◉
-        </span>
-
-        <h2>
+        <a
+          href="voice.html"
+          class="option"
+        >
           Voice / Talking
-        </h2>
+        </a>
 
-        <p>
-          Sometimes hearing a human voice makes a difference.
-        </p>
+        <a
+          href="video.html"
+          class="option"
+        >
+          Face-to-Face Video
+        </a>
 
-      </a>
+      </div>
 
-
-      <a
-        href="video-support.html"
-        class="option video-option"
-      >
-
-        <span class="option-icon">
-          ◇
-        </span>
-
-        <h2>
-          Face-to-Face
-        </h2>
-
-        <p>
-          Connect through a private video conversation.
-        </p>
-
-      </a>
-
-    </div>
+    </main>
 
 
-    <div class="note">
-      AI can assist. Real human support remains available.
-    </div>
+    <footer class="bottom">
+      A SAFE SPACE FOR EVERY MIND
+    </footer>
 
-  </main>
-
-
-  <div class="bottom">
-    A SAFE SPACE FOR EVERY MIND
-  </div>
-
-</section>
+  </section>
 
 </body>
 </html>
