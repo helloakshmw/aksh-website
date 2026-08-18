@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AKSH — For You</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Segoe UI",
+        sans-serif;
+
+      color: #3d3430;
+
+      background: #f0e9e2;
+    }
+
+    .page {
+      position: relative;
+
+      min-height: 100svh;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 12% 15%,
+          rgba(255,255,255,.94),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 88% 25%,
+          rgba(224,188,159,.34),
+          transparent 31%
+        ),
+        linear-gradient(
+          145deg,
+          #f7f2ed 0%,
+          #eee3da 52%,
+          #e2cfc1 100%
+        );
+    }
+
+    /* =====================================================
+       ATMOSPHERE
+    ===================================================== */
+
+    .cloud {
+      position: absolute;
+
+      border-radius: 50%;
+
+      filter: blur(43px);
+
+      pointer-events: none;
+    }
+
+    .cloud-one {
+      width: 55vw;
+      height: 19vw;
+
+      top: 17%;
+      left: -14vw;
+
+      background:
+        rgba(255,255,255,.65);
+
+      animation:
+        moveOne 16s ease-in-out infinite alternate;
+    }
+
+    .cloud-two {
+      width: 46vw;
+      height: 17vw;
+
+      right: -13vw;
+      bottom: 15%;
+
+      background:
+        rgba(190,130,96,.18);
+
+      animation:
+        moveTwo 19s ease-in-out infinite alternate;
+    }
+
+    .cloud-three {
+      width: 31vw;
+      height: 12vw;
+
+      top: 5%;
+      left: 42%;
+
+      background:
+        rgba(255,248,240,.52);
+
+      animation:
+        moveThree 14s ease-in-out infinite alternate;
+    }
+
+    /* =====================================================
+       NAV
+    ===================================================== */
+
+    .top {
+      position: absolute;
+
+      z-index: 10;
+
+      top: 24px;
+      left: 27px;
+      right: 27px;
+
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 18px;
+
+      letter-spacing: .2em;
+
+      color: #4c403a;
+
+      text-decoration: none;
+    }
+
+    .back {
+      padding: 9px 14px;
+
+      border:
+        1px solid
+        rgba(74,58,49,.12);
+
+      border-radius: 999px;
+
+      color: #76665e;
+
+      background:
+        rgba(255,255,255,.4);
+
+      backdrop-filter:
+        blur(15px);
+
+      font-size: 8px;
+
+      text-decoration: none;
+
+      transition: .25s ease;
+    }
+
+    .back:hover {
+      background:
+        rgba(255,255,255,.7);
+
+      transform:
+        translateY(-2px);
+    }
+
+    /* =====================================================
+       MAIN
+    ===================================================== */
+
+    .content {
+      position: relative;
+
+      z-index: 5;
+
+      width: min(1120px, 92%);
+
+      min-height: 100svh;
+
+      margin: auto;
+
+      padding:
+        105px
+        20px
+        65px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      align-items: center;
+
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 13px;
+
+      color: #a27c67;
+
+      font-size: 8px;
+
+      font-weight: 700;
+
+      letter-spacing: .3em;
+
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          43px,
+          6vw,
+          68px
+        );
+
+      line-height: .99;
+
+      font-weight: 400;
+
+      letter-spacing: -.055em;
+
+      color: #3d3430;
+    }
+
+    h1 em {
+      color: #a36e51;
+
+      font-style: italic;
+    }
+
+    .intro {
+      width: min(550px, 90%);
+
+      margin:
+        18px auto
+        30px;
+
+      color: #786d67;
+
+      font-size: 11px;
+
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       SUPPORT OPTIONS
+    ===================================================== */
+
+    .support-grid {
+      width: 100%;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 10px;
+    }
+
+    .support {
+      position: relative;
+
+      min-height: 175px;
+
+      padding: 19px;
+
+      overflow: hidden;
+
+      border:
+        1px solid
+        rgba(74,58,49,.09);
+
+      border-radius: 22px;
+
+      text-align: left;
+
+      text-decoration: none;
+
+      color: #3d3430;
+
+      backdrop-filter:
+        blur(18px);
+
+      box-shadow:
+        0 15px 42px
+        rgba(96,68,53,.06);
+
+      transition:
+        transform .4s ease,
+        box-shadow .4s ease;
+    }
+
+    .support:hover {
+      transform:
+        translateY(-7px);
+
+      box-shadow:
+        0 24px 55px
+        rgba(96,68,53,.13);
+    }
+
+    .support:nth-child(1) {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(248,242,237,.75),
+          rgba(226,209,198,.5)
+        );
+    }
+
+    .support:nth-child(2) {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(246,240,247,.75),
+          rgba(220,205,226,.5)
+        );
+    }
+
+    .support:nth-child(3) {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(240,246,241,.75),
+          rgba(208,224,211,.5)
+        );
+    }
+
+    .support:nth-child(4) {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(240,244,248,.75),
+          rgba(205,220,229,.5)
+        );
+    }
+
+    .number {
+      color: #9c897f;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 10px;
+    }
+
+    .icon {
+      margin-top: 22px;
+
+      font-size: 20px;
+    }
+
+    .support-title {
+      margin:
+        13px
+        0
+        6px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 18px;
+
+      line-height: 1.08;
+
+      font-weight: 400;
+    }
+
+    .support-text {
+      max-width: 180px;
+
+      margin: 0;
+
+      color: #786e68;
+
+      font-size: 8px;
+
+      line-height: 1.55;
+    }
+
+    .arrow {
+      position: absolute;
+
+      right: 14px;
+      bottom: 14px;
+
+      width: 27px;
+      height: 27px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.4);
+
+      font-size: 10px;
+
+      transition:
+        transform .3s ease;
+    }
+
+    .support:hover .arrow {
+      transform:
+        translate(3px,-3px);
+    }
+
+    /* =====================================================
+       BOOKING CTA
+    ===================================================== */
+
+    .cta {
+      margin-top: 17px;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        11px
+        17px;
+
+      border-radius: 999px;
+
+      color: white;
+
+      background:
+        #9a7058;
+
+      box-shadow:
+        0 12px 28px
+        rgba(142,98,75,.15);
+
+      font-size: 8px;
+
+      letter-spacing: .1em;
+
+      text-decoration: none;
+
+      transition: .3s ease;
+    }
+
+    .cta:hover {
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 18px 35px
+        rgba(142,98,75,.2);
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .bottom {
+      position: absolute;
+
+      z-index: 10;
+
+      left: 25px;
+      right: 25px;
+      bottom: 19px;
+
+      display: flex;
+
+      justify-content: center;
+
+      color: #998c83;
+
+      font-size: 7px;
+
+      letter-spacing: .12em;
+    }
+
+    /* =====================================================
+       ANIMATION
+    ===================================================== */
+
+    @keyframes moveOne {
+
+      from {
+        transform:
+          translateX(-20px);
+      }
+
+      to {
+        transform:
+          translateX(45px)
+          translateY(-14px);
+      }
+    }
+
+    @keyframes moveTwo {
+
+      from {
+        transform:
+          translateX(20px);
+      }
+
+      to {
+        transform:
+          translateX(-38px)
+          translateY(-12px);
+      }
+    }
+
+    @keyframes moveThree {
+
+      from {
+        transform:
+          translateX(-15px);
+      }
+
+      to {
+        transform:
+          translateX(26px);
+      }
+    }
+
+    /* =====================================================
+       TABLET
+    ===================================================== */
+
+    @media (max-width: 900px) {
+
+      .support-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .support {
+        min-height: 155px;
+      }
+    }
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 560px) {
+
+      .top {
+        top: 18px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logo {
+        font-size: 16px;
+      }
+
+      .content {
+        padding:
+          95px
+          18px
+          62px;
+      }
+
+      h1 {
+        font-size: 43px;
+      }
+
+      .intro {
+        font-size: 10px;
+
+        margin:
+          16px auto
+          24px;
+      }
+
+      .support-grid {
+        gap: 8px;
+      }
+
+      .support {
+        min-height: 140px;
+
+        padding: 15px;
+
+        border-radius: 19px;
+      }
+
+      .icon {
+        margin-top: 16px;
+
+        font-size: 16px;
+      }
+
+      .support-title {
+        margin-top: 9px;
+
+        font-size: 15px;
+      }
+
+      .support-text {
+        font-size: 7px;
+      }
+
+      .arrow {
+        width: 23px;
+        height: 23px;
+
+        right: 11px;
+        bottom: 11px;
+      }
+    }
+
+    @media (max-width: 380px) {
+
+      h1 {
+        font-size: 39px;
+      }
+
+      .support-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .support {
+        min-height: 105px;
+      }
+
+      .icon {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="page">
+
+    <!-- ATMOSPHERE -->
+
+    <div class="cloud cloud-one"></div>
+    <div class="cloud cloud-two"></div>
+    <div class="cloud cloud-three"></div>
+
+
+    <!-- NAVIGATION -->
+
+    <header class="top">
+
+      <a
+        href="homepage.html"
+        class="logo"
+      >
+        AKSH
+      </a>
+
+      <a
+        href="services.html"
+        class="back"
+      >
+        ← Services
+      </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="content">
+
+      <div class="eyebrow">
+        Your journey can begin anywhere
+      </div>
+
+
+      <h1>
+        Start where<br>
+        <em>you are.</em>
+      </h1>
+
+
+      <p class="intro">
+        There is no right reason to reach out.
+        Whether you want to understand yourself,
+        feel lighter, talk to someone or simply explore,
+        there is space for you here.
+      </p>
+
+
+      <div class="support-grid">
+
+
+        <!-- CONVERSATION -->
+
+        <a
+          href="human-support.html"
+          class="support"
+        >
+
+          <div class="number">
+            01
+          </div>
+
+          <div class="icon">
+            ◌
+          </div>
+
+          <h2 class="support-title">
+            Talk to someone
+          </h2>
+
+          <p class="support-text">
+            A human conversation when you
+            don't want to carry it alone.
+          </p>
+
+          <div class="arrow">
+            ↗
+          </div>
+
+        </a>
+
+
+        <!-- SELF UNDERSTANDING -->
+
+        <a
+          href="self-exploration.html"
+          class="support"
+        >
+
+          <div class="number">
+            02
+          </div>
+
+          <div class="icon">
+            ✦
+          </div>
+
+          <h2 class="support-title">
+            Understand yourself
+          </h2>
+
+          <p class="support-text">
+            Explore thoughts, emotions,
+            patterns and the person you are.
+          </p>
+
+          <div class="arrow">
+            ↗
+          </div>
+
+        </a>
+
+
+        <!-- AKSH AI -->
+
+        <a
+          href="aksh-ai.html"
+          class="support"
+        >
+
+          <div class="number">
+            03
+          </div>
+
+          <div class="icon">
+            ✧
+          </div>
+
+          <h2 class="support-title">
+            Meet AKSH I
+          </h2>
+
+          <p class="support-text">
+            A gentle intelligence experience
+            created as part of AKSH.
+          </p>
+
+          <div class="arrow">
+            ↗
+          </div>
+
+        </a>
+
+
+        <!-- SESSION -->
+
+        <a
+          href="booking.html"
+          class="support"
+        >
+
+          <div class="number">
+            04
+          </div>
+
+          <div class="icon">
+            ◇
+          </div>
+
+          <h2 class="support-title">
+            Book a session
+          </h2>
+
+          <p class="support-text">
+            When you are ready, choose a
+            time and take the next step.
+          </p>
+
+          <div class="arrow">
+            ↗
+          </div>
+
+        </a>
+
+      </div>
+
+
+      <a
+        href="booking.html"
+        class="cta"
+      >
+        Begin with a conversation
+      </a>
+
+    </main>
+
+
+    <footer class="bottom">
+      A SAFE SPACE FOR EVERY MIND
+    </footer>
+
+  </section>
+
+</body>
+</html>
