@@ -1,443 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AKSH — I Feel Overwhelmed</title>
-
-<style>
-*{
-  box-sizing:border-box;
-}
-
-html,body{
-  margin:0;
-  min-height:100%;
-}
-
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
-  color:#4a3425;
-  background:#fbf0df;
-  overflow-x:hidden;
-}
-
-.page{
-  min-height:100svh;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:40px 24px;
-
-  background:
-    radial-gradient(
-      circle at 82% 15%,
-      rgba(255,216,153,.8),
-      transparent 24%
-    ),
-    radial-gradient(
-      ellipse at 15% 80%,
-      rgba(225,157,92,.2),
-      transparent 35%
-    ),
-    linear-gradient(
-      145deg,
-      #fff8ed,
-      #f7dfbd 55%,
-      #efcda9
-    );
-}
-
-.page::before{
-  content:"";
-  position:absolute;
-  width:55vw;
-  height:18vw;
-  left:-15vw;
-  top:17%;
-  border-radius:50%;
-  background:rgba(255,255,255,.38);
-  filter:blur(25px);
-  animation:floatCloud 12s ease-in-out infinite alternate;
-}
-
-.page::after{
-  content:"";
-  position:absolute;
-  width:38vw;
-  height:15vw;
-  right:-8vw;
-  bottom:10%;
-  border-radius:50%;
-  background:rgba(211,139,70,.14);
-  filter:blur(28px);
-}
-
-.top{
-  position:absolute;
-  z-index:5;
-  top:25px;
-  left:25px;
-  right:25px;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.logo{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:21px;
-  letter-spacing:.18em;
-}
-
-.back{
-  padding:10px 15px;
-  border-radius:100px;
-
-  color:#4a3425;
-  text-decoration:none;
-
-  font-size:10px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AKSH — You Don't Have To Hold It All</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
 
-  border:1px solid rgba(74,52,37,.13);
-  background:rgba(255,255,255,.4);
-  backdrop-filter:blur(15px);
-}
+    body {
+      overflow: hidden;
 
-.content{
-  position:relative;
-  z-index:3;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Segoe UI",
+        sans-serif;
 
-  width:min(720px,100%);
-  text-align:center;
-}
+      color: #493d38;
 
-.eyebrow{
-  margin-bottom:18px;
+      background: #eee2d8;
+    }
 
-  color:#9a7554;
+    .page {
+      position: relative;
 
-  font-size:8px;
-  font-weight:700;
-  letter-spacing:.27em;
-  text-transform:uppercase;
-}
+      min-height: 100svh;
 
-h1{
-  margin:0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  font-family:Georgia,"Times New Roman",serif;
-  font-weight:400;
+      overflow: hidden;
 
-  font-size:clamp(48px,8vw,78px);
-  line-height:.95;
-  letter-spacing:-.055em;
-}
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(255,255,255,.9),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 87% 25%,
+          rgba(221,177,144,.32),
+          transparent 31%
+        ),
+        linear-gradient(
+          145deg,
+          #f7f0e9 0%,
+          #eee1d8 50%,
+          #e2cbbb 100%
+        );
+    }
 
-h1 em{
-  color:#bd7840;
-  font-style:italic;
-}
+    /* =====================================================
+       WARM CLOUD ATMOSPHERE
+    ===================================================== */
 
-.message{
-  width:min(500px,100%);
-  margin:25px auto 0;
+    .cloud {
+      position: absolute;
 
-  color:#806a59;
+      border-radius: 50%;
 
-  font-size:13px;
-  line-height:1.75;
-}
+      filter: blur(38px);
 
-/* =========================================================
-   PAUSE ORB
-========================================================= */
+      pointer-events: none;
+    }
 
-.pause{
-  position:relative;
+    .cloud-one {
+      width: 55vw;
+      height: 19vw;
 
-  width:150px;
-  height:150px;
+      top: 17%;
+      left: -14vw;
 
-  margin:38px auto 35px;
+      background:
+        rgba(255,255,255,.5);
 
-  border-radius:50%;
+      animation:
+        cloudOne 16s ease-in-out infinite alternate;
+    }
 
-  display:grid;
-  place-items:center;
+    .cloud-two {
+      width: 46vw;
+      height: 17vw;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.92) 0 20%,
-      rgba(244,186,117,.38) 40%,
-      rgba(214,135,61,.17) 67%,
-      transparent 72%
-    );
+      right: -14vw;
+      bottom: 16%;
 
-  box-shadow:
-    0 0 65px rgba(211,139,70,.23);
+      background:
+        rgba(201,143,105,.22);
 
-  animation:
-    pausePulse 5s ease-in-out infinite;
-}
+      animation:
+        cloudTwo 19s ease-in-out infinite alternate;
+    }
 
-.pause::before,
-.pause::after{
-  content:"";
+    .cloud-three {
+      width: 32vw;
+      height: 12vw;
 
-  position:absolute;
+      top: 5%;
+      left: 42%;
 
-  border:1px solid rgba(190,121,60,.22);
+      background:
+        rgba(255,244,234,.45);
 
-  border-radius:50%;
-}
+      animation:
+        cloudThree 14s ease-in-out infinite alternate;
+    }
 
-.pause::before{
-  inset:15%;
-  animation:ring 5s ease-in-out infinite;
-}
+    /* =====================================================
+       NAV
+    ===================================================== */
 
-.pause::after{
-  inset:5%;
-  animation:ring 5s ease-in-out infinite reverse;
-}
+    .top {
+      position: absolute;
 
-.pause span{
-  position:relative;
-  z-index:2;
+      z-index: 10;
 
-  font-family:Georgia,"Times New Roman",serif;
+      top: 24px;
+      left: 27px;
+      right: 27px;
 
-  font-size:13px;
-  color:#9b693f;
-}
+      display: flex;
 
-.actions{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.button{
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
+    .logo {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  min-height:43px;
+      font-size: 18px;
 
-  padding:13px 20px;
+      letter-spacing: .2em;
 
-  border-radius:100px;
+      color: #574941;
 
-  font-size:10px;
-  font-weight:650;
+      text-decoration: none;
+    }
 
-  text-decoration:none;
+    .back {
+      padding: 9px 14px;
 
-  transition:.3s ease;
-}
+      border:
+        1px solid
+        rgba(75,59,52,.12);
 
-.button:hover{
-  transform:translateY(-3px);
-}
+      border-radius: 999px;
 
-.primary{
-  color:#fff;
+      color: #76665e;
 
-  background:#4a3425;
+      background:
+        rgba(255,255,255,.38);
 
-  box-shadow:
-    0 14px 30px rgba(74,52,37,.17);
-}
+      backdrop-filter:
+        blur(15px);
 
-.secondary{
-  color:#6e513c;
+      font-size: 8px;
 
-  border:1px solid rgba(110,81,60,.18);
+      text-decoration: none;
 
-  background:rgba(255,255,255,.42);
-}
+      transition: .25s ease;
+    }
 
-.bottom{
-  position:absolute;
-  z-index:5;
+    .back:hover {
+      background:
+        rgba(255,255,255,.65);
 
-  left:25px;
-  right:25px;
-  bottom:25px;
+      transform:
+        translateY(-2px);
+    }
 
-  text-align:center;
+    /* =====================================================
+       MAIN
+    ===================================================== */
 
-  color:#a18b78;
+    .content {
+      position: relative;
 
-  font-size:8px;
-  letter-spacing:.08em;
-}
+      z-index: 5;
 
-@keyframes pausePulse{
+      width: min(850px, 92%);
 
-  0%,100%{
-    transform:scale(.9);
-    box-shadow:0 0 45px rgba(211,139,70,.15);
-  }
+      text-align: center;
 
-  50%{
-    transform:scale(1.07);
-    box-shadow:0 0 90px rgba(211,139,70,.29);
-  }
+      transform:
+        translateY(1vh);
+    }
 
-}
+    .symbol {
+      width: 64px;
+      height: 64px;
 
-@keyframes ring{
+      margin:
+        0 auto
+        25px;
 
-  0%,100%{
-    transform:scale(.92);
-    opacity:.35;
-  }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  50%{
-    transform:scale(1.08);
-    opacity:.8;
-  }
+      border-radius: 50%;
 
-}
+      color: #ad7656;
 
-@keyframes floatCloud{
+      border:
+        1px solid
+        rgba(173,118,86,.16);
 
-  from{
-    transform:translateX(-15px);
-  }
+      background:
+        rgba(255,255,255,.4);
 
-  to{
-    transform:translateX(35px) scale(1.07);
-  }
+      backdrop-filter:
+        blur(15px);
 
-}
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-@media(max-width:600px){
+      font-size: 24px;
 
-  .page{
-    padding:35px 20px;
-  }
+      box-shadow:
+        0 18px 45px
+        rgba(143,99,74,.09);
 
-  .top{
-    top:18px;
-    left:18px;
-    right:18px;
-  }
+      animation:
+        soften 5s ease-in-out infinite;
+    }
 
-  .logo{
-    font-size:18px;
-  }
+    .eyebrow {
+      margin-bottom: 14px;
 
-  h1{
-    font-size:48px;
-  }
+      color: #9a7867;
 
-  .message{
-    font-size:12px;
-  }
+      font-size: 8px;
 
-  .pause{
-    width:125px;
-    height:125px;
-    margin:30px auto;
-  }
+      font-weight: 700;
 
-  .actions{
-    flex-direction:column;
-    width:min(300px,100%);
-    margin:auto;
-  }
+      letter-spacing: .3em;
 
-  .button{
-    width:100%;
-  }
+      text-transform: uppercase;
+    }
 
-}
-</style>
+    h1 {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          44px,
+          6.5vw,
+          70px
+        );
+
+      line-height: .98;
+
+      font-weight: 400;
+
+      letter-spacing: -.055em;
+
+      color: #493d38;
+    }
+
+    h1 em {
+      color: #a66f52;
+
+      font-style: italic;
+    }
+
+    .intro {
+      width: min(520px, 100%);
+
+      margin:
+        20px auto
+        32px;
+
+      color: #7d6e67;
+
+      font-size: 11px;
+
+      line-height: 1.75;
+    }
+
+    /* =====================================================
+       ACTIONS
+    ===================================================== */
+
+    .actions {
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+    }
+
+    .action {
+      min-width: 155px;
+
+      padding: 13px 18px;
+
+      border-radius: 999px;
+
+      text-decoration: none;
+
+      font-size: 8px;
+
+      letter-spacing: .1em;
+
+      transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+    }
+
+    .action:hover {
+      transform:
+        translateY(-3px);
+    }
+
+    .primary {
+      color: white;
+
+      background:
+        #9b7059;
+
+      box-shadow:
+        0 12px 30px
+        rgba(143,99,74,.16);
+    }
+
+    .secondary {
+      color: #755f54;
+
+      border:
+        1px solid
+        rgba(143,99,74,.14);
+
+      background:
+        rgba(255,255,255,.42);
+
+      backdrop-filter:
+        blur(15px);
+    }
+
+    /* =====================================================
+       FLOATING WARM ORB
+    ===================================================== */
+
+    .orb {
+      width: min(250px, 52vw);
+      height: min(250px, 52vw);
+
+      position: absolute;
+
+      left: 50%;
+      bottom: -170px;
+
+      transform:
+        translateX(-50%);
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,235,218,.6),
+          rgba(194,139,105,.13) 55%,
+          transparent 71%
+        );
+
+      filter: blur(4px);
+
+      animation:
+        orb 8s ease-in-out infinite;
+
+      pointer-events: none;
+    }
+
+    .bottom {
+      position: absolute;
+
+      z-index: 10;
+
+      left: 25px;
+      right: 25px;
+      bottom: 20px;
+
+      display: flex;
+
+      justify-content: center;
+
+      color: #9a8a81;
+
+      font-size: 7px;
+
+      letter-spacing: .12em;
+    }
+
+    /* =====================================================
+       ANIMATION
+    ===================================================== */
+
+    @keyframes soften {
+
+      0%,
+      100% {
+        transform: scale(.95);
+      }
+
+      50% {
+        transform: scale(1.06);
+      }
+    }
+
+    @keyframes orb {
+
+      0%,
+      100% {
+        transform:
+          translateX(-50%)
+          scale(.82);
+
+        opacity: .42;
+      }
+
+      50% {
+        transform:
+          translateX(-50%)
+          scale(1.18);
+
+        opacity: .78;
+      }
+    }
+
+    @keyframes cloudOne {
+
+      from {
+        transform:
+          translateX(-20px);
+      }
+
+      to {
+        transform:
+          translateX(48px)
+          translateY(-15px);
+      }
+    }
+
+    @keyframes cloudTwo {
+
+      from {
+        transform:
+          translateX(20px);
+      }
+
+      to {
+        transform:
+          translateX(-40px)
+          translateY(-13px);
+      }
+    }
+
+    @keyframes cloudThree {
+
+      from {
+        transform:
+          translateX(-15px);
+      }
+
+      to {
+        transform:
+          translateX(28px);
+      }
+    }
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 600px) {
+
+      .top {
+        top: 18px;
+        left: 18px;
+        right: 18px;
+      }
+
+      .logo {
+        font-size: 16px;
+      }
+
+      .content {
+        width: 90%;
+      }
+
+      .symbol {
+        width: 56px;
+        height: 56px;
+
+        margin-bottom: 20px;
+
+        font-size: 21px;
+      }
+
+      h1 {
+        font-size: 45px;
+      }
+
+      .intro {
+        font-size: 10px;
+
+        margin:
+          17px auto
+          27px;
+      }
+
+      .action {
+        min-width: 145px;
+
+        padding:
+          12px 15px;
+      }
+
+      .orb {
+        bottom: -140px;
+      }
+    }
+
+    @media (max-width: 380px) {
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .action {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<section class="page">
+  <section class="page">
 
-  <div class="top">
+    <!-- ATMOSPHERE -->
 
-    <div class="logo">
-      AKSH
-    </div>
-
-    <a
-      href="homepage.html"
-      class="back"
-    >
-      ← Back to AKSH
-    </a>
-
-  </div>
+    <div class="cloud cloud-one"></div>
+    <div class="cloud cloud-two"></div>
+    <div class="cloud cloud-three"></div>
 
 
-  <main class="content">
+    <!-- NAVIGATION -->
 
-    <div class="eyebrow">
-      You don't have to hold everything at once
-    </div>
-
-    <h1>
-      I feel<br>
-      <em>overwhelmed.</em>
-    </h1>
-
-    <p class="message">
-      When everything arrives at the same time,
-      even small things can feel enormous.
-      You can pause here. Nothing needs to be solved
-      all at once.
-    </p>
-
-
-    <div class="pause">
-
-      <span>
-        Pause
-      </span>
-
-    </div>
-
-
-    <div class="actions">
+    <header class="top">
 
       <a
-        href="aksh-ai.html"
-        class="button primary"
+        href="homepage.html"
+        class="logo"
       >
-        Talk to AKSH Intelligence
+        AKSH
       </a>
 
       <a
-        href="human-support.html"
-        class="button secondary"
+        href="homepage.html"
+        class="back"
       >
-        Talk to a human
+        ← How I'm Feeling
       </a>
 
-    </div>
-
-  </main>
+    </header>
 
 
-  <div class="bottom">
-    A SAFE SPACE FOR EVERY MIND
-  </div>
+    <!-- EXPERIENCE -->
 
-</section>
+    <main class="content">
+
+      <div class="symbol">
+        ◌
+      </div>
+
+
+      <div class="eyebrow">
+        You can put it down for a moment
+      </div>
+
+
+      <h1>
+        You don't have to<br>
+        <em>hold it all.</em>
+      </h1>
+
+
+      <p class="intro">
+        When everything arrives at once, even small things
+        can feel enormous. Let's slow the noise down,
+        choose one thing, and take it from there.
+      </p>
+
+
+      <div class="actions">
+
+        <a
+          href="breathing.html"
+          class="action primary"
+        >
+          Help me slow down
+        </a>
+
+
+        <a
+          href="human-support.html"
+          class="action secondary"
+        >
+          I want someone with me
+        </a>
+
+      </div>
+
+    </main>
+
+
+    <div class="orb"></div>
+
+
+    <footer class="bottom">
+      A SAFE SPACE FOR EVERY MIND
+    </footer>
+
+  </section>
 
 </body>
 </html>
