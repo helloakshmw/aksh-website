@@ -1,2030 +1,930 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>AKSH — A Safe Space For Every Mind</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      background: #071019;
+      color: #ffffff;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        "Segoe UI",
+        sans-serif;
+    }
+
+    .entrance {
+      position: relative;
+
+      width: 100%;
+      min-height: 100svh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(5, 12, 20, 0.08),
+          rgba(5, 12, 20, 0.42)
+        );
+    }
+
+    /* -------------------------------------------------------
+       BACKGROUND
+    ------------------------------------------------------- */
+
+    .background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+
+      overflow: hidden;
+      background: #071019;
+    }
+
+    .background-video {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      opacity: 0;
+
+      transition:
+        opacity 1.4s ease,
+        transform 8s ease;
+
+      transform: scale(1.04);
+    }
+
+    .background-video.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .background-overlay {
+      position: absolute;
+      inset: 0;
+
+      z-index: 2;
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, viewport-fit=cover"
->
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.18) 0%,
+          rgba(0, 0, 0, 0.08) 35%,
+          rgba(0, 0, 0, 0.32) 100%
+        );
+    }
 
-<meta name="theme-color" content="#101a24">
+    .background-vignette {
+      position: absolute;
+      inset: 0;
 
-<title>AKSH — A Safe Space For Every Mind</title>
+      z-index: 3;
 
-<style>
+      box-shadow:
+        inset 0 0 180px rgba(0, 0, 0, 0.24);
+    }
 
-/* =========================================================
-   AKSH — 0TH PAGE
-   CINEMATIC ENTRY EXPERIENCE
+    /* -------------------------------------------------------
+       TOP
+    ------------------------------------------------------- */
 
-   IMPORTANT:
-   The real .mov files are used as the background.
-   No generated/AI background image is used here.
-========================================================= */
+    .top {
+      position: absolute;
 
-:root{
-  --white:#ffffff;
-  --soft-white:rgba(255,255,255,.88);
-  --faint-white:rgba(255,255,255,.62);
-  --line:rgba(255,255,255,.25);
-  --glass:rgba(255,255,255,.09);
-  --gold:#e6c986;
-  --shadow:rgba(0,0,0,.30);
-  --serif:Georgia,"Times New Roman",serif;
-  --sans:Arial,Helvetica,sans-serif;
-}
+      top: 28px;
+      left: 30px;
+      right: 30px;
 
-*{
-  box-sizing:border-box;
-}
+      z-index: 10;
 
-html,
-body{
-  width:100%;
-  height:100%;
-  margin:0;
-  padding:0;
-}
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
 
-body{
-  overflow:hidden;
-  background:#111b25;
-  color:var(--white);
-  font-family:var(--sans);
-}
+    .date-block {
+      text-align: left;
 
-/* =========================================================
-   FULL SCREEN EXPERIENCE
-========================================================= */
+      text-shadow:
+        0 2px 14px rgba(0, 0, 0, 0.35);
+    }
 
-.entry{
-  position:relative;
+    .date {
+      font-size: 11px;
+      line-height: 1.5;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+    }
 
-  width:100%;
-  height:100svh;
-  min-height:100vh;
+    .day {
+      margin-top: 2px;
 
-  overflow:hidden;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  isolation:isolate;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      opacity: 0.82;
+    }
 
-  background:#111b25;
-}
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-/* =========================================================
-   REAL VIDEO LAYERS
-========================================================= */
+    .control {
+      min-width: 38px;
+      height: 34px;
 
-.video-layer{
-  position:absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  inset:0;
+      padding: 0 11px;
 
-  width:100%;
-  height:100%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
 
-  object-fit:cover;
+      background: rgba(255, 255, 255, 0.09);
 
-  object-position:center;
+      color: #ffffff;
 
-  opacity:0;
+      backdrop-filter: blur(18px);
 
-  z-index:-5;
+      font-size: 9px;
+      letter-spacing: 0.08em;
 
-  transition:
-    opacity 1.6s cubic-bezier(.22,.61,.36,1);
+      cursor: pointer;
 
-  pointer-events:none;
+      transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+    }
 
-  background:#111b25;
-}
+    .control:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
 
-.video-layer.active{
-  opacity:1;
-}
+    /* -------------------------------------------------------
+       BRAND
+    ------------------------------------------------------- */
 
-/*
-   Very subtle cinematic movement.
+    .brand {
+      position: absolute;
 
-   The video itself remains real.
-   This only gives a tiny camera-like presentation
-   effect without making the scene look artificial.
-*/
+      top: 27px;
+      left: 50%;
 
-.video-layer.active{
-  animation:
-    cinematicScale 12s
-    ease-in-out
-    infinite
-    alternate;
-}
+      z-index: 10;
 
-@keyframes cinematicScale{
+      transform: translateX(-50%);
 
-  from{
-    transform:scale(1);
-  }
+      text-align: center;
 
-  to{
-    transform:scale(1.035);
-  }
+      text-shadow:
+        0 3px 20px rgba(0, 0, 0, 0.32);
 
-}
+      white-space: nowrap;
+    }
 
-/* =========================================================
-   REALITY-PRESERVING OVERLAY
+    .brand-icon {
+      width: 42px;
+      height: 42px;
 
-   Very soft.
-   It should NEVER look like a coloured AI filter.
-========================================================= */
+      margin: 0 auto 8px;
 
-.scene-overlay{
-  position:absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  inset:0;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 50%;
 
-  z-index:-3;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  pointer-events:none;
+      font-size: 18px;
 
-  background:
+      background: rgba(255, 255, 255, 0.08);
 
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.28) 0%,
-      rgba(0,0,0,.03) 28%,
-      rgba(0,0,0,.08) 55%,
-      rgba(0,0,0,.43) 100%
-    ),
+      backdrop-filter: blur(12px);
+    }
 
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,.17),
-      transparent 35%,
-      transparent 68%,
-      rgba(0,0,0,.14)
-    );
-}
+    .brand-name {
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-/* =========================================================
-   SOFT GLASS VIGNETTE
-========================================================= */
+      font-size: 18px;
+      letter-spacing: 0.25em;
+    }
 
-.vignette{
-  position:absolute;
+    .tagline {
+      margin-top: 4px;
 
-  inset:0;
+      font-size: 7px;
+      letter-spacing: 0.19em;
 
-  z-index:-2;
+      opacity: 0.82;
+    }
 
-  pointer-events:none;
+    /* -------------------------------------------------------
+       CENTER
+    ------------------------------------------------------- */
 
-  background:
-    radial-gradient(
-      ellipse at center,
-      transparent 35%,
-      rgba(0,0,0,.12) 72%,
-      rgba(0,0,0,.34) 100%
-    );
-}
+    .center {
+      position: relative;
 
-/* =========================================================
-   TOP AREA
-========================================================= */
+      z-index: 8;
 
-.top{
-  position:absolute;
+      width: min(720px, 88%);
 
-  top:0;
-  left:0;
-  right:0;
+      text-align: center;
 
-  z-index:5;
+      transform: translateY(2vh);
+    }
 
-  padding:
-    clamp(20px,4vw,42px)
-    clamp(20px,5vw,62px);
+    .greeting {
+      margin: 0;
 
-  display:grid;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  grid-template-columns:
-    1fr
-    auto
-    1fr;
+      font-size: clamp(46px, 7vw, 76px);
 
-  align-items:start;
+      font-weight: 400;
 
-  pointer-events:none;
-}
+      line-height: 0.98;
 
-/* =========================================================
-   DATE / DAY
+      letter-spacing: -0.045em;
 
-   Deliberately separated.
-========================================================= */
+      text-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.3);
+    }
 
-.date-block{
-  pointer-events:auto;
+    .quote {
+      width: min(470px, 90%);
 
-  display:flex;
-  flex-direction:column;
+      margin: 22px auto 0;
 
-  align-items:flex-start;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
 
-  gap:4px;
-}
+      font-size: clamp(13px, 1.5vw, 17px);
 
-.date{
-  font-size:
-    clamp(9px,1vw,12px);
+      line-height: 1.65;
 
-  font-weight:500;
+      opacity: 0.91;
 
-  letter-spacing:
-    .18em;
+      text-shadow:
+        0 3px 18px rgba(0, 0, 0, 0.32);
+    }
 
-  line-height:1.2;
+    /* -------------------------------------------------------
+       BOTTOM
+    ------------------------------------------------------- */
 
-  color:var(--soft-white);
+    .bottom {
+      position: absolute;
 
-  text-transform:uppercase;
+      left: 30px;
+      right: 30px;
+      bottom: 27px;
 
-  text-shadow:
-    0 3px 14px var(--shadow);
-}
+      z-index: 10;
 
-.day{
-  font-size:
-    clamp(8px,.9vw,11px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-  font-weight:700;
+    .begin {
+      border: 1px solid rgba(255, 255, 255, 0.42);
 
-  letter-spacing:
-    .30em;
+      border-radius: 999px;
 
-  line-height:1.2;
+      padding: 13px 20px;
 
-  color:rgba(255,255,255,.66);
+      color: #ffffff;
 
-  text-transform:uppercase;
+      background: rgba(255, 255, 255, 0.12);
 
-  text-shadow:
-    0 3px 14px var(--shadow);
-}
+      backdrop-filter: blur(18px);
 
-/* =========================================================
-   CENTER BRAND
-========================================================= */
+      font-size: 9px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
 
-.brand{
-  display:flex;
+      cursor: pointer;
 
-  flex-direction:column;
+      transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+    }
 
-  align-items:center;
+    .begin:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
 
-  justify-content:flex-start;
+    .founder {
+      display: flex;
+      align-items: center;
+      gap: 9px;
 
-  text-align:center;
+      text-align: right;
+    }
 
-  pointer-events:auto;
-}
+    .founder-photo {
+      width: 36px;
+      height: 36px;
 
-.brand-icon{
-  width:
-    clamp(39px,4vw,52px);
+      object-fit: cover;
 
-  height:
-    clamp(39px,4vw,52px);
+      border-radius: 50%;
 
-  object-fit:contain;
+      border: 1px solid rgba(255, 255, 255, 0.5);
 
-  filter:
-    drop-shadow(
-      0 5px 16px
-      rgba(0,0,0,.30)
-    );
-}
+      background: rgba(255, 255, 255, 0.15);
+    }
 
-.brand-name{
-  margin-top:6px;
+    .signature {
+      font-family:
+        "Brush Script MT",
+        "Segoe Script",
+        cursive;
 
-  font-family:var(--sans);
+      font-size: 17px;
+      line-height: 1;
+    }
 
-  font-size:
-    clamp(15px,1.5vw,21px);
+    .founder-name {
+      margin-top: 3px;
 
-  font-weight:500;
+      font-size: 6px;
+      letter-spacing: 0.14em;
 
-  letter-spacing:
-    .30em;
+      opacity: 0.78;
+    }
 
-  text-indent:.30em;
+    /* -------------------------------------------------------
+       SKIP
+    ------------------------------------------------------- */
 
-  line-height:1;
-}
+    .skip {
+      position: absolute;
 
-.brand-tagline{
-  margin-top:6px;
+      left: 50%;
+      bottom: 34px;
 
-  font-family:var(--sans);
+      z-index: 11;
 
-  font-size:
-    clamp(7px,.72vw,9px);
+      transform: translateX(-50%);
 
-  font-weight:400;
+      border: 0;
 
-  letter-spacing:
-    .22em;
+      background: transparent;
 
-  line-height:1.3;
+      color: rgba(255, 255, 255, 0.72);
 
-  color:
-    rgba(255,255,255,.72);
+      font-size: 7px;
+      letter-spacing: 0.12em;
 
-  text-transform:none;
-}
+      cursor: pointer;
+    }
 
-/* =========================================================
-   TOP RIGHT
-========================================================= */
+    /* -------------------------------------------------------
+       TRANSITION
+    ------------------------------------------------------- */
 
-.top-right{
-  display:flex;
+    .transition {
+      position: fixed;
+      inset: 0;
 
-  justify-content:flex-end;
+      z-index: 100;
 
-  align-items:flex-start;
+      pointer-events: none;
 
-  gap:9px;
+      background: #ffffff;
 
-  pointer-events:auto;
-}
+      opacity: 0;
 
-.top-control{
-  width:
-    clamp(35px,3.5vw,43px);
+      transition: opacity 1s ease;
+    }
 
-  height:
-    clamp(35px,3.5vw,43px);
+    .transition.show {
+      opacity: 1;
+    }
 
-  display:flex;
+    /* -------------------------------------------------------
+       MOBILE
+    ------------------------------------------------------- */
 
-  align-items:center;
-  justify-content:center;
+    @media (max-width: 700px) {
 
-  border:
-    1px solid
-    rgba(255,255,255,.24);
+      .top {
+        top: 18px;
+        left: 18px;
+        right: 18px;
+      }
 
-  border-radius:50%;
+      .brand {
+        top: 20px;
+      }
 
-  background:
-    rgba(255,255,255,.07);
+      .brand-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 15px;
+      }
 
-  backdrop-filter:
-    blur(14px);
+      .brand-name {
+        font-size: 15px;
+      }
 
-  -webkit-backdrop-filter:
-    blur(14px);
+      .tagline {
+        font-size: 6px;
+      }
 
-  color:#fff;
+      .date {
+        font-size: 9px;
+      }
 
-  cursor:pointer;
+      .day {
+        font-size: 10px;
+      }
 
-  transition:
-    background .25s ease,
-    transform .25s ease,
-    border-color .25s ease;
-}
+      .top-right .control:nth-child(n+2) {
+        display: none;
+      }
 
-.top-control:hover{
-  transform:translateY(-2px);
+      .center {
+        width: 90%;
+      }
 
-  background:
-    rgba(255,255,255,.14);
+      .greeting {
+        font-size: clamp(43px, 13vw, 61px);
+      }
 
-  border-color:
-    rgba(255,255,255,.42);
-}
+      .quote {
+        font-size: 12px;
+        margin-top: 17px;
+      }
 
-/* =========================================================
-   CENTER MESSAGE
-========================================================= */
+      .bottom {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+      }
 
-.center{
-  position:absolute;
+      .begin {
+        padding: 11px 15px;
+        font-size: 8px;
+      }
 
-  top:50%;
-  left:50%;
+      .founder-photo {
+        width: 32px;
+        height: 32px;
+      }
 
-  z-index:4;
+      .signature {
+        font-size: 14px;
+      }
 
-  width:
-    min(90%,850px);
+      .founder-name {
+        font-size: 5px;
+      }
 
-  transform:
-    translate(-50%,-50%);
-
-  text-align:center;
-}
-
-.greeting{
-  margin:0;
-
-  font-family:var(--serif);
-
-  font-size:
-    clamp(48px,7vw,92px);
-
-  font-weight:400;
-
-  letter-spacing:
-    -.045em;
-
-  line-height:.98;
-
-  text-shadow:
-    0 7px 35px
-    rgba(0,0,0,.28);
-
-  transition:
-    opacity .7s ease,
-    transform .7s ease;
-}
-
-.quote-divider{
-  width:
-    clamp(70px,8vw,105px);
-
-  height:1px;
-
-  margin:
-    clamp(18px,2.5vw,28px)
-    auto
-    clamp(16px,2vw,22px);
-
-  position:relative;
-
-  background:
-    rgba(255,255,255,.48);
-}
-
-.quote-divider::after{
-  content:"✦";
-
-  position:absolute;
-
-  top:50%;
-  left:50%;
-
-  transform:
-    translate(-50%,-50%);
-
-  padding:0 9px;
-
-  background:
-    transparent;
-
-  color:
-    rgba(255,255,255,.82);
-
-  font-size:8px;
-}
-
-.quote{
-  max-width:
-    610px;
-
-  margin:0 auto;
-
-  font-family:var(--serif);
-
-  font-size:
-    clamp(15px,1.7vw,21px);
-
-  font-weight:400;
-
-  line-height:1.55;
-
-  color:
-    rgba(255,255,255,.91);
-
-  text-shadow:
-    0 4px 18px
-    rgba(0,0,0,.28);
-}
-
-.quote-author{
-  margin-top:13px;
-
-  font-size:8px;
-
-  font-weight:600;
-
-  letter-spacing:.23em;
-
-  text-transform:uppercase;
-
-  color:
-    rgba(255,255,255,.60);
-}
-
-/* =========================================================
-   BOTTOM
-========================================================= */
-
-.bottom{
-  position:absolute;
-
-  left:0;
-  right:0;
-  bottom:0;
-
-  z-index:5;
-
-  padding:
-    0
-    clamp(20px,5vw,62px)
-    clamp(22px,4vw,42px);
-
-  display:flex;
-
-  align-items:flex-end;
-
-  justify-content:space-between;
-
-  pointer-events:none;
-}
-
-/* =========================================================
-   BEGIN + SOUND
-========================================================= */
-
-.bottom-left{
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-
-  pointer-events:auto;
-}
-
-.begin{
-  min-height:
-    clamp(45px,5vw,55px);
-
-  padding:
-    0
-    clamp(21px,2.8vw,32px);
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border:
-    1px solid
-    rgba(255,255,255,.48);
-
-  border-radius:999px;
-
-  background:
-    rgba(255,255,255,.10);
-
-  backdrop-filter:
-    blur(16px);
-
-  -webkit-backdrop-filter:
-    blur(16px);
-
-  color:#fff;
-
-  font-family:var(--sans);
-
-  font-size:
-    clamp(9px,1vw,11px);
-
-  font-weight:700;
-
-  letter-spacing:
-    .18em;
-
-  text-transform:uppercase;
-
-  box-shadow:
-    0 10px 30px
-    rgba(0,0,0,.14);
-
-  cursor:pointer;
-
-  transition:
-    background .3s ease,
-    transform .3s ease,
-    border-color .3s ease;
-}
-
-.begin:hover{
-  transform:translateY(-3px);
-
-  background:
-    rgba(255,255,255,.18);
-
-  border-color:
-    rgba(255,255,255,.72);
-}
-
-.sound{
-  width:
-    clamp(43px,4.5vw,53px);
-
-  height:
-    clamp(43px,4.5vw,53px);
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border:
-    1px solid
-    rgba(255,255,255,.28);
-
-  border-radius:50%;
-
-  background:
-    rgba(255,255,255,.08);
-
-  backdrop-filter:
-    blur(14px);
-
-  -webkit-backdrop-filter:
-    blur(14px);
-
-  color:#fff;
-
-  font-size:14px;
-
-  cursor:pointer;
-
-  transition:
-    transform .25s ease,
-    background .25s ease;
-}
-
-.sound:hover{
-  transform:translateY(-3px);
-
-  background:
-    rgba(255,255,255,.15);
-}
-
-.sound-label{
-  position:absolute;
-
-  bottom:-18px;
-
-  left:0;
-
-  font-size:7px;
-
-  letter-spacing:.15em;
-
-  color:
-    rgba(255,255,255,.58);
-
-  white-space:nowrap;
-}
-
-/* =========================================================
-   FOUNDER
-========================================================= */
-
-.founder{
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-  pointer-events:auto;
-
-  text-align:right;
-}
-
-.founder-photo{
-  width:
-    clamp(48px,5vw,64px);
-
-  height:
-    clamp(48px,5vw,64px);
-
-  flex:none;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  object-position:center;
-
-  border:
-    1px solid
-    rgba(255,255,255,.55);
-
-  box-shadow:
-    0 8px 25px
-    rgba(0,0,0,.25);
-}
-
-.founder-copy{
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:flex-end;
-}
-
-.founder-role{
-  margin-bottom:3px;
-
-  font-size:7px;
-
-  font-weight:700;
-
-  letter-spacing:.20em;
-
-  text-transform:uppercase;
-
-  color:
-    rgba(255,255,255,.58);
-}
-
-.signature{
-  font-family:
-    "Brush Script MT",
-    "Segoe Script",
-    cursive;
-
-  font-size:
-    clamp(21px,2.5vw,30px);
-
-  font-weight:400;
-
-  line-height:1;
-
-  color:#fff;
-
-  text-shadow:
-    0 4px 13px
-    rgba(0,0,0,.25);
-
-  white-space:nowrap;
-}
-
-.founder-name{
-  margin-top:4px;
-
-  font-family:var(--sans);
-
-  font-size:7px;
-
-  letter-spacing:.18em;
-
-  color:
-    rgba(255,255,255,.68);
-
-  text-transform:uppercase;
-}
-
-/* =========================================================
-   SKIP / AUTO TRANSITION INDICATOR
-========================================================= */
-
-.transition-line{
-  position:absolute;
-
-  left:50%;
-
-  bottom:
-    clamp(18px,3vw,30px);
-
-  transform:
-    translateX(-50%);
-
-  z-index:6;
-
-  font-size:7px;
-
-  letter-spacing:.20em;
-
-  text-transform:uppercase;
-
-  color:
-    rgba(255,255,255,.42);
-
-  pointer-events:none;
-
-  transition:
-    opacity .5s ease;
-}
-
-/* =========================================================
-   ENTRY TRANSITION
-========================================================= */
-
-.transition-cover{
-  position:fixed;
-
-  inset:0;
-
-  z-index:100;
-
-  pointer-events:none;
-
-  background:#11151c;
-
-  opacity:0;
-
-  transition:
-    opacity 1.1s
-    cubic-bezier(.77,0,.18,1);
-}
-
-.transition-cover.show{
-  opacity:1;
-}
-
-/* =========================================================
-   LOADING FALLBACK
-========================================================= */
-
-.loading{
-  position:absolute;
-
-  inset:0;
-
-  z-index:20;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  pointer-events:none;
-
-  opacity:0;
-
-  transition:opacity .5s ease;
-}
-
-.loading.show{
-  opacity:1;
-}
-
-.loading-dot{
-  width:5px;
-  height:5px;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  box-shadow:
-    0 0 18px rgba(255,255,255,.7);
-
-  animation:
-    pulse 1.4s ease-in-out infinite;
-}
-
-@keyframes pulse{
-
-  0%,100%{
-    opacity:.25;
-    transform:scale(.8);
-  }
-
-  50%{
-    opacity:1;
-    transform:scale(1.2);
-  }
-
-}
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media(max-width:850px){
-
-  .top{
-    grid-template-columns:
-      1fr
-      auto
-      1fr;
-
-    padding:
-      18px
-      22px;
-  }
-
-  .nav-detail{
-    display:none;
-  }
-
-  .center{
-    width:calc(100% - 40px);
-  }
-
-  .bottom{
-    padding:
-      0
-      22px
-      24px;
-  }
-
-}
-
-/* =========================================================
-   PHONE
-========================================================= */
-
-@media(max-width:600px){
-
-  .top{
-    padding:
-      18px
-      17px;
-  }
-
-  .date{
-    font-size:8px;
-    letter-spacing:.15em;
-  }
-
-  .day{
-    font-size:7px;
-    letter-spacing:.23em;
-  }
-
-  .brand-icon{
-    width:38px;
-    height:38px;
-  }
-
-  .brand-name{
-    font-size:14px;
-    letter-spacing:.24em;
-  }
-
-  .brand-tagline{
-    max-width:150px;
-
-    font-size:6px;
-
-    line-height:1.45;
-
-    letter-spacing:.14em;
-  }
-
-  .top-right{
-    gap:5px;
-  }
-
-  .top-control{
-    width:34px;
-    height:34px;
-  }
-
-  .center{
-    width:
-      calc(100% - 30px);
-  }
-
-  .greeting{
-    font-size:
-      clamp(43px,14vw,64px);
-  }
-
-  .quote{
-    padding:0 10px;
-
-    font-size:14px;
-
-    line-height:1.55;
-  }
-
-  .bottom{
-    padding:
-      0
-      17px
-      20px;
-
-    align-items:flex-end;
-  }
-
-  .bottom-left{
-    gap:7px;
-  }
-
-  .begin{
-    min-height:43px;
-
-    padding:
-      0 15px;
-
-    font-size:7px;
-
-    letter-spacing:.14em;
-  }
-
-  .sound{
-    width:41px;
-    height:41px;
-  }
-
-  .founder{
-    gap:7px;
-  }
-
-  .founder-photo{
-    width:46px;
-    height:46px;
-  }
-
-  .founder-role{
-    font-size:5px;
-    letter-spacing:.12em;
-  }
-
-  .signature{
-    font-size:18px;
-  }
-
-  .founder-name{
-    font-size:5px;
-    letter-spacing:.10em;
-  }
-
-  .transition-line{
-    display:none;
-  }
-
-}
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-  .video-layer.active{
-    animation:none;
-  }
-
-  *,
-  *::before,
-  *::after{
-    scroll-behavior:auto!important;
-    transition-duration:.01ms!important;
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-  }
-
-}
-
-</style>
+      .skip {
+        bottom: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<main class="entry" id="entry">
+  <main class="entrance">
 
-  <!-- =====================================================
-       REAL VIDEO BACKGROUNDS
-       13 EXISTING REAL VIDEOS
-  ====================================================== -->
+    <!-- BACKGROUND -->
+    <div class="background">
 
-  <video
-    class="video-layer"
-    id="videoA"
-    muted
-    playsinline
-    preload="auto"
-    aria-hidden="true">
-  </video>
+      <video
+        id="morningVideo"
+        class="background-video"
+        muted
+        playsinline
+        preload="auto"
+      >
+        <source
+          src="assets/videos/morning.mp4"
+          type="video/mp4"
+        >
+      </video>
 
-  <video
-    class="video-layer"
-    id="videoB"
-    muted
-    playsinline
-    preload="none"
-    aria-hidden="true">
-  </video>
+      <video
+        id="afternoonVideo"
+        class="background-video"
+        muted
+        playsinline
+        preload="auto"
+      >
+        <source
+          src="assets/videos/afternoon.mp4"
+          type="video/mp4"
+        >
+      </video>
+
+      <video
+        id="eveningVideo"
+        class="background-video"
+        muted
+        playsinline
+        preload="auto"
+      >
+        <source
+          src="assets/videos/evening.mp4"
+          type="video/mp4"
+        >
+      </video>
+
+      <video
+        id="nightVideo"
+        class="background-video"
+        muted
+        playsinline
+        preload="auto"
+      >
+        <source
+          src="assets/videos/night.mp4"
+          type="video/mp4"
+        >
+      </video>
+
+      <div class="background-overlay"></div>
+      <div class="background-vignette"></div>
+
+    </div>
 
 
-  <div class="scene-overlay"></div>
-  <div class="vignette"></div>
+    <!-- TOP -->
+    <div class="top">
 
+      <div class="date-block">
+        <div
+          id="date"
+          class="date"
+        >
+          Date
+        </div>
 
-  <!-- =====================================================
-       TOP
-  ====================================================== -->
-
-  <header class="top">
-
-    <!-- LEFT: DATE / DAY -->
-
-    <div class="date-block">
-
-      <div
-        class="date"
-        id="date">
-        18 AUGUST 2026
+        <div
+          id="day"
+          class="day"
+        >
+          Day
+        </div>
       </div>
 
-      <div
-        class="day"
-        id="day">
-        TUESDAY
+
+      <div class="top-right">
+
+        <button
+          class="control"
+          type="button"
+          onclick="toggleSound()"
+          id="soundButton"
+        >
+          Sound Off
+        </button>
+
+        <button
+          class="control"
+          type="button"
+          onclick="skipEntrance()"
+        >
+          Skip
+        </button>
+
       </div>
 
     </div>
 
 
-    <!-- CENTER: AKSH -->
-
+    <!-- BRAND -->
     <div class="brand">
 
-      <img
-        class="brand-icon"
-        src="aksh-icon.PNG"
-        alt="AKSH">
+      <div class="brand-icon">
+        A
+      </div>
 
       <div class="brand-name">
         AKSH
       </div>
 
-      <div class="brand-tagline">
-        A Safe Space For Every Mind
+      <div class="tagline">
+        A SAFE SPACE FOR EVERY MIND
       </div>
 
     </div>
 
 
-    <!-- RIGHT -->
+    <!-- CENTER -->
+    <section class="center">
 
-    <div class="top-right">
+      <h1
+        id="greeting"
+        class="greeting"
+      >
+        Welcome
+      </h1>
 
-      <button
-        class="top-control"
-        id="accessibility"
-        aria-label="Accessibility options"
-        title="Accessibility">
-        ◌
-      </button>
+      <p
+        id="quote"
+        class="quote"
+      >
+        Take a moment. You don't have to rush.
+      </p>
 
-      <button
-        class="top-control"
-        id="language"
-        aria-label="Language"
-        title="Language">
-        A
-      </button>
-
-    </div>
-
-  </header>
+    </section>
 
 
-  <!-- =====================================================
-       CENTER
-  ====================================================== -->
-
-  <section
-    class="center"
-    aria-live="polite">
-
-    <h1
-      class="greeting"
-      id="greeting">
-      Good Morning
-    </h1>
-
-    <div class="quote-divider"></div>
-
-    <p
-      class="quote"
-      id="quote">
-      Whatever today has brought you,
-      you don't have to carry it alone.
-    </p>
-
-    <div
-      class="quote-author"
-      id="quoteAuthor">
-      A moment for you
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       BOTTOM
-  ====================================================== -->
-
-  <footer class="bottom">
-
-    <!-- LEFT -->
-
-    <div class="bottom-left">
+    <!-- BOTTOM -->
+    <div class="bottom">
 
       <button
         class="begin"
-        id="beginJourney">
-        Begin Your Journey&nbsp; →
+        type="button"
+        onclick="beginJourney()"
+      >
+        Begin Your Journey
       </button>
 
 
-      <button
-        class="sound"
-        id="soundButton"
-        aria-label="Sound off"
-        title="Sound off">
+      <div class="founder">
 
-        <span id="soundIcon">
-          ♫
-        </span>
+        <div>
 
-        <span
-          class="sound-label"
-          id="soundLabel">
-          SOUND OFF
-        </span>
+          <div class="signature">
+            Meghana Kaverappa
+          </div>
 
-      </button>
+          <div class="founder-name">
+            FOUNDER · AKSH
+          </div>
 
-    </div>
-
-
-    <!-- RIGHT: FOUNDER -->
-
-    <div class="founder">
-
-      <div class="founder-copy">
-
-        <div class="founder-role">
-          Founder
         </div>
 
-        <div class="signature">
-          Meghana Kaverappa
-        </div>
-
-        <div class="founder-name">
-          AKSH Mental Wellness
-        </div>
+        <img
+          class="founder-photo"
+          src="assets/images/meghana-kaverappa.jpg"
+          alt="Meghana Kaverappa"
+        >
 
       </div>
 
-
-      <img
-        class="founder-photo"
-        src="meghana.kaverappa.jpg"
-        alt="Meghana Kaverappa">
-
     </div>
 
-  </footer>
+
+    <button
+      class="skip"
+      type="button"
+      onclick="skipEntrance()"
+    >
+      SKIP INTRO
+    </button>
+
+  </main>
 
 
   <div
-    class="transition-line"
-    id="transitionLine">
-    Your journey begins here
-  </div>
+    id="transition"
+    class="transition"
+  ></div>
 
 
-  <div
-    class="loading"
-    id="loading"
-    aria-hidden="true">
+  <script>
 
-    <div class="loading-dot"></div>
+    /* -------------------------------------------------------
+       TIME
+    ------------------------------------------------------- */
 
-  </div>
+    const now = new Date();
 
-</main>
+    const hour = now.getHours();
 
 
-<div
-  class="transition-cover"
-  id="transitionCover">
-</div>
+    let greeting = "";
+    let quote = "";
+    let video = null;
 
 
-<script>
+    if (hour >= 5 && hour < 12) {
 
-/* =========================================================
-   AKSH — 0TH PAGE LOGIC
+      greeting = "Good Morning";
+      quote = "A new morning. A little space to simply be.";
 
-   TIME WINDOWS:
+      video =
+        document.getElementById("morningVideo");
 
-   05:00–11:59  Morning
-   12:00–16:59  Afternoon
-   17:00–19:59  Evening
-   20:00–04:59  Night
-========================================================= */
+    } else if (hour >= 12 && hour < 17) {
 
-const VIDEO_GROUPS = {
+      greeting = "Good Afternoon";
+      quote = "You don't have to carry the whole day at once.";
 
-  morning:[
-    "aksh-morning.1.mov",
-    "aksh-morning.2.mov",
-    "aksh-morning.3.mov",
-    "aksh-morning.4.mov"
-  ],
+      video =
+        document.getElementById("afternoonVideo");
 
-  afternoon:[
-    "aksh-afternoon.1.mov",
-    "aksh-afternoon.2.mov",
-    "aksh-afternoon.3.mov",
-    "aksh-afternoon.4.mov"
-  ],
+    } else if (hour >= 17 && hour < 20) {
 
-  evening:[
-    "aksh-evening.1.mov",
-    "aksh-evening.2.mov",
-    "aksh-evening.3.mov"
-  ],
+      greeting = "Good Evening";
+      quote = "Let the day soften around you.";
 
-  night:[
-    "aksh-night.1.mov",
-    "aksh-night.2.mov"
-  ]
+      video =
+        document.getElementById("eveningVideo");
 
-};
+    } else {
 
+      greeting = "Good Night";
+      quote = "The world can wait. You deserve a quiet moment.";
 
-/* =========================================================
-   TIME-BASED COPY
-========================================================= */
+      video =
+        document.getElementById("nightVideo");
 
-const TIME_CONTENT = {
+    }
 
-  morning:{
-    greeting:"Good Morning",
 
-    quotes:[
-      "Whatever today has brought you, you don't have to carry it alone.",
-      "Let the morning arrive gently. You can take today one moment at a time.",
-      "A new morning does not ask you to have everything figured out.",
-      "Begin softly. There is enough time for one small step."
-    ]
-  },
+    document.getElementById("greeting").textContent =
+      greeting;
 
-  afternoon:{
-    greeting:"Good Afternoon",
+    document.getElementById("quote").textContent =
+      quote;
 
-    quotes:[
-      "Whatever today has brought you, you don't have to carry it alone.",
-      "Pause for a moment. You are allowed to breathe in the middle of your day.",
-      "You do not have to rush through every feeling.",
-      "Take this moment as it is. You are still allowed to begin again."
-    ]
-  },
 
-  evening:{
-    greeting:"Good Evening",
+    /* -------------------------------------------------------
+       DATE + DAY
+    ------------------------------------------------------- */
 
-    quotes:[
-      "Let the evening remind you that not everything needs to be solved tonight.",
-      "You made it this far today. Give yourself a moment to simply be.",
-      "Some days ask more from us than others. Be gentle with yourself tonight.",
-      "Let the rain, the quiet and the evening slow everything down."
-    ]
-  },
-
-  night:{
-    greeting:"Good Night",
-
-    quotes:[
-      "You can put down what today asked you to carry.",
-      "The night does not ask you to solve tomorrow.",
-      "Rest. Tomorrow can wait.",
-      "You have done enough for today. Let yourself be still."
-    ]
-  }
-
-};
-
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const videoA =
-  document.getElementById("videoA");
-
-const videoB =
-  document.getElementById("videoB");
-
-const greeting =
-  document.getElementById("greeting");
-
-const quote =
-  document.getElementById("quote");
-
-const date =
-  document.getElementById("date");
-
-const day =
-  document.getElementById("day");
-
-const soundButton =
-  document.getElementById("soundButton");
-
-const soundIcon =
-  document.getElementById("soundIcon");
-
-const soundLabel =
-  document.getElementById("soundLabel");
-
-const beginJourney =
-  document.getElementById("beginJourney");
-
-const transitionCover =
-  document.getElementById("transitionCover");
-
-const loading =
-  document.getElementById("loading");
-
-const transitionLine =
-  document.getElementById("transitionLine");
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let activeVideo = videoA;
-let standbyVideo = videoB;
-
-let currentPeriod = "";
-let currentVideoIndex = -1;
-
-let soundOn = false;
-
-let transitionStarted = false;
-
-let fallbackTimer = null;
-
-
-/* =========================================================
-   PERIOD
-========================================================= */
-
-function getPeriod(hour){
-
-  if(hour >= 5 && hour < 12){
-    return "morning";
-  }
-
-  if(hour >= 12 && hour < 17){
-    return "afternoon";
-  }
-
-  if(hour >= 17 && hour < 20){
-    return "evening";
-  }
-
-  return "night";
-}
-
-
-/* =========================================================
-   DATE / DAY
-========================================================= */
-
-function updateDate(){
-
-  const now = new Date();
-
-  const dayNumber =
-    String(now.getDate()).padStart(2,"0");
-
-  const month =
-    now.toLocaleString(
-      "en-IN",
-      {month:"long"}
-    ).toUpperCase();
-
-  const year =
-    now.getFullYear();
-
-  const weekday =
-    now.toLocaleString(
-      "en-IN",
-      {weekday:"long"}
-    ).toUpperCase();
-
-  /*
-    Separate lines:
-    DATE
-    DAY
-  */
-
-  date.textContent =
-    `${dayNumber} ${month} ${year}`;
-
-  day.textContent =
-    weekday;
-}
-
-
-/* =========================================================
-   TIME CONTENT
-========================================================= */
-
-function updateTimeContent(){
-
-  const now =
-    new Date();
-
-  const period =
-    getPeriod(now.getHours());
-
-  const content =
-    TIME_CONTENT[period];
-
-  currentPeriod =
-    period;
-
-  greeting.textContent =
-    content.greeting;
-
-  /*
-    Stable quote for the current time block.
-    Changes with the time, not randomly every second.
-  */
-
-  const dayOfYear =
-    Math.floor(
-      (Date.UTC(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate()
-      ) -
-      Date.UTC(
-        now.getFullYear(),
-        0,
-        0
-      )) /
-      86400000
-    );
-
-  const quoteIndex =
-    dayOfYear %
-    content.quotes.length;
-
-  quote.textContent =
-    content.quotes[quoteIndex];
-}
-
-
-/* =========================================================
-   LOAD VIDEO
-========================================================= */
-
-function loadVideo(video, source){
-
-  video.src = source;
-
-  video.load();
-
-}
-
-
-/* =========================================================
-   SAFE PLAY
-
-   iPhone browsers can block autoplay with sound.
-   Therefore the background begins muted.
-========================================================= */
-
-function safePlay(video){
-
-  const promise =
-    video.play();
-
-  if(
-    promise &&
-    typeof promise.catch === "function"
-  ){
-
-    promise.catch(()=>{
-      loading.classList.remove("show");
-    });
-
-  }
-
-}
-
-
-/* =========================================================
-   RANDOM VIDEO
-========================================================= */
-
-function nextVideoIndex(){
-
-  const group =
-    VIDEO_GROUPS[currentPeriod];
-
-  if(group.length <= 1){
-    return 0;
-  }
-
-  let index;
-
-  do{
-
-    index =
-      Math.floor(
-        Math.random() *
-        group.length
+    const dateText =
+      now.toLocaleDateString(
+        undefined,
+        {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }
       );
 
-  }while(
-    index === currentVideoIndex
-  );
-
-  return index;
-}
-
-
-/* =========================================================
-   START ATMOSPHERE
-========================================================= */
-
-function startAtmosphere(){
-
-  const group =
-    VIDEO_GROUPS[currentPeriod];
-
-  currentVideoIndex =
-    Math.floor(
-      Math.random() *
-      group.length
-    );
-
-  const source =
-    group[currentVideoIndex];
-
-  loadVideo(
-    activeVideo,
-    source
-  );
-
-  activeVideo.classList.add("active");
-
-  loading.classList.add("show");
-
-  activeVideo.oncanplay = ()=>{
-    loading.classList.remove("show");
-    safePlay(activeVideo);
-  };
-
-  scheduleFallback();
-
-}
-
-
-/* =========================================================
-   CROSSFADE
-========================================================= */
-
-function crossfadeNext(){
-
-  if(transitionStarted){
-    return;
-  }
-
-  const group =
-    VIDEO_GROUPS[currentPeriod];
-
-  currentVideoIndex =
-    nextVideoIndex();
-
-  const source =
-    group[currentVideoIndex];
-
-  loadVideo(
-    standbyVideo,
-    source
-  );
-
-  standbyVideo.currentTime = 0;
-
-  standbyVideo.muted =
-    !soundOn;
-
-  standbyVideo.oncanplay = ()=>{
-
-    safePlay(standbyVideo);
-
-    standbyVideo.classList.add("active");
-
-    activeVideo.classList.remove("active");
-
-    const old =
-      activeVideo;
-
-    activeVideo =
-      standbyVideo;
-
-    standbyVideo =
-      old;
-
-    scheduleFallback();
-
-  };
-
-}
-
-
-/* =========================================================
-   FALLBACK TIMER
-
-   Prevents the visitor from getting stuck if
-   video metadata behaves differently on a device.
-========================================================= */
-
-function scheduleFallback(){
-
-  clearTimeout(
-    fallbackTimer
-  );
-
-  const duration =
-    activeVideo.duration;
-
-  let wait =
-    9000;
-
-  if(
-    Number.isFinite(duration) &&
-    duration > 2
-  ){
-
-    wait =
-      Math.max(
-        4500,
-        duration * 1000 - 800
+    const dayText =
+      now.toLocaleDateString(
+        undefined,
+        {
+          weekday: "long"
+        }
       );
 
-  }
 
-  fallbackTimer =
-    setTimeout(
-      crossfadeNext,
-      wait
-    );
+    document.getElementById("date").textContent =
+      dateText;
 
-}
+    document.getElementById("day").textContent =
+      dayText;
 
 
-/* =========================================================
-   VIDEO ENDED
-========================================================= */
+    /* -------------------------------------------------------
+       VIDEO
+    ------------------------------------------------------- */
 
-videoA.addEventListener(
-  "ended",
-  crossfadeNext
-);
+    if (video) {
 
-videoB.addEventListener(
-  "ended",
-  crossfadeNext
-);
+      video.classList.add("active");
 
+      video.play().catch(() => {});
 
-/* =========================================================
-   SOUND
+      video.addEventListener(
+        "ended",
+        () => {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        }
+      );
 
-   Starts OFF.
+    }
 
-   User can intentionally turn it ON.
-========================================================= */
 
-function updateSoundUI(){
+    /* -------------------------------------------------------
+       SOUND
+    ------------------------------------------------------- */
 
-  if(soundOn){
+    let soundOn = false;
 
-    soundIcon.textContent =
-      "♫";
 
-    soundLabel.textContent =
-      "SOUND ON";
+    function toggleSound() {
 
-    soundButton.setAttribute(
-      "aria-label",
-      "Sound on"
-    );
+      soundOn = !soundOn;
 
-    soundButton.title =
-      "Sound on";
+      const button =
+        document.getElementById("soundButton");
 
-  }else{
+      const videos =
+        document.querySelectorAll(
+          ".background-video"
+        );
 
-    soundIcon.textContent =
-      "♫";
 
-    soundLabel.textContent =
-      "SOUND OFF";
+      videos.forEach(
+        currentVideo => {
+          currentVideo.muted = !soundOn;
+        }
+      );
 
-    soundButton.setAttribute(
-      "aria-label",
-      "Sound off"
-    );
 
-    soundButton.title =
-      "Sound off";
+      button.textContent =
+        soundOn
+          ? "Sound On"
+          : "Sound Off";
 
-  }
 
-}
+      if (video) {
+        video.play().catch(() => {});
+      }
 
+    }
 
-function toggleSound(){
 
-  soundOn =
-    !soundOn;
+    /* -------------------------------------------------------
+       ENTER
+    ------------------------------------------------------- */
 
-  videoA.muted =
-    !soundOn;
+    function beginJourney() {
 
-  videoB.muted =
-    !soundOn;
+      const transition =
+        document.getElementById("transition");
 
-  if(soundOn){
+      transition.classList.add("show");
 
-    safePlay(activeVideo);
 
-  }
+      setTimeout(
+        () => {
 
-  updateSoundUI();
+          window.location.href =
+            "homepage.html";
 
-}
+        },
+        900
+      );
 
+    }
 
-soundButton.addEventListener(
-  "click",
-  toggleSound
-);
 
+    function skipEntrance() {
+      beginJourney();
+    }
 
-/* =========================================================
-   BEGIN JOURNEY
-
-   Automatic transition is ALSO supported.
-   This button simply allows the visitor to enter
-   immediately.
-========================================================= */
-
-function goToPage1(){
-
-  if(transitionStarted){
-    return;
-  }
-
-  transitionStarted =
-    true;
-
-  clearTimeout(
-    fallbackTimer
-  );
-
-  transitionLine.style.opacity =
-    "0";
-
-  transitionCover.classList.add(
-    "show"
-  );
-
-  setTimeout(()=>{
-
-    window.location.href =
-      "page1.html";
-
-  },1100);
-
-}
-
-
-beginJourney.addEventListener(
-  "click",
-  goToPage1
-);
-
-
-/* =========================================================
-   AUTOMATIC TRANSITION
-
-   The entrance page automatically proceeds
-   after the cinematic opening has played.
-
-   This is intentionally independent of Page 1.
-========================================================= */
-
-function automaticEntry(){
-
-  /*
-    Give the visitor enough time to experience
-    the opening scene.
-
-    The video itself continues underneath.
-  */
-
-  setTimeout(
-    goToPage1,
-    12000
-  );
-
-}
-
-
-/* =========================================================
-   INITIALISE
-========================================================= */
-
-function initialise(){
-
-  updateDate();
-
-  updateTimeContent();
-
-  updateSoundUI();
-
-  startAtmosphere();
-
-  automaticEntry();
-
-}
-
-
-/* =========================================================
-   KEEP DATE/DAY CURRENT
-
-   Midnight changes the displayed date/day.
-========================================================= */
-
-setInterval(
-  updateDate,
-  30000
-);
-
-
-/* =========================================================
-   IF TIME PERIOD CHANGES WHILE PAGE IS OPEN,
-   SWITCH TO THE CORRECT ATMOSPHERE.
-========================================================= */
-
-setInterval(()=>{
-
-  const newPeriod =
-    getPeriod(
-      new Date().getHours()
-    );
-
-  if(
-    newPeriod !== currentPeriod
-  ){
-
-    currentPeriod =
-      newPeriod;
-
-    updateTimeContent();
-
-    currentVideoIndex =
-      -1;
-
-    startAtmosphere();
-
-  }
-
-},60000);
-
-
-/* =========================================================
-   START
-========================================================= */
-
-initialise();
-
-</script>
+  </script>
 
 </body>
 </html>
